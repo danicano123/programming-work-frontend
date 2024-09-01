@@ -25,20 +25,28 @@ const Header: React.FC<HeaderProps> = ({ isLogged, userName, role }) => {
           <Link to="/" className="text-gold font-bold text-xl">
             Inicio
           </Link>
+          <Link to="/microsites" className="text-wood-darker font-bold">
+            Test
+          </Link>
           {isLogged && (
             <>
               <Link to="/payments" className="text-wood-darker font-bold">
                 Mis pagos
               </Link>
-
             </>
           )}
-          {isLogged && (role == 'admin') && (
+          {isLogged && role == "admin" && (
             <>
-              <Link to="/dashboard/users" className="text-wood-darker font-bold">
+              <Link
+                to="/dashboard/users"
+                className="text-wood-darker font-bold"
+              >
                 Usuarios
               </Link>
-              <Link to="/dashboard/microsites" className="text-wood-darker font-bold">
+              <Link
+                to="/dashboard/microsites"
+                className="text-wood-darker font-bold"
+              >
                 Micrositios
               </Link>
             </>

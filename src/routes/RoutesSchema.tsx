@@ -18,16 +18,16 @@ export const RoutesSchema = [
     path: "/",
     element: MicrositesList,
   },
-  {
-    path: "/microsites/:slug",
-    element: MicrositeDetail,
-    isProtected: true,
-  },
-  {
-    path: "/microsites/:slug/form/:micrositeId",
-    element: PaymentForm,
-    isProtected: true,
-  },
+  // {
+  //   path: "/microsites/:slug",
+  //   element: MicrositeDetail,
+  //   isProtected: true,
+  // },
+  // {
+  //   path: "/microsites/:slug/form/:micrositeId",
+  //   element: PaymentForm,
+  //   isProtected: true,
+  // },
   {
     path: "*",
     element: MicrositesList,
@@ -40,45 +40,65 @@ export const RoutesSchema = [
     path: "/register",
     element: RegisterForm,
   },
+  // {
+  //   path: "/payments",
+  //   element: PaymentsList,
+  //   isProtected: true,
+  // },
   {
-    path: "/payments",
-    element: PaymentsList,
-    isProtected: true,
+    path: "microsites",
+    element: MicrositesDashboard,
   },
   {
-    path: "/dashboard",
-    element: Dashboard,
-    isProtected: true,
-    requiredRole: "admin",
-    children: [
-      {
-        path: "users",
-        element: UsersDashboard,
-      },
-      {
-        path: "users/:id",
-        element: EditUser,
-      },
-      {
-        path: "microsites",
-        element: MicrositesDashboard,
-      },
-      {
-        path: "microsites/:id",
-        element: EditMicrosite,
-      },
-      {
-        path: "microsites/create-microsite",
-        element: CreateMicrosite,
-      },
-      {
-        path: "microsites/form/:microsite_id",
-        element: EditForm,
-      },
-      {
-        path: "microsites/payments/:micrositeId",
-        element: PaymentsDashboard,
-      },
-    ],
+    path: "microsites/:id",
+    element: EditMicrosite,
   },
+  {
+    path: "microsites/create-microsite",
+    element: CreateMicrosite,
+  },
+  {
+    path: "microsites/form/:microsite_id",
+    element: EditForm,
+  },
+  {
+    path: "microsites/payments/:micrositeId",
+    element: PaymentsDashboard,
+  },
+  // {
+  //   path: "/dashboard",
+  //   element: Dashboard,
+  //   isProtected: true,
+  //   requiredRole: "admin",
+  //   children: [
+  //     {
+  //       path: "users",
+  //       element: UsersDashboard,
+  //     },
+  //     {
+  //       path: "users/:id",
+  //       element: EditUser,
+  //     },
+  //     {
+  //       path: "microsites",
+  //       element: MicrositesDashboard,
+  //     },
+  //     {
+  //       path: "microsites/:id",
+  //       element: EditMicrosite,
+  //     },
+  //     {
+  //       path: "microsites/create-microsite",
+  //       element: CreateMicrosite,
+  //     },
+  //     {
+  //       path: "microsites/form/:microsite_id",
+  //       element: EditForm,
+  //     },
+  //     {
+  //       path: "microsites/payments/:micrositeId",
+  //       element: PaymentsDashboard,
+  //     },
+  //   ],
+  // },
 ];
