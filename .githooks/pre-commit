@@ -7,7 +7,7 @@ cd "$(git rev-parse --show-toplevel)"
 current_branch=$(git symbolic-ref --short HEAD)
 
 # Lista de ramas protegidas
-protected_branches=("main" "develop")
+protected_branches=("main" "develop" "master")
 
 # Verificar si la rama actual está en la lista de ramas protegidas
 if [[ " ${protected_branches[@]} " =~ " ${current_branch} " ]]; then
