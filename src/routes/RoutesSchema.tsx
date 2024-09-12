@@ -1,5 +1,6 @@
 import Dashboard from "../components/Dashboard/Dashboard";
 import RegisterForm from "../components/Register/RegisterForm";
+import AlliedDashboard from "../views/Allied/AlliedDashboard";
 import EditForm from "../views/Forms/EditForm";
 import PaymentForm from "../views/Forms/PaymentForm";
 import Login from "../views/Login";
@@ -13,10 +14,15 @@ import PaymentsList from "../views/Payments/PaymentsList";
 import EditUser from "../views/Users/EditUsers";
 import UsersDashboard from "../views/Users/UsersDashboard";
 
+
 export const RoutesSchema = [
   {
     path: "/",
     element: MicrositesList,
+  },
+  {
+    path: "/allied-dashboard",
+    element: AlliedDashboard,
   },
   // {
   //   path: "/microsites/:slug",
