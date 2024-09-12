@@ -12,7 +12,6 @@ import PaymentsDashboard from "../views/Payments/PaymentsDashboard";
 import PaymentsList from "../views/Payments/PaymentsList";
 import EditUser from "../views/Users/EditUsers";
 import UsersDashboard from "../views/Users/UsersDashboard";
-
 export const RoutesSchema = [
   {
     path: "/",
@@ -39,6 +38,10 @@ export const RoutesSchema = [
   {
     path: "/register",
     element: RegisterForm,
+  },
+  {
+    path: "/university",
+    element:RegisterForm,
   },
   // {
   //   path: "/payments",
