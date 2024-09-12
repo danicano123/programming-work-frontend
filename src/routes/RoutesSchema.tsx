@@ -11,8 +11,10 @@ import MicrositeDetail from "../views/Microsites/MicrositesDetail";
 import MicrositesList from "../views/Microsites/MicrositesList";
 import PaymentsDashboard from "../views/Payments/PaymentsDashboard";
 import PaymentsList from "../views/Payments/PaymentsList";
+import UniversityDashboard from "../views/University/UniversityDashboard";
 import EditUser from "../views/Users/EditUsers";
 import UsersDashboard from "../views/Users/UsersDashboard";
+
 
 
 export const RoutesSchema = [
@@ -23,6 +25,10 @@ export const RoutesSchema = [
   {
     path: "/allied-dashboard",
     element: AlliedDashboard,
+  },
+  {
+    path: "/university-dashboard",
+    element: UniversityDashboard,
   },
   // {
   //   path: "/microsites/:slug",
