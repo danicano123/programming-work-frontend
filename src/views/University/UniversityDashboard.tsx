@@ -81,22 +81,22 @@ const UniversityDashboard: React.FC = () => {
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold mb-4">University Dashboard</h1>
+        <h1 className="text-2xl font-bold mb-4">Tablero de universidad</h1>
         <button
-          onClick={() => navigate("./create-university")}
+          onClick={() => navigate("/create-university-dashboard")}
           className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
         >
-          Create University
+          Crear universidad
         </button>
       </div>
       <table className="min-w-full bg-white border border-gray-200">
         <thead>
           <tr>
-            <th className="py-2 px-4 border-b text-center">Name</th>
-            <th className="py-2 px-4 border-b text-center">University Type</th>
-            <th className="py-2 px-4 border-b text-center">Logo</th>
-            <th className="py-2 px-4 border-b text-center">Active</th>
-            <th className="py-2 px-4 border-b text-center">Actions</th>
+            <th className="py-2 px-4 border-b text-center">Nombre</th>
+            <th className="py-2 px-4 border-b text-center">Tipo de universidad</th>
+            <th className="py-2 px-4 border-b text-center">Ciudad</th>
+            <th className="py-2 px-4 border-b text-center">Activa</th>
+            <th className="py-2 px-4 border-b text-center">Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -131,15 +131,15 @@ const UniversityDashboard: React.FC = () => {
               <td className="py-2 px-4 border-b text-center space-x-4">
                 <button
                   onClick={() =>
-                    navigate(`/dashboard/microsites/${university.id}`)
+                    navigate(`/dashboard/university/${university.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
-                  Edit
+                  Editar
                 </button>
                 <button
                   onClick={() =>
-                    navigate(`/dashboard/microsites/form/${university.id}`)
+                    navigate(`/dashboard/university/form/${university.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >

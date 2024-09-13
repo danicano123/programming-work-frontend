@@ -17,29 +17,20 @@ const CreateUniversity: React.FC = () => {
 
   const initialValues = {
     name: "",
-    slug: "",
-    logo_url: "",
-    category: "",
-    university_type: "",
-    currency_type: "",
-    payment_expiration_time: 6,
+    type: "",
+    city: "",
   };
 
   const validationSchema = Yup.object({
     name: Yup.string()
-      .max(50, "Must be 50 characters or less")
+      .max(60, "Maximo 60 carateres")
       .required("Required"),
-    slug: Yup.string()
-      .max(50, "Must be 50 characters or less")
+    type: Yup.string()
+      .max(45, "Maximo 45 carateres")
       .required("Required"),
-    category: Yup.string()
-      .max(50, "Must be 50 characters or less")
+    city: Yup.string()
+      .max(45, "Maximo 45 carateres")
       .required("Required"),
-    University_type: Yup.string().required("Required"),
-    currency_type: Yup.string().required("Required"),
-    payment_expiration_time: Yup.number()
-    .min(6, "Must be 6 minutes or more")
-    .required("Required"),
   });
 
   const handleSubmit = async (values: any) => {
@@ -83,7 +74,7 @@ const CreateUniversity: React.FC = () => {
         >
           <Form>
             <div className="mb-4">
-              <label className="block text-gray-700">Name</label>
+              <label className="block text-gray-700">Nombre</label>
               <Field
                 name="name"
                 type="text"
@@ -96,87 +87,29 @@ const CreateUniversity: React.FC = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Slug</label>
+              <label className="block text-gray-700">Tipo</label>
               <Field
-                name="slug"
+                name="type"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="slug"
+                name="type"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Logo URL</label>
+              <label className="block text-gray-700">Ciudad</label>
               <Field
-                name="logo_url"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Category</label>
-              <Field
-                name="category"
+                name="city"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="category"
+                name="city"
                 component="div"
                 className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">University Type</label>
-              <Field
-                as="select"
-                name="university_type"
-                className="w-full p-2 border border-gray-300 rounded"
-              >
-                <option value="">Select university type</option>
-                {UniversityTypes.map((type) => (
-                  <option key={type} value={type}>
-                    {type.charAt(0).toUpperCase() + type.slice(1)}
-                  </option>
-                ))}
-              </Field>
-              <ErrorMessage
-                name="university_type"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Currency Type</label>
-              <Field
-                as="select"
-                name="currency_type"
-                className="w-full p-2 border border-gray-300 rounded"
-              >
-                <option value="">Select currency type</option>
-                {CurrencyTypes.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
-                  </option>
-                ))}
-              </Field>
-              <ErrorMessage
-                name="currency_type"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">
-                Payment Expiration Time (in minutes)
-              </label>
-              <Field
-                name="payment_expiration_time"
-                type="number"
-                className="w-full p-2 border border-gray-300 rounded"
               />
             </div>
             <div className="flex justify-between">
@@ -187,13 +120,13 @@ const CreateUniversity: React.FC = () => {
                 } text-white font-bold py-2 px-4 rounded`}
                 disabled={isLoading}
               >
-                {isLoading ? "Saving..." : "Save"}
+                {isLoading ? "Guardando..." : "Guardar"}
               </button>
               <button
                 onClick={() => navigate("/dashboard/university")}
                 className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
               >
-                Back
+                Salir
               </button>
             </div>
           </Form>
