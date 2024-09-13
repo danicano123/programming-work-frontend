@@ -31,6 +31,9 @@ const Header: React.FC<HeaderProps> = ({ isLogged, userName, role }) => {
           <Link to="/allied-dashboard" className="text-wood-darker font-bold">
             Aliado
           </Link>
+          <Link to="/normative-aspects-dashboard" className="text-wood-darker font-bold">
+            Aspectos Normativos
+          </Link>
           <Link to="/university-dashboard" className="text-wood-darker font-bold">
             Universidad
           </Link>

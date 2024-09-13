@@ -9,6 +9,8 @@ import EditMicrosite from "../views/Microsites/EditMicrosites";
 import MicrositesDashboard from "../views/Microsites/MicrositesDashboard";
 import MicrositeDetail from "../views/Microsites/MicrositesDetail";
 import MicrositesList from "../views/Microsites/MicrositesList";
+import CreateNormativeAspects from "../views/NormativeAspects/CreateNormativeAspects";
+import NormativeAspectsDashboard from "../views/NormativeAspects/NormativeAspectsDashboard";
 import PaymentsDashboard from "../views/Payments/PaymentsDashboard";
 import PaymentsList from "../views/Payments/PaymentsList";
 import UniversityDashboard from "../views/University/UniversityDashboard";
@@ -55,6 +57,14 @@ export const RoutesSchema = [
   {
     path: "/university",
     element:RegisterForm,
+  },
+  {
+    path: "/normative-aspects-dashboard",
+    element:NormativeAspectsDashboard,
+  },
+  {
+    path: "/create-normative-aspects",
+    element:CreateNormativeAspects,
   },
   // {
   //   path: "/payments",
