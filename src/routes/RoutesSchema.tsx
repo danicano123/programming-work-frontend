@@ -13,13 +13,11 @@ import CreateNormativeAspects from "../views/NormativeAspects/CreateNormativeAsp
 import NormativeAspectsDashboard from "../views/NormativeAspects/NormativeAspectsDashboard";
 import PaymentsDashboard from "../views/Payments/PaymentsDashboard";
 import PaymentsList from "../views/Payments/PaymentsList";
+import PracticesDashboard from "../views/PracticeStrategy/PracticesDashboard";
 import CreateUniversity from "../views/University/CreateUniversity";
 import UniversityDashboard from "../views/University/UniversityDashboard";
 import EditUser from "../views/Users/EditUsers";
 import UsersDashboard from "../views/Users/UsersDashboard";
-
-
-
 
 export const RoutesSchema = [
   {
@@ -31,6 +29,10 @@ export const RoutesSchema = [
     element: AlliedDashboard,
   },
   {
+    path: "/practice-dashboard",
+    element: AlliedDashboard,
+  },
+  {
     path: "/university-dashboard",
     element: UniversityDashboard,
   },
@@ -38,6 +40,8 @@ export const RoutesSchema = [
     path: "/create-university-dashboard",
     element: CreateUniversity,
   },
+  
+
   // {CreateUniversity
   //   path: "/microsites/:slug",
   //   element: MicrositeDetail,
