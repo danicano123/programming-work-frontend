@@ -9,33 +9,33 @@ const UniversityDashboard: React.FC = () => {
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchUniversity = async () => {
-      try {
-        const { data, statusCode } = await Api.get(
-          "/university",
-          auth.data.token
-        );
-        if (statusCode === 200) {
-          setUniversity(data.microsites);
-        } else {
-          Swal.fire({
-            title: "Error",
-            text: `${data.message}`,
-            icon: "error",
-          });
-        }
-      } catch (error) {
-        Swal.fire({
-          title: "Error",
-          text: "Error: unable to fetch active university",
-          icon: "error",
-        });
-      }
-    };
+  // useEffect(() => {
+  //   const fetchUniversity = async () => {
+  //     try {
+  //       const { data, statusCode } = await Api.get(
+  //         "/university",
+  //         auth.data.token
+  //       );
+  //       if (statusCode === 200) {
+  //         setUniversity(data.microsites);
+  //       } else {
+  //         Swal.fire({
+  //           title: "Error",
+  //           text: `${data.message}`,
+  //           icon: "error",
+  //         });
+  //       }
+  //     } catch (error) {
+  //       Swal.fire({
+  //         title: "Error",
+  //         text: "Error: unable to fetch active university",
+  //         icon: "error",
+  //       });
+  //     }
+  //   };
 
-    fetchUniversity();
-  }, [auth.data.token]);
+  //   fetchUniversity();
+  // }, [auth.data.token]);
 
   const handleToggleIsActive = async (
     universityId: string,
@@ -95,7 +95,6 @@ const UniversityDashboard: React.FC = () => {
             <th className="py-2 px-4 border-b text-center">Nombre</th>
             <th className="py-2 px-4 border-b text-center">Tipo de universidad</th>
             <th className="py-2 px-4 border-b text-center">Ciudad</th>
-            <th className="py-2 px-4 border-b text-center">Activa</th>
             <th className="py-2 px-4 border-b text-center">Acciones</th>
           </tr>
         </thead>
@@ -107,26 +106,6 @@ const UniversityDashboard: React.FC = () => {
               </td>
               <td className="py-2 px-4 border-b text-center">
                 {university.university_type}
-              </td>
-              <td className="py-2 px-4 border-b text-center">
-                <img
-                  src={university.logo_url}
-                  alt={university.name}
-                  className="w-12 h-12 rounded-full"
-                />
-              </td>
-              <td className="py-2 px-4 border-b text-center">
-                <label className="flex items-center space-x-2">
-                  <input
-                    type="checkbox"
-                    className="toggle-switch"
-                    checked={university.is_active}
-                    onChange={() =>
-                      handleToggleIsActive(university.id, university.is_active)
-                    }
-                  />
-                  <span>{university.is_active ? "Active" : "Inactive"}</span>
-                </label>
               </td>
               <td className="py-2 px-4 border-b text-center space-x-4">
                 <button
@@ -144,14 +123,6 @@ const UniversityDashboard: React.FC = () => {
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Form
-                </button>
-                <button
-                  onClick={() =>
-                    navigate(`/dashboard/university/payments/${university.id}`)
-                  }
-                  className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-                >
-                  View Payments
                 </button>
               </td>
             </tr>

@@ -14,7 +14,7 @@ const UniversityDetail: React.FC = () => {
   useEffect(() => {
     const fetchUniversity = async () => {
       try {
-        const response = await Api.get(`/microsites/${universityId}`, auth.data.token);
+        const response = await Api.get(`/university/${universityId}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
           setUniversity(data.university);
@@ -37,29 +37,23 @@ const UniversityDetail: React.FC = () => {
     fetchUniversity();
   }, [universityId, auth.data.token]);
 
-  if (!university) return <div className="text-center py-4">Loading...</div>;
+  if (!university) return <div className="text-center py-4">Cargando...</div>;
 
   return (
     <div className="container mx-auto p-4 max-w-lg">
-      <h1 className="text-3xl font-bold mb-6 text-center">Microsite Details</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">Detalles de universidad</h1>
       <div className="bg-white p-6 rounded-lg shadow-lg">
         <div className="space-y-4">
           <DetailItem label="Name" value={university.name} />
-          <DetailItem label="Alias" value={university.slug} />
-          <DetailItem label="Logo URL" value={university.logo_url} />
-          <DetailItem label="Category" value={university.category} />
-          <DetailItem label="University Type" value={university.university_type} />
-          <DetailItem label="Currency Type" value={university.currency_type} />
-          <DetailItem label="Payment Expiration Time (minutes)" value={university.payment_expiration_time?.toString()} />
-          <DetailItem label="Document Type" value={university.document_type} />
-          <DetailItem label="Document" value={university.document} />
+          <DetailItem label="Tipo" value={university.type} />
+          <DetailItem label="Ciudad" value={university.city} />
         </div>
         <div className="flex justify-end mt-6">
           <button
             onClick={() => navigate("/")}
             className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
           >
-            Go Back
+            Regresar
           </button>
         </div>
       </div>
