@@ -83,7 +83,7 @@ const FocusDashboard: React.FC = () => {
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold mb-4">Tablero de enfoque</h1>
         <button
-          onClick={() => navigate("/create-enfoque-dashboard")}
+          onClick={() => navigate("/create-focus-dashboard")}
           className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
         >
           Crear enfoque
@@ -94,6 +94,7 @@ const FocusDashboard: React.FC = () => {
           <tr>
             <th className="py-2 px-4 border-b text-center">Nombre</th>
             <th className="py-2 px-4 border-b text-center">Descripción</th>
+            <th className="py-2 px-4 border-b text-center">Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -103,32 +104,12 @@ const FocusDashboard: React.FC = () => {
                 {focus.name}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                {focus.focus_type}
-              </td>
-              <td className="py-2 px-4 border-b text-center">
-                <img
-                  src={focus.logo_url}
-                  alt={focus.name}
-                  className="w-12 h-12 rounded-full"
-                />
-              </td>
-              <td className="py-2 px-4 border-b text-center">
-                <label className="flex items-center space-x-2">
-                  <input
-                    type="checkbox"
-                    className="toggle-switch"
-                    checked={focus.is_active}
-                    onChange={() =>
-                      handleToggleIsActive(focus.id, focus.is_active)
-                    }
-                  />
-                  <span>{focus.is_active ? "Active" : "Inactive"}</span>
-                </label>
+                {focus.description}
               </td>
               <td className="py-2 px-4 border-b text-center space-x-4">
                 <button
                   onClick={() =>
-                    navigate(`/dashboard/university/${focus.id}`)
+                    navigate(`/dashboard/focus/${focus.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
@@ -136,19 +117,11 @@ const FocusDashboard: React.FC = () => {
                 </button>
                 <button
                   onClick={() =>
-                    navigate(`/dashboard/university/form/${focus.id}`)
+                    navigate(`/dashboard/focus/form/${focus.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Form
-                </button>
-                <button
-                  onClick={() =>
-                    navigate(`/dashboard/university/payments/${focus.id}`)
-                  }
-                  className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-                >
-                  View Payments
                 </button>
               </td>
             </tr>
