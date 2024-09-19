@@ -112,110 +112,16 @@ const EditFocus: React.FC = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Alias</label>
+              <label className="block text-gray-700">Descripción</label>
               <Field
-                name="slug"
+                name="description"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="slug"
+                name="description"
                 component="div"
                 className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Logo URL</label>
-              <Field
-                name="logo_url"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Category</label>
-              <Field
-                name="category"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="category"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Tipo de enfoque</label>
-              <Field
-                as="select"
-                name="university_type"
-                className="w-full p-2 border border-gray-300 rounded"
-              >
-                <option value="">Seleccione el tipo de enfoque</option>
-                {FocusTypes.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
-                  </option>
-                ))}
-              </Field>
-              <ErrorMessage
-                name="microsite_type"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Currency Type</label>
-              <Field
-                as="select"
-                name="currency_type"
-                className="w-full p-2 border border-gray-300 rounded"
-              >
-                <option value="">Select currency type</option>
-                {CurrencyTypes.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
-                  </option>
-                ))}
-              </Field>
-              <ErrorMessage
-                name="currency_type"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">
-                Payment Expiration Time (minutes)
-              </label>
-              <Field
-                name="payment_expiration_time"
-                type="number"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Document Type</label>
-              <Field
-                as="select"
-                name="document_type"
-                className="w-full p-2 border border-gray-300 rounded"
-              >
-                <option value="">Select document type</option>
-                {DocumentTypes.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
-                  </option>
-                ))}
-              </Field>
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Document</label>
-              <Field
-                name="document"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
               />
             </div>
             <div className="mb-4">
