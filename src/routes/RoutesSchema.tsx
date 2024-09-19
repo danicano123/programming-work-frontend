@@ -17,8 +17,8 @@ import CreateUniversity from "../views/University/CreateUniversity";
 import UniversityDashboard from "../views/University/UniversityDashboard";
 import EditUser from "../views/Users/EditUsers";
 import UsersDashboard from "../views/Users/UsersDashboard";
-
-
+import FocusDashboard from "../views/Focus/FocusDashboard";
+import CreateFocus from "../views/Focus/CreateFocus";
 
 
 export const RoutesSchema = [
@@ -37,6 +37,14 @@ export const RoutesSchema = [
   {
     path: "/create-university-dashboard",
     element: CreateUniversity,
+  },
+  {
+    path: "/focus-dashboard",
+    element: FocusDashboard,
+  },
+  {
+    path: "/create-focus-dashboard",
+    element: CreateFocus,
   },
   // {CreateUniversity
   //   path: "/microsites/:slug",
