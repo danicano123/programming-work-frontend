@@ -17,8 +17,7 @@ const CreateFocus: React.FC = () => {
 
   const initialValues = {
     name: "",
-    type: "",
-    city: "",
+    description: "",
   };
 
   const validationSchema = Yup.object({
