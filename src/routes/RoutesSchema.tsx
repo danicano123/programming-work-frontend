@@ -1,23 +1,36 @@
 import Dashboard from "../components/Dashboard/Dashboard";
 import RegisterForm from "../components/Register/RegisterForm";
-import AlliedDashboard from "../views/Allied/AlliedDashboard";
+import AlliedDashboard from "../views/Allieds/AlliedDashboard";
+import AlliedDetail from "../views/Allieds/AlliedDetail";
+import CreateAllied from "../views/Allieds/CreateAllied";
+import EditAllied from "../views/Allieds/EditAllied";
+import CarInnovationsDashboard from "../views/CarInnovations/CarInnovationsDashboard";
+import CarInnovationsDetail from "../views/CarInnovations/CarInnovationsDetail";
+import CreateCarInnovations from "../views/CarInnovations/CreateCarInnovations";
+import EditCarInnovations from "../views/CarInnovations/EditCarInnovations";
 import EditForm from "../views/Forms/EditForm";
 import PaymentForm from "../views/Forms/PaymentForm";
 import Login from "../views/Login";
 import CreateMicrosite from "../views/Microsites/CreateMicrosite";
 import EditMicrosite from "../views/Microsites/EditMicrosites";
 import MicrositesDashboard from "../views/Microsites/MicrositesDashboard";
-import MicrositeDetail from "../views/Microsites/MicrositesDetail";
+import MicrositesDetail from "../views/Microsites/MicrositesDetail";
 import MicrositesList from "../views/Microsites/MicrositesList";
 import CreateNormativeAspects from "../views/NormativeAspects/CreateNormativeAspects";
 import NormativeAspectsDashboard from "../views/NormativeAspects/NormativeAspectsDashboard";
 import PaymentsDashboard from "../views/Payments/PaymentsDashboard";
 import PaymentsList from "../views/Payments/PaymentsList";
+import CreatePractice from "../views/PracticeStrategy/CreatePractice";
+import EditPractice from "../views/PracticeStrategy/EditPractice";
 import PracticesDashboard from "../views/PracticeStrategy/PracticesDashboard";
+import PracticesDetail from "../views/PracticeStrategy/PracticesDetail";
 import CreateUniversity from "../views/University/CreateUniversity";
 import UniversityDashboard from "../views/University/UniversityDashboard";
 import EditUser from "../views/Users/EditUsers";
 import UsersDashboard from "../views/Users/UsersDashboard";
+
+
+
 
 export const RoutesSchema = [
   {
@@ -29,8 +42,32 @@ export const RoutesSchema = [
     element: AlliedDashboard,
   },
   {
+    path: "/allied-detail",
+    element: AlliedDetail,
+  },
+  {
+    path: "/allied-edit",
+    element: EditAllied,
+  },
+  {
+    path: "/allied-Create",
+    element: CreateAllied,
+  },
+  {
     path: "/practice-dashboard",
-    element: AlliedDashboard,
+    element: PracticesDashboard,
+  },
+  {
+    path: "/practice-detail",
+    element: PracticesDetail,
+  },
+  {
+    path: "/practice-edit",
+    element: EditPractice,
+  },
+  {
+    path: "/practice-Create",
+    element: CreatePractice,
   },
   {
     path: "/university-dashboard",
@@ -39,6 +76,22 @@ export const RoutesSchema = [
   {
     path: "/create-university-dashboard",
     element: CreateUniversity,
+  },
+  {
+    path: "/carinnovation-dashboard",
+    element: CarInnovationsDashboard,
+  },
+  {
+    path: "/carinnovation-detail",
+    element: CarInnovationsDetail,
+  },
+  {
+    path: "/carinnovation-edit",
+    element: EditCarInnovations,
+  },
+  {
+    path: "/carinnovation-Create",
+    element: CreateCarInnovations,
   },
   
 
