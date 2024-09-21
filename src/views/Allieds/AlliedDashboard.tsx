@@ -90,7 +90,7 @@ const AlliedDashboard: React.FC = () => {
         </button>
       </div>
       <table className="min-w-full bg-white border border-gray-200">
-        <thead>
+        <thead> 
           <tr>
             <th className="py-2 px-4 border-b text-center">Nit</th>
             <th className="py-2 px-4 border-b text-center">Razón Social</th>
