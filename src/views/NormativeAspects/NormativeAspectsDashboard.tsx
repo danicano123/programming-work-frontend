@@ -5,45 +5,45 @@ import { Api } from "../../services/Api";
 import Swal from "sweetalert2";
 
 const NormativeAspectsDashboard: React.FC = () => {
-  const [microsites, setMicrosites] = useState<any[]>([]);
+  const [normativeaspects, setNormativeAspects] = useState<any[]>([]);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const fetchMicrosites = async () => {
-  //     try {
-  //       const { data, statusCode } = await Api.get(
-  //         "/microsites",
-  //         auth.data.token
-  //       );
-  //       if (statusCode === 200) {
-  //         setMicrosites(data.microsites);
-  //       } else {
-  //         Swal.fire({
-  //           title: "Error",
-  //           text: `${data.message}`,
-  //           icon: "error",
-  //         });
-  //       }
-  //     } catch (error) {
-  //       Swal.fire({
-  //         title: "Error",
-  //         text: "Error: unable to fetch active microsites",
-  //         icon: "error",
-  //       });
-  //     }
-  //   };
+   useEffect(() => {
+     const fetchNormativeAspects = async () => {
+       try {
+         const { data, statusCode } = await Api.get(
+           "/normativeaspects",
+           auth.data.token
+        );
+         if (statusCode === 200) {
+           setNormativeAspects(data.normativeAspects);
+        } else {
+           Swal.fire({
+             title: "Error",
+             text: `${data.message}`,
+             icon: "error",
+           });
+         }
+       } catch (error) {
+         Swal.fire({
+           title: "Error",
+           text: "Error: unable to fetch active normativeaspects",
+           icon: "error",
+         });
+       }
+   };
 
-  //   fetchMicrosites();
-  // }, [auth.data.token]);
+     fetchNormativeAspects();
+   }, [auth.data.token]);
 
   const handleToggleIsActive = async (
-    micrositeId: string,
+    normativeaspectsId: string,
     isActive: boolean
   ) => {
     try {
       const response = await Api.patch(
-        `/microsites/${micrositeId}/is-active`,
+        `/normativeaspects/${normativeaspectsId}/is-active`,
         {
           is_active: !isActive,
         },
@@ -51,15 +51,15 @@ const NormativeAspectsDashboard: React.FC = () => {
       );
       const { data, statusCode } = response;
       if (statusCode === 200) {
-        const updatedMicrosites = microsites.map((microsite) =>
-          microsite.id === micrositeId
-            ? { ...microsite, is_active: !isActive }
-            : microsite
+        const updatedNormativeAspects = normativeaspects.map((normativeaspects) =>
+          normativeaspects.id === normativeaspectsId
+            ? { ...normativeaspects, is_active: !isActive }
+            : normativeaspects
         );
-        setMicrosites(updatedMicrosites);
+        setNormativeAspects(updatedNormativeAspects);
         Swal.fire({
           title: "Success",
-          text: "Microsite updated successfully",
+          text: "normativeaspects updated successfully",
           icon: "success",
         });
       } else {
@@ -95,23 +95,21 @@ const NormativeAspectsDashboard: React.FC = () => {
             <th className="py-2 px-4 border-b text-center">Tipo</th>
             <th className="py-2 px-4 border-b text-center">Descripción</th>
             <th className="py-2 px-4 border-b text-center">Fuente</th>
-            <th className="py-2 px-4 border-b text-center">Active</th>
-            <th className="py-2 px-4 border-b text-center">Actions</th>
           </tr>
         </thead>
         <tbody>
-          {microsites.map((microsite) => (
-            <tr key={microsite.id}>
+          {normativeaspects.map((normativeaspects) => (
+            <tr key={normativeaspects.id}>
               <td className="py-2 px-4 border-b text-center">
-                {microsite.name}
+                {normativeaspects.type}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                {microsite.microsite_type}
+                {normativeaspects.description}
               </td>
               <td className="py-2 px-4 border-b text-center">
                 <img
-                  src={microsite.logo_url}
-                  alt={microsite.name}
+                  src={normativeaspects.fountain}
+                  alt={normativeaspects.name}
                   className="w-12 h-12 rounded-full"
                 />
               </td>
@@ -120,18 +118,18 @@ const NormativeAspectsDashboard: React.FC = () => {
                   <input
                     type="checkbox"
                     className="toggle-switch"
-                    checked={microsite.is_active}
+                    checked={normativeaspects.is_active}
                     onChange={() =>
-                      handleToggleIsActive(microsite.id, microsite.is_active)
+                      handleToggleIsActive(normativeaspects.id, normativeaspects.is_active)
                     }
                   />
-                  <span>{microsite.is_active ? "Active" : "Inactive"}</span>
+                  <span>{normativeaspects.is_active ? "Active" : "Inactive"}</span>
                 </label>
               </td>
               <td className="py-2 px-4 border-b text-center space-x-4">
                 <button
                   onClick={() =>
-                    navigate(`/dashboard/microsites/${microsite.id}`)
+                    navigate(`/dashboard/normativeaspects/${normativeaspects.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
@@ -139,7 +137,7 @@ const NormativeAspectsDashboard: React.FC = () => {
                 </button>
                 <button
                   onClick={() =>
-                    navigate(`/dashboard/microsites/form/${microsite.id}`)
+                    navigate(`/dashboard/normativeaspects/form/${normativeaspects.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
@@ -147,7 +145,7 @@ const NormativeAspectsDashboard: React.FC = () => {
                 </button>
                 <button
                   onClick={() =>
-                    navigate(`/dashboard/microsites/payments/${microsite.id}`)
+                    navigate(`/dashboard/normativeaspects/payments/${normativeaspects.id}`)
                   }
                   className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                 >
