@@ -84,48 +84,48 @@ const CreateAllied: React.FC = () => {
         >
           <Form>
             <div className="mb-4">
-              <label className="block text-gray-700">Name</label>
+              <label className="block text-gray-700">Nit</label>
               <Field
-                name="name"
+                name="nit"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="name"
+                name="nit"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Slug</label>
+              <label className="block text-gray-700">Company_Reason</label>
               <Field
-                name="slug"
+                name="company_reason"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="slug"
+                name="company_reason"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Logo URL</label>
+              <label className="block text-gray-700">Contacto Name</label>
               <Field
-                name="logo_url"
+                name="contact_name"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Category</label>
+              <label className="block text-gray-700">Mail</label>
               <Field
-                name="category"
+                name="mail"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="category"
+                name="mail"
                 component="div"
                 className="text-red-600"
               />
