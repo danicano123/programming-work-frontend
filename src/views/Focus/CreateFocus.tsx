@@ -7,28 +7,24 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 // Constants from backend
-const UniversityTypes = ["invoice", "subscription", "payment", "donation"];
+const FocusTypes = ["invoice", "subscription", "payment", "donation"];
 const CurrencyTypes = ["COP", "USD", "JPY"];
 
-const CreateUniversity: React.FC = () => {
+const CreateFocus: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
   const initialValues = {
     name: "",
-    type: "",
-    city: "",
+    description: "",
   };
 
   const validationSchema = Yup.object({
     name: Yup.string()
       .max(60, "Maximo 60 carateres")
       .required("Required"),
-    type: Yup.string()
-      .max(45, "Maximo 45 carateres")
-      .required("Required"),
-    city: Yup.string()
+    description: Yup.string()
       .max(45, "Maximo 45 carateres")
       .required("Required"),
   });
@@ -36,15 +32,15 @@ const CreateUniversity: React.FC = () => {
   const handleSubmit = async (values: any) => {
     setIsLoading(true);
     try {
-      const response = await Api.post("/university", values, auth.data.token);
+      const response = await Api.post("/focus", values, auth.data.token);
       const { data, statusCode } = response;
       if (statusCode === 201) {
         Swal.fire({
           title: "Success",
-          text: "University created successfully",
+          text: "Focus created successfully",
           icon: "success",
         });
-        navigate("/dashboard/university");
+        navigate("/dashboard/focus");
       } else {
         Swal.fire({
           title: "Error",
@@ -65,7 +61,7 @@ const CreateUniversity: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Crear universidad</h1>
+      <h1 className="text-2xl font-bold mb-4">Crear enfoque</h1>
       <div className="bg-white p-4 rounded shadow-md">
         <Formik
           initialValues={initialValues}
@@ -87,7 +83,7 @@ const CreateUniversity: React.FC = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Tipo</label>
+              <label className="block text-gray-700">Descripción</label>
               <Field
                 name="type"
                 type="text"
@@ -95,19 +91,6 @@ const CreateUniversity: React.FC = () => {
               />
               <ErrorMessage
                 name="type"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Ciudad</label>
-              <Field
-                name="city"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="city"
                 component="div"
                 className="text-red-600"
               />
@@ -123,7 +106,7 @@ const CreateUniversity: React.FC = () => {
                 {isLoading ? "Guardando..." : "Guardar"}
               </button>
               <button
-                onClick={() => navigate("/dashboard/university")}
+                onClick={() => navigate("/dashboard/focus")}
                 className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
               >
                 Salir
@@ -136,4 +119,4 @@ const CreateUniversity: React.FC = () => {
   );
 };
 
-export default CreateUniversity;
+export default CreateFocus;

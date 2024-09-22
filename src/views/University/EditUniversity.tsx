@@ -100,7 +100,7 @@ const EditUniversity: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Edit University</h1>
+      <h1 className="text-2xl font-bold mb-4">Editar universidad</h1>
       <div className="bg-white p-4 rounded shadow-md">
         <Formik
           initialValues={initialValues}
@@ -109,7 +109,7 @@ const EditUniversity: React.FC = () => {
         >
           <Form>
             <div className="mb-4">
-              <label className="block text-gray-700">Name</label>
+              <label className="block text-gray-700">Nombre</label>
               <Field
                 name="name"
                 type="text"
@@ -122,108 +122,22 @@ const EditUniversity: React.FC = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Alias</label>
+              <label className="block text-gray-700">Tipo</label>
               <Field
-                name="slug"
+                name="type"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="slug"
+                name="type"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Logo URL</label>
+              <label className="block text-gray-700">Ciudad</label>
               <Field
-                name="logo_url"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Category</label>
-              <Field
-                name="category"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="category"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">University Type</label>
-              <Field
-                as="select"
-                name="university_type"
-                className="w-full p-2 border border-gray-300 rounded"
-              >
-                <option value="">Select university type</option>
-                {UniversityTypes.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
-                  </option>
-                ))}
-              </Field>
-              <ErrorMessage
-                name="microsite_type"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Currency Type</label>
-              <Field
-                as="select"
-                name="currency_type"
-                className="w-full p-2 border border-gray-300 rounded"
-              >
-                <option value="">Select currency type</option>
-                {CurrencyTypes.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
-                  </option>
-                ))}
-              </Field>
-              <ErrorMessage
-                name="currency_type"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">
-                Payment Expiration Time (minutes)
-              </label>
-              <Field
-                name="payment_expiration_time"
-                type="number"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Document Type</label>
-              <Field
-                as="select"
-                name="document_type"
-                className="w-full p-2 border border-gray-300 rounded"
-              >
-                <option value="">Select document type</option>
-                {DocumentTypes.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
-                  </option>
-                ))}
-              </Field>
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Document</label>
-              <Field
-                name="document"
+                name="city"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
@@ -233,14 +147,14 @@ const EditUniversity: React.FC = () => {
                 type="submit"
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
               >
-                Save Changes
+                Guardar cambios
               </button>
               <button
                 type="button"
                 className="ml-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
                 onClick={() => navigate("/dashboard/university")}
               >
-                Cancel
+                Cancelar
               </button>
             </div>
           </Form>

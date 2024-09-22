@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Api } from "../../services/Api";
 import Swal from "sweetalert2";
@@ -7,44 +7,71 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 // Constants from backend
-const UniversityTypes = ["invoice", "subscription", "payment", "donation"];
+const FocusTypes = ["invoice", "subscription", "payment", "donation"];
+const DocumentTypes = ["CC", "NIT", "TI", "PPT"];
 const CurrencyTypes = ["COP", "USD", "JPY"];
 
-const CreateUniversity: React.FC = () => {
-  const [isLoading, setIsLoading] = useState(false);
+const EditFocus: React.FC = () => {
+  const { id } = useParams();
+  const [focus, setFocus] = useState<any>(null);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
+  // useEffect(() => {
+  //   const fetchFocus = async () => {
+  //     try {
+  //       const response = await Api.get(`/focus/${id}`, auth.data.token);
+  //       const { data, statusCode } = response;
+  //       if (statusCode === 200) {
+  //         setFocus(data.focus);
+  //       } else {
+  //         Swal.fire({
+  //           title: "Error",
+  //           text: `${data.message}`,
+  //           icon: "error",
+  //         });
+  //       }
+  //     } catch (error: any) {
+  //       Swal.fire({
+  //         title: "Error",
+  //         text: `${error.message}`,
+  //         icon: "error",
+  //       });
+  //     }
+  //   };
+
+  //   fetchFocus();
+  // }, [id, auth.data.token]);
+
+  if (!focus) return <div>Loading...</div>;
+
   const initialValues = {
-    name: "",
-    type: "",
-    city: "",
+    name: focus.name || "",
+    description: focus.slug || "",
   };
 
   const validationSchema = Yup.object({
     name: Yup.string()
-      .max(60, "Maximo 60 carateres")
-      .required("Required"),
-    type: Yup.string()
-      .max(45, "Maximo 45 carateres")
-      .required("Required"),
-    city: Yup.string()
-      .max(45, "Maximo 45 carateres")
-      .required("Required"),
+      .max(45, "Máximo 45 caracteres")
+      .required("Requerido"),
+    description: Yup.string()
+      .max(45, "Máximo 45 caracteres")
+      .required("Requerido"),
+    focus_type: Yup.string().required("Requerido"),
+    currency_type: Yup.string().required("Requerido"),
   });
 
   const handleSubmit = async (values: any) => {
-    setIsLoading(true);
     try {
-      const response = await Api.post("/university", values, auth.data.token);
+      const response = await Api.patch(`/focus/${id}`, values, auth.data.token);
       const { data, statusCode } = response;
-      if (statusCode === 201) {
+      if (statusCode === 200) {
         Swal.fire({
           title: "Success",
-          text: "University created successfully",
+          text: "Enfoque actualizado correctamente",
           icon: "success",
         });
-        navigate("/dashboard/university");
+        navigate("/dashboard/focus");
       } else {
         Swal.fire({
           title: "Error",
@@ -58,14 +85,12 @@ const CreateUniversity: React.FC = () => {
         text: error.message,
         icon: "error",
       });
-    } finally {
-      setIsLoading(false);
     }
   };
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Crear universidad</h1>
+      <h1 className="text-2xl font-bold mb-4">Editar enfoque</h1>
       <div className="bg-white p-4 rounded shadow-md">
         <Formik
           initialValues={initialValues}
@@ -87,46 +112,31 @@ const CreateUniversity: React.FC = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Tipo</label>
+              <label className="block text-gray-700">Descripción</label>
               <Field
-                name="type"
+                name="description"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="type"
+                name="description"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Ciudad</label>
-              <Field
-                name="city"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="city"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="flex justify-between">
               <button
                 type="submit"
-                className={`${
-                  isLoading ? "bg-gray-500 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-700"
-                } text-white font-bold py-2 px-4 rounded`}
-                disabled={isLoading}
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
               >
-                {isLoading ? "Guardando..." : "Guardar"}
+                Guardar cambios
               </button>
               <button
-                onClick={() => navigate("/dashboard/university")}
-                className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+                type="button"
+                className="ml-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
+                onClick={() => navigate("/dashboard/focus")}
               >
-                Salir
+                Cancelar
               </button>
             </div>
           </Form>
@@ -136,4 +146,4 @@ const CreateUniversity: React.FC = () => {
   );
 };
 
-export default CreateUniversity;
+export default EditFocus;

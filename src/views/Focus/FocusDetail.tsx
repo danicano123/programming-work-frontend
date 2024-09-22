@@ -4,20 +4,20 @@ import { useSelector } from "react-redux";
 import { Api } from "../../services/Api";
 import Swal from "sweetalert2";
 
-const UniversityDetail: React.FC = () => {
+const FocusDetail: React.FC = () => {
   const location = useLocation();
-  const { universityId } = location.state;
-  const [university, setUniversity] = useState<any>(null);
+  const { focusId } = location.state;
+  const [focus, setFocus] = useState<any>(null);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchUniversity = async () => {
+    const fetchFocus = async () => {
       try {
-        const response = await Api.get(`/university/${universityId}`, auth.data.token);
+        const response = await Api.get(`/focus/${focusId}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
-          setUniversity(data.university);
+          setFocus(data.focus);
         } else {
           // Swal.fire({
           //   title: "Error",
@@ -34,26 +34,25 @@ const UniversityDetail: React.FC = () => {
       }
     };
 
-    fetchUniversity();
-  }, [universityId, auth.data.token]);
+    fetchFocus();
+  }, [focusId, auth.data.token]);
 
-  if (!university) return <div className="text-center py-4">Cargando...</div>;
+  if (!focus) return <div className="text-center py-4">Cargando...</div>;
 
   return (
     <div className="container mx-auto p-4 max-w-lg">
-      <h1 className="text-3xl font-bold mb-6 text-center">Detalles de universidad</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">Detalles de enfoque</h1>
       <div className="bg-white p-6 rounded-lg shadow-lg">
         <div className="space-y-4">
-          <DetailItem label="Name" value={university.name} />
-          <DetailItem label="Tipo" value={university.type} />
-          <DetailItem label="Ciudad" value={university.city} />
+          <DetailItem label="Name" value={focus.name} />
+          <DetailItem label="Description" value={focus.Description} />
         </div>
         <div className="flex justify-end mt-6">
           <button
             onClick={() => navigate("/")}
             className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
           >
-            Regresar
+            regresar
           </button>
         </div>
       </div>
@@ -68,4 +67,4 @@ const DetailItem: React.FC<{ label: string; value: string }> = ({ label, value }
   </div>
 );
 
-export default UniversityDetail;
+export default FocusDetail;
