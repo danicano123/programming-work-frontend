@@ -9,33 +9,33 @@ const NormativeAspectsDashboard: React.FC = () => {
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const fetchMicrosites = async () => {
-  //     try {
-  //       const { data, statusCode } = await Api.get(
-  //         "/microsites",
-  //         auth.data.token
-  //       );
-  //       if (statusCode === 200) {
-  //         setMicrosites(data.microsites);
-  //       } else {
-  //         Swal.fire({
-  //           title: "Error",
-  //           text: `${data.message}`,
-  //           icon: "error",
-  //         });
-  //       }
-  //     } catch (error) {
-  //       Swal.fire({
-  //         title: "Error",
-  //         text: "Error: unable to fetch active microsites",
-  //         icon: "error",
-  //       });
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchMicrosites = async () => {
+      try {
+        const { data, statusCode } = await Api.get(
+          "/normative-aspects",
+          auth.data.token
+        );
+        if (statusCode === 200) {
+          setMicrosites(data.microsites);
+        } else {
+          Swal.fire({
+            title: "Error",
+            text: `${data.message}`,
+            icon: "error",
+          });
+        }
+      } catch (error) {
+        Swal.fire({
+          title: "Error",
+          text: "Error: unable to fetch active microsites",
+          icon: "error",
+        });
+      }
+    };
 
-  //   fetchMicrosites();
-  // }, [auth.data.token]);
+    fetchMicrosites();
+  }, [auth.data.token]);
 
   const handleToggleIsActive = async (
     micrositeId: string,
@@ -81,7 +81,9 @@ const NormativeAspectsDashboard: React.FC = () => {
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold mb-4">Tablero de Aspectos Normativos</h1>
+        <h1 className="text-2xl font-bold mb-4">
+          Tablero de Aspectos Normativos
+        </h1>
         <button
           onClick={() => navigate("/create-normative-aspects")}
           className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
@@ -129,9 +131,17 @@ const NormativeAspectsDashboard: React.FC = () => {
                 </label>
               </td>
               <td className="py-2 px-4 border-b text-center space-x-4">
-                <button
+              <button
                   onClick={() =>
                     navigate(`/dashboard/microsites/${microsite.id}`)
+                  }
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  Ver detalle
+                </button>
+                <button
+                  onClick={() =>
+                    navigate(`/microsites/detail/${microsite.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
