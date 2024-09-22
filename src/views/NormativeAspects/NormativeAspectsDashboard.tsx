@@ -81,7 +81,9 @@ const NormativeAspectsDashboard: React.FC = () => {
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold mb-4">Tablero de Aspectos Normativos</h1>
+        <h1 className="text-2xl font-bold mb-4">
+          Tablero de Aspectos Normativos
+        </h1>
         <button
           onClick={() => navigate("/create-normative-aspects")}
           className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
@@ -127,9 +129,17 @@ const NormativeAspectsDashboard: React.FC = () => {
                 </label>
               </td>
               <td className="py-2 px-4 border-b text-center space-x-4">
-                <button
+              <button
                   onClick={() =>
                     navigate(`/dashboard/normativeaspects/${normativeaspects.id}`)
+                  }
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  Ver detalle
+                </button>
+                <button
+                  onClick={() =>
+                    navigate(`/microsites/detail/${microsite.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
