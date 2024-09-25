@@ -139,7 +139,7 @@ const NormativeAspectsDashboard: React.FC = () => {
                 </button>
                 <button
                   onClick={() =>
-                    navigate(`/microsites/detail/${microsite.id}`)
+                    navigate(`/microsites/detail/${normativeaspects.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
