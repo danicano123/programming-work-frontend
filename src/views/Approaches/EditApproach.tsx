@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Api } from "../../services/Api";
 import Swal from "sweetalert2";
@@ -7,40 +7,71 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 // Constants from backend
-const FocusTypes = ["invoice", "subscription", "payment", "donation"];
+const ApproachTypes = ["invoice", "subscription", "payment", "donation"];
+const DocumentTypes = ["CC", "NIT", "TI", "PPT"];
 const CurrencyTypes = ["COP", "USD", "JPY"];
 
-const CreateFocus: React.FC = () => {
-  const [isLoading, setIsLoading] = useState(false);
+const EditApproach: React.FC = () => {
+  const { id } = useParams();
+  const [approach, setApproach] = useState<any>(null);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
+  // useEffect(() => {
+  //   const fetchApproach = async () => {
+  //     try {
+  //       const response = await Api.get(`/approach/${id}`, auth.data.token);
+  //       const { data, statusCode } = response;
+  //       if (statusCode === 200) {
+  //         setApproach(data.approach);
+  //       } else {
+  //         Swal.fire({
+  //           title: "Error",
+  //           text: `${data.message}`,
+  //           icon: "error",
+  //         });
+  //       }
+  //     } catch (error: any) {
+  //       Swal.fire({
+  //         title: "Error",
+  //         text: `${error.message}`,
+  //         icon: "error",
+  //       });
+  //     }
+  //   };
+
+  //   fetchApproach();
+  // }, [id, auth.data.token]);
+
+  if (!approach) return <div>Loading...</div>;
+
   const initialValues = {
-    name: "",
-    description: "",
+    name: approach.name || "",
+    description: approach.description || "",
   };
 
   const validationSchema = Yup.object({
     name: Yup.string()
-      .max(60, "Maximo 60 carateres")
-      .required("Required"),
+      .max(45, "Máximo 45 caracteres")
+      .required("Requerido"),
     description: Yup.string()
-      .max(45, "Maximo 45 carateres")
-      .required("Required"),
+      .max(45, "Máximo 45 caracteres")
+      .required("Requerido"),
+    approach_type: Yup.string().required("Requerido"),
+    currency_type: Yup.string().required("Requerido"),
   });
 
   const handleSubmit = async (values: any) => {
-    setIsLoading(true);
     try {
-      const response = await Api.post("/focus", values, auth.data.token);
+      const response = await Api.patch(`/approach/${id}`, values, auth.data.token);
       const { data, statusCode } = response;
-      if (statusCode === 201) {
+      if (statusCode === 200) {
         Swal.fire({
           title: "Success",
-          text: "Focus created successfully",
+          text: "Enfoque actualizado correctamente",
           icon: "success",
         });
-        navigate("/dashboard/focus");
+        navigate("/dashboard/approach");
       } else {
         Swal.fire({
           title: "Error",
@@ -54,14 +85,12 @@ const CreateFocus: React.FC = () => {
         text: error.message,
         icon: "error",
       });
-    } finally {
-      setIsLoading(false);
     }
   };
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Crear enfoque</h1>
+      <h1 className="text-2xl font-bold mb-4">Editar enfoque</h1>
       <div className="bg-white p-4 rounded shadow-md">
         <Formik
           initialValues={initialValues}
@@ -85,31 +114,29 @@ const CreateFocus: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Descripción</label>
               <Field
-                name="type"
+                name="description"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="type"
+                name="description"
                 component="div"
                 className="text-red-600"
               />
             </div>
-            <div className="flex justify-between">
+            <div className="mb-4">
               <button
                 type="submit"
-                className={`${
-                  isLoading ? "bg-gray-500 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-700"
-                } text-white font-bold py-2 px-4 rounded`}
-                disabled={isLoading}
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
               >
-                {isLoading ? "Guardando..." : "Guardar"}
+                Guardar cambios
               </button>
               <button
-                onClick={() => navigate("/dashboard/focus")}
-                className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+                type="button"
+                className="ml-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
+                onClick={() => navigate("/dashboard/approach")}
               >
-                Salir
+                Cancelar
               </button>
             </div>
           </Form>
@@ -119,4 +146,4 @@ const CreateFocus: React.FC = () => {
   );
 };
 
-export default CreateFocus;
+export default EditApproach;

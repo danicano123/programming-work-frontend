@@ -4,20 +4,20 @@ import { useSelector } from "react-redux";
 import { Api } from "../../services/Api";
 import Swal from "sweetalert2";
 
-const FocusDetail: React.FC = () => {
+const ApproachDetail: React.FC = () => {
   const location = useLocation();
-  const { focusId } = location.state;
-  const [focus, setFocus] = useState<any>(null);
+  const { approachId } = location.state;
+  const [approach, setApproach] = useState<any>(null);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchFocus = async () => {
+    const fetchApproach = async () => {
       try {
-        const response = await Api.get(`/focus/${focusId}`, auth.data.token);
+        const response = await Api.get(`/approach/${approachId}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
-          setFocus(data.focus);
+          setApproach(data.approach);
         } else {
           // Swal.fire({
           //   title: "Error",
@@ -34,18 +34,18 @@ const FocusDetail: React.FC = () => {
       }
     };
 
-    fetchFocus();
-  }, [focusId, auth.data.token]);
+    fetchApproach();
+  }, [approachId, auth.data.token]);
 
-  if (!focus) return <div className="text-center py-4">Cargando...</div>;
+  if (!approach) return <div className="text-center py-4">Cargando...</div>;
 
   return (
     <div className="container mx-auto p-4 max-w-lg">
       <h1 className="text-3xl font-bold mb-6 text-center">Detalles de enfoque</h1>
       <div className="bg-white p-6 rounded-lg shadow-lg">
         <div className="space-y-4">
-          <DetailItem label="Name" value={focus.name} />
-          <DetailItem label="Description" value={focus.Description} />
+          <DetailItem label="Name" value={approach.name} />
+          <DetailItem label="Description" value={approach.Description} />
         </div>
         <div className="flex justify-end mt-6">
           <button
@@ -67,4 +67,4 @@ const DetailItem: React.FC<{ label: string; value: string }> = ({ label, value }
   </div>
 );
 
-export default FocusDetail;
+export default ApproachDetail;
