@@ -9,52 +9,47 @@ const NormativeAspectsDashboard: React.FC = () => {
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
-   useEffect(() => {
-     const fetchNormativeAspects = async () => {
-       try {
-         const { data, statusCode } = await Api.get(
-           "/normative-aspects",
-           auth.data.token
+  useEffect(() => {
+    const fetchNormativeAspects = async () => {
+      try {
+        const { data, statusCode } = await Api.get(
+          "/normative-aspects",
+          auth.data.token
         );
-         if (statusCode === 200) {
-           setNormativeAspects(data);
+        if (statusCode === 200) {
+          setNormativeAspects(data);
         } else {
-           Swal.fire({
-             title: "Error",
-             text: `${data.message}`,
-             icon: "error",
-           });
-         }
-       } catch (error) {
-         Swal.fire({
-           title: "Error",
-           text: "Error: unable to fetch active normativeaspects",
-           icon: "error",
-         });
-       }
-   };
+          Swal.fire({
+            title: "Error",
+            text: `${data.message}`,
+            icon: "error",
+          });
+        }
+      } catch (error) {
+        Swal.fire({
+          title: "Error",
+          text: "Error: unable to fetch active normativeaspects",
+          icon: "error",
+        });
+      }
+    };
 
-     fetchNormativeAspects();
-   }, [auth.data.token]);
+    fetchNormativeAspects();
+  }, [auth.data.token]);
 
-  const handleToggleIsActive = async (
-    normativeaspectsId: string,
-    isActive: boolean
-  ) => {
+  const handleToggleIsActive = async (normativeaspectsId: string) => {
     try {
-      const response = await Api.patch(
-        `/normativeaspects/${normativeaspectsId}/is-active`,
-        {
-          is_active: !isActive,
-        },
+      const response = await Api.post(
+        `/normative-aspects/toggle-is-active/${normativeaspectsId}`,
         auth.data.token
       );
       const { data, statusCode } = response;
       if (statusCode === 200) {
-        const updatedNormativeAspects = normativeaspects.map((normativeaspects) =>
-          normativeaspects.id === normativeaspectsId
-            ? { ...normativeaspects, is_active: !isActive }
-            : normativeaspects
+        const updatedNormativeAspects = normativeaspects.map(
+          (normativeaspects) =>
+            normativeaspects.id === normativeaspectsId
+              ? { ...normativeaspects, isActive: data.isActive }
+              : normativeaspects
         );
         setNormativeAspects(updatedNormativeAspects);
         Swal.fire({
@@ -79,10 +74,12 @@ const NormativeAspectsDashboard: React.FC = () => {
   };
 
   const deletion = async (id: any) => {
-      const response = await Api.delete(`/normative-aspects/${id}`, auth.data.token);
-      window.location.reload();
-     
-    }
+    const response = await Api.delete(
+      `/normative-aspects/${id}`,
+      auth.data.token
+    );
+    window.location.reload();
+  };
 
   return (
     <div className="container mx-auto p-4">
@@ -115,23 +112,23 @@ const NormativeAspectsDashboard: React.FC = () => {
                 {normativeaspects.description}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                  {normativeaspects.source}
+                {normativeaspects.source}
               </td>
               <td className="py-2 px-4 border-b text-center">
                 <label className="flex items-center space-x-2">
                   <input
                     type="checkbox"
                     className="toggle-switch"
-                    checked={normativeaspects.is_active}
-                    onChange={() =>
-                      handleToggleIsActive(normativeaspects.id, normativeaspects.is_active)
-                    }
+                    checked={normativeaspects.isActive}
+                    onChange={() => handleToggleIsActive(normativeaspects.id)}
                   />
-                  <span>{normativeaspects.is_active ? "Activo" : "Inactivo"}</span>
+                  <span>
+                    {normativeaspects.isActive ? "Activo" : "Inactivo"}
+                  </span>
                 </label>
               </td>
               <td className="py-2 px-4 border-b text-center space-x-4">
-              <button
+                <button
                   onClick={() =>
                     navigate(`/read-normative-aspects/${normativeaspects.id}`)
                   }
@@ -148,9 +145,7 @@ const NormativeAspectsDashboard: React.FC = () => {
                   Editar
                 </button>
                 <button
-                  onClick={() =>
-                    deletion(normativeaspects.id)
-                  }
+                  onClick={() => deletion(normativeaspects.id)}
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Borrar
