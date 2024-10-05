@@ -6,10 +6,6 @@ import Swal from "sweetalert2";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-// Constants from backend
-const ApproachTypes = ["invoice", "subscription", "payment", "donation"];
-const DocumentTypes = ["CC", "NIT", "TI", "PPT"];
-const CurrencyTypes = ["COP", "USD", "JPY"];
 
 const EditApproach: React.FC = () => {
   const { id } = useParams();
@@ -17,33 +13,33 @@ const EditApproach: React.FC = () => {
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const fetchApproach = async () => {
-  //     try {
-  //       const response = await Api.get(`/approach/${id}`, auth.data.token);
-  //       const { data, statusCode } = response;
-  //       if (statusCode === 200) {
-  //         setApproach(data.approach);
-  //       } else {
-  //         Swal.fire({
-  //           title: "Error",
-  //           text: `${data.message}`,
-  //           icon: "error",
-  //         });
-  //       }
-  //     } catch (error: any) {
-  //       Swal.fire({
-  //         title: "Error",
-  //         text: `${error.message}`,
-  //         icon: "error",
-  //       });
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchApproach = async () => {
+      try {
+        const response = await Api.get(`/approach/${id}`, auth.data.token);
+        const { data, statusCode } = response;
+        if (statusCode === 200) {
+          setApproach(data);
+        } else {
+          Swal.fire({
+            title: "Error",
+            text: `${data.message}`,
+            icon: "error",
+          });
+        }
+      } catch (error: any) {
+        Swal.fire({
+          title: "Error",
+          text: `${error.message}`,
+          icon: "error",
+        });
+      }
+    };
 
-  //   fetchApproach();
-  // }, [id, auth.data.token]);
+    fetchApproach();
+  }, [id, auth.data.token]);
 
-  if (!approach) return <div>Loading...</div>;
+  if (!approach) return <div>Cargando...</div>;
 
   const initialValues = {
     name: approach.name || "",
@@ -57,8 +53,6 @@ const EditApproach: React.FC = () => {
     description: Yup.string()
       .max(45, "Máximo 45 caracteres")
       .required("Requerido"),
-    approach_type: Yup.string().required("Requerido"),
-    currency_type: Yup.string().required("Requerido"),
   });
 
   const handleSubmit = async (values: any) => {
@@ -71,7 +65,7 @@ const EditApproach: React.FC = () => {
           text: "Enfoque actualizado correctamente",
           icon: "success",
         });
-        navigate("/dashboard/approach");
+        navigate("/approach-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -134,7 +128,7 @@ const EditApproach: React.FC = () => {
               <button
                 type="button"
                 className="ml-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
-                onClick={() => navigate("/dashboard/approach")}
+                onClick={() => navigate("/approach-dashboard")}
               >
                 Cancelar
               </button>

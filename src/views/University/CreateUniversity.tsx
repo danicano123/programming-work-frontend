@@ -6,9 +6,6 @@ import Swal from "sweetalert2";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-// Constants from backend
-const UniversityTypes = ["invoice", "subscription", "payment", "donation"];
-const CurrencyTypes = ["COP", "USD", "JPY"];
 
 const CreateUniversity: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -24,13 +21,13 @@ const CreateUniversity: React.FC = () => {
   const validationSchema = Yup.object({
     name: Yup.string()
       .max(60, "Maximo 60 carateres")
-      .required("Required"),
+      .required("Campo requerido"),
     type: Yup.string()
       .max(45, "Maximo 45 carateres")
-      .required("Required"),
+      .required("Campo requerido"),
     city: Yup.string()
       .max(45, "Maximo 45 carateres")
-      .required("Required"),
+      .required("Campo requerido"),
   });
 
   const handleSubmit = async (values: any) => {
@@ -41,10 +38,10 @@ const CreateUniversity: React.FC = () => {
       if (statusCode === 201) {
         Swal.fire({
           title: "Success",
-          text: "University created successfully",
+          text: "Universidad creada con exito",
           icon: "success",
         });
-        navigate("/dashboard/university");
+        navigate("/university-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -123,7 +120,7 @@ const CreateUniversity: React.FC = () => {
                 {isLoading ? "Guardando..." : "Guardar"}
               </button>
               <button
-                onClick={() => navigate("/dashboard/university")}
+                onClick={() => navigate("/university-dashboard")}
                 className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
               >
                 Salir

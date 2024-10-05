@@ -12,7 +12,7 @@ const ApproachList: React.FC = () => {
       try {
         const { data, statusCode } = await Api.get("/approach/active");
         if (statusCode === 200) {
-          setApproach(data.approach);
+          setApproach(data);
         } else {
           Swal.fire({
             title: "Error",

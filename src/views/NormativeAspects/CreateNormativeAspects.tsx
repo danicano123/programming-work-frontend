@@ -6,9 +6,6 @@ import Swal from "sweetalert2";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-// Constants from backend
-const MicrositeTypes = ["invoice", "subscription", "payment", "donation"];
-const CurrencyTypes = ["COP", "USD", "JPY"];
 
 const CreateNormativeAspects: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);

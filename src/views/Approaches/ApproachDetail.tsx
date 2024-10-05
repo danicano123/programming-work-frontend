@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Api } from "../../services/Api";
 import Swal from "sweetalert2";
 
 const ApproachDetail: React.FC = () => {
-  const location = useLocation();
-  const { approachId } = location.state;
+  const { id } = useParams();
+ 
   const [approach, setApproach] = useState<any>(null);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
@@ -14,10 +14,10 @@ const ApproachDetail: React.FC = () => {
   useEffect(() => {
     const fetchApproach = async () => {
       try {
-        const response = await Api.get(`/approach/${approachId}`, auth.data.token);
+        const response = await Api.get(`/approach/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
-          setApproach(data.approach);
+          setApproach(data);
         } else {
           // Swal.fire({
           //   title: "Error",
@@ -35,7 +35,7 @@ const ApproachDetail: React.FC = () => {
     };
 
     fetchApproach();
-  }, [approachId, auth.data.token]);
+  }, [id, auth.data.token]);
 
   if (!approach) return <div className="text-center py-4">Cargando...</div>;
 
@@ -49,7 +49,7 @@ const ApproachDetail: React.FC = () => {
         </div>
         <div className="flex justify-end mt-6">
           <button
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/approach-dashboard")}
             className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
           >
             regresar
