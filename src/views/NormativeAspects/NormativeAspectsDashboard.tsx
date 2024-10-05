@@ -78,6 +78,12 @@ const NormativeAspectsDashboard: React.FC = () => {
     }
   };
 
+  const deletion = async (id: any) => {
+      const response = await Api.delete(`/normativeAspect/${id}`, auth.data.token);
+      window.location.reload();
+     
+    }
+
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between items-center mb-4">
@@ -140,6 +146,14 @@ const NormativeAspectsDashboard: React.FC = () => {
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Edit
+                </button>
+                <button
+                  onClick={() =>
+                    deletion(normativeaspects.id)
+                  }
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  Borrar
                 </button>
               </td>
             </tr>
