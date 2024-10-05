@@ -36,7 +36,7 @@ const CreateNormativeAspects: React.FC = () => {
   const handleSubmit = async (values: any) => {
     setIsLoading(true);
     try {
-      const response = await Api.post("/normativeAspect", values, auth.data.token);
+      const response = await Api.post("/normative-aspects", values, auth.data.token);
       const { data, statusCode } = response;
       if (statusCode === 201) {
         Swal.fire({
