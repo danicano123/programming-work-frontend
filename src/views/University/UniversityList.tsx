@@ -12,7 +12,7 @@ const UniversityList: React.FC = () => {
       try {
         const { data, statusCode } = await Api.get("/university/active");
         if (statusCode === 200) {
-          setUniversity(data.university);
+          setUniversity(data);
         } else {
           Swal.fire({
             title: "Error",

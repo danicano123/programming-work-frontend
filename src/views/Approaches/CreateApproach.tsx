@@ -6,9 +6,7 @@ import Swal from "sweetalert2";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-// Constants from backend
-const ApproachTypes = ["invoice", "subscription", "payment", "donation"];
-const CurrencyTypes = ["COP", "USD", "JPY"];
+
 
 const CreateApproach: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -23,10 +21,10 @@ const CreateApproach: React.FC = () => {
   const validationSchema = Yup.object({
     name: Yup.string()
       .max(60, "Maximo 60 carateres")
-      .required("Required"),
+      .required("Campo requerido"),
     description: Yup.string()
       .max(45, "Maximo 45 carateres")
-      .required("Required"),
+      .required("Campo requerido"),
   });
 
   const handleSubmit = async (values: any) => {
@@ -35,12 +33,12 @@ const CreateApproach: React.FC = () => {
       const response = await Api.post("/approach", values, auth.data.token);
       const { data, statusCode } = response;
       if (statusCode === 201) {
-        Swal.fire({
+        Swal.fire({ 
           title: "Success",
-          text: "Approach created successfully",
+          text: "Enfoque creado con exito",
           icon: "success",
         });
-        navigate("/dashboard/approach");
+        navigate("/approach-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -85,12 +83,12 @@ const CreateApproach: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Descripción</label>
               <Field
-                name="type"
+                name="description"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="type"
+                name="description"
                 component="div"
                 className="text-red-600"
               />
@@ -106,7 +104,7 @@ const CreateApproach: React.FC = () => {
                 {isLoading ? "Guardando..." : "Guardar"}
               </button>
               <button
-                onClick={() => navigate("/dashboard/approach")}
+                onClick={() => navigate("/approach-dashboard")}
                 className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
               >
                 Salir

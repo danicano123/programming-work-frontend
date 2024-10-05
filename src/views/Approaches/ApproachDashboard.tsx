@@ -9,33 +9,33 @@ const ApproachDashboard: React.FC = () => {
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const fetchApproach = async () => {
-  //     try {
-  //       const { data, statusCode } = await Api.get(
-  //         "/approach",
-  //         auth.data.token
-  //       );
-  //       if (statusCode === 200) {
-  //         setApproach(data.microsites);
-  //       } else {
-  //         Swal.fire({
-  //           title: "Error",
-  //           text: `${data.message}`,
-  //           icon: "error",
-  //         });
-  //       }
-  //     } catch (error) {
-  //       Swal.fire({
-  //         title: "Error",
-  //         text: "Error: unable to fetch active approach",
-  //         icon: "error",
-  //       });
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchApproach = async () => {
+      try {
+        const { data, statusCode } = await Api.get(
+          "/approach",
+          auth.data.token
+        );
+        if (statusCode === 200) {
+          setApproach(data);
+        } else {
+          Swal.fire({
+            title: "Error",
+            text: `${data.message}`,
+            icon: "error",
+          });
+        }
+      } catch (error) {
+        Swal.fire({
+          title: "Error",
+          text: "Error: unable to fetch active approach",
+          icon: "error",
+        });
+      }
+    };
 
-  //   fetchUniversity();
-  // }, [auth.data.token]);
+    fetchApproach();
+  }, [auth.data.token]);
 
   const handleToggleIsActive = async (
     approachId: string,
@@ -78,6 +78,15 @@ const ApproachDashboard: React.FC = () => {
     }
   };
 
+  const deletion = async (id: any) => {
+    const response = await Api.delete(
+      `/approach/${id}`,
+      auth.data.token
+    );
+    window.location.reload();
+  };
+
+
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between items-center mb-4">
@@ -107,6 +116,14 @@ const ApproachDashboard: React.FC = () => {
                 {approach.description}
               </td>
               <td className="py-2 px-4 border-b text-center space-x-4">
+              <button
+                  onClick={() =>
+                    navigate(`/read-approach/${approach.id}`)
+                  }
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  Ver detalle
+                </button>
                 <button
                   onClick={() =>
                     navigate(`/edit-approach/${approach.id}`)
@@ -116,12 +133,11 @@ const ApproachDashboard: React.FC = () => {
                   Editar
                 </button>
                 <button
-                  onClick={() =>
-                    navigate(`/dashboard/approach/form/${approach.id}`)
-                  }
+                  onClick={() => deletion(approach.id)}
+                  
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
-                  Form
+                  Borrar
                 </button>
               </td>
             </tr>

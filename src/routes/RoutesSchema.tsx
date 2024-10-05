@@ -32,6 +32,10 @@ import CreateApproach from "../views/Approaches/CreateApproach";
 import ApproachDashboard from "../views/Approaches/ApproachDashboard";
 import NormativeAspectsDetail from "../views/NormativeAspects/NormativeAspectsDetail";
 import EditNormativeAspect from "../views/NormativeAspects/EditNormativeAspects";
+import UniversityDetail from "../views/University/UniversityDetail";
+import EditUniversity from "../views/University/EditUniversity";
+import ApproachDetail from "../views/Approaches/ApproachDetail";
+import EditApproach from "../views/Approaches/EditApproach";
 
 export const RoutesSchema = [
   {
@@ -79,12 +83,28 @@ export const RoutesSchema = [
     element: CreateUniversity,
   },
   {
+    path: "/read-university/:id",
+    element: UniversityDetail,
+  },
+  {
+    path: "/edit-university/:id",
+    element: EditUniversity,
+  },
+  {
     path: "/approach-dashboard",
     element: ApproachDashboard,
   },
   {
     path: "/create-approach-dashboard",
     element: CreateApproach,
+  },
+  {
+    path: "/read-approach/:id",
+    element: ApproachDetail,
+  },
+  {
+    path: "/edit-approach/:id",
+    element: EditApproach,
   },
   {
     path: "/car-innovation-dashboard",
@@ -102,7 +122,6 @@ export const RoutesSchema = [
     path: "/create-car-innovations",
     element: CreateCarInnovations,
   },
-  
 
   // {CreateUniversity
   //   path: "/microsites/:slug",
@@ -128,15 +147,15 @@ export const RoutesSchema = [
   },
   {
     path: "/university",
-    element:RegisterForm,
+    element: RegisterForm,
   },
   {
     path: "/normative-aspects-dashboard",
-    element:NormativeAspectsDashboard,
+    element: NormativeAspectsDashboard,
   },
   {
     path: "/create-normative-aspects",
-    element:CreateNormativeAspects,
+    element: CreateNormativeAspects,
   },
   {
     path: "/read-normative-aspects/:id",
