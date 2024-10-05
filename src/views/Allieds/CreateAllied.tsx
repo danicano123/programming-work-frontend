@@ -42,11 +42,10 @@ const CreateAllied: React.FC = () => {
     .min(6, "Must be 6 minutes or more")
     .required("Required"),
   });
-'------------------------------------------------------------------------------------------------'
   const handleSubmit = async (values: any) => {
     setIsLoading(true);
     try {
-      const response = await Api.post("/microsites", values, auth.data.token);
+      const response = await Api.post("/allied", values, auth.data.token);
       const { data, statusCode } = response;
       if (statusCode === 201) {
         Swal.fire({
@@ -54,7 +53,7 @@ const CreateAllied: React.FC = () => {
           text: "Microsite created successfully",
           icon: "success",
         });
-        navigate("/dashboard/microsites");
+        navigate("/allied-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -130,56 +129,6 @@ const CreateAllied: React.FC = () => {
                 className="text-red-600"
               />
             </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Microsite Type</label>
-              <Field
-                as="select"
-                name="microsite_type"
-                className="w-full p-2 border border-gray-300 rounded"
-              >
-                <option value="">Select microsite type</option>
-                {AlliedTypes.map((type) => (
-                  <option key={type} value={type}>
-                    {type.charAt(0).toUpperCase() + type.slice(1)}
-                  </option>
-                ))}
-              </Field>
-              <ErrorMessage
-                name="microsite_type"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Currency Type</label>
-              <Field
-                as="select"
-                name="currency_type"
-                className="w-full p-2 border border-gray-300 rounded"
-              >
-                <option value="">Select currency type</option>
-                {CurrencyTypes.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
-                  </option>
-                ))}
-              </Field>
-              <ErrorMessage
-                name="currency_type"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">
-                Payment Expiration Time (in minutes)
-              </label>
-              <Field
-                name="payment_expiration_time"
-                type="number"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-            </div>
             <div className="flex justify-between">
               <button
                 type="submit"
@@ -191,7 +140,7 @@ const CreateAllied: React.FC = () => {
                 {isLoading ? "Saving..." : "Save"}
               </button>
               <button
-                onClick={() => navigate("/dashboard/microsites")}
+                onClick={() => navigate("/allied-dashboard")}
                 className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
               >
                 Back

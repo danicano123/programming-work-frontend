@@ -101,7 +101,7 @@ const AlliedDashboard: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {allied.map((allied) => (
+          {allied?.map((allied) => (
             <tr key={allied.nit}>
               <td className="py-2 px-4 border-b text-center">
                 {allied.name}

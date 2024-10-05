@@ -30,6 +30,7 @@ import EditUser from "../views/Users/EditUsers";
 import UsersDashboard from "../views/Users/UsersDashboard";
 import CreateApproach from "../views/Approaches/CreateApproach";
 import ApproachDashboard from "../views/Approaches/ApproachDashboard";
+import NormativeAspectsDetail from "../views/NormativeAspects/NormativeAspectsDetail";
 
 export const RoutesSchema = [
   {
@@ -49,7 +50,7 @@ export const RoutesSchema = [
     element: EditAllied,
   },
   {
-    path: "/allied-Create",
+    path: "/create-allied",
     element: CreateAllied,
   },
   {
@@ -135,6 +136,10 @@ export const RoutesSchema = [
   {
     path: "/create-normative-aspects",
     element:CreateNormativeAspects,
+  },
+  {
+    path: "/read-normative-aspects/:micrositeId",
+    element: NormativeAspectsDetail,
   },
   // {
   //   path: "/payments",

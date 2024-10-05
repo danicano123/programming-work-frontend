@@ -36,15 +36,15 @@ const CreateNormativeAspects: React.FC = () => {
   const handleSubmit = async (values: any) => {
     setIsLoading(true);
     try {
-      const response = await Api.post("/normative-aspects", values, auth.data.token);
+      const response = await Api.post("/normativeAspect", values, auth.data.token);
       const { data, statusCode } = response;
       if (statusCode === 201) {
         Swal.fire({
           title: "Success",
-          text: "Microsite created successfully",
+          text: "Aspecto normativo creado con éxito",
           icon: "success",
         });
-        navigate("/dashboard/microsites");
+        navigate("/normative-aspects-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -65,7 +65,7 @@ const CreateNormativeAspects: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Create Microsite</h1>
+      <h1 className="text-2xl font-bold mb-4">Crear Aspecto Normativo</h1>
       <div className="bg-white p-4 rounded shadow-md">
         <Formik
           initialValues={initialValues}
