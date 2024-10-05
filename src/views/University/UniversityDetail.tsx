@@ -17,7 +17,7 @@ const UniversityDetail: React.FC = () => {
         const response = await Api.get(`/university/${universityId}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
-          setUniversity(data.university);
+          setUniversity(data);
         } else {
           // Swal.fire({
           //   title: "Error",
@@ -50,7 +50,7 @@ const UniversityDetail: React.FC = () => {
         </div>
         <div className="flex justify-end mt-6">
           <button
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/university-dashboard")}
             className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
           >
             Regresar

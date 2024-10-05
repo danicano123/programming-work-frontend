@@ -6,11 +6,7 @@ import Swal from "sweetalert2";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-// Constants from backend
-//const MicrositeTypes = ["invoice", "subscription", "payment", "donation"];
-//const CurrencyTypes = ["COP", "USD", "JPY"];
-
-const CreateCarInnovations: React.FC = () => {
+const CreateCarInnovation: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
@@ -23,30 +19,28 @@ const CreateCarInnovations: React.FC = () => {
 
   const validationSchema = Yup.object({
     name: Yup.string()
-      .max(45, "Máximo 45 caracteres")
+      .max(100, "Máximo 100 caracteres")
       .required("Campo Obligatorio"),
     description: Yup.string()
-      .max(45, "Máximo 45 caracteres")
+      .max(255, "Máximo 255 caracteres")
       .required("Campo Obligatorio"),
     type: Yup.string()
-      .max(45, "Máximo 45 caracteres")
+      .max(50, "Máximo 50 caracteres")
       .required("Campo Obligatorio"),
-      microsite_type: Yup.string().required("Required"),
-      currency_type: Yup.string().required("Required"),
   });
 
   const handleSubmit = async (values: any) => {
     setIsLoading(true);
     try {
-      const response = await Api.post("/carinnovations", values, auth.data.token);
+      const response = await Api.post("/car-innovations", values, auth.data.token);
       const { data, statusCode } = response;
       if (statusCode === 201) {
         Swal.fire({
           title: "Success",
-          text: "carinnovations created successfully",
+          text: "Innovación automotriz creada con éxito",
           icon: "success",
         });
-        navigate("/dashboard/carinnovations");
+        navigate("/car-innovation-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -67,7 +61,7 @@ const CreateCarInnovations: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Create Microsite</h1>
+      <h1 className="text-2xl font-bold mb-4">Crear Innovación Automotriz</h1>
       <div className="bg-white p-4 rounded shadow-md">
         <Formik
           initialValues={initialValues}
@@ -76,7 +70,7 @@ const CreateCarInnovations: React.FC = () => {
         >
           <Form>
             <div className="mb-4">
-              <label className="block text-gray-700">Tipo</label>
+              <label className="block text-gray-700">Nombre</label>
               <Field
                 name="name"
                 type="text"
@@ -102,7 +96,7 @@ const CreateCarInnovations: React.FC = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Fuente</label>
+              <label className="block text-gray-700">Tipo</label>
               <Field
                 name="type"
                 type="text"
@@ -122,13 +116,13 @@ const CreateCarInnovations: React.FC = () => {
                 } text-white font-bold py-2 px-4 rounded`}
                 disabled={isLoading}
               >
-                {isLoading ? "Saving..." : "Save"}
+                {isLoading ? "Guardando..." : "Guardar"}
               </button>
               <button
-                onClick={() => navigate("/dashboard/microsites")}
+                onClick={() => navigate("/car-innovations-dashboard")}
                 className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
               >
-                Back
+                Regresar
               </button>
             </div>
           </Form>
@@ -138,4 +132,4 @@ const CreateCarInnovations: React.FC = () => {
   );
 };
 
-export default CreateCarInnovations;
+export default CreateCarInnovation;

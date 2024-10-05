@@ -9,33 +9,33 @@ const UniversityDashboard: React.FC = () => {
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const fetchUniversity = async () => {
-  //     try {
-  //       const { data, statusCode } = await Api.get(
-  //         "/university",
-  //         auth.data.token
-  //       );
-  //       if (statusCode === 200) {
-  //         setUniversity(data.microsites);
-  //       } else {
-  //         Swal.fire({
-  //           title: "Error",
-  //           text: `${data.message}`,
-  //           icon: "error",
-  //         });
-  //       }
-  //     } catch (error) {
-  //       Swal.fire({
-  //         title: "Error",
-  //         text: "Error: unable to fetch active university",
-  //         icon: "error",
-  //       });
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchUniversity = async () => {
+      try {
+        const { data, statusCode } = await Api.get(
+          "/university",
+          auth.data.token
+        );
+        if (statusCode === 200) {
+          setUniversity(data);
+        } else {
+          Swal.fire({
+            title: "Error",
+            text: `${data.message}`,
+            icon: "error",
+          });
+        }
+      } catch (error) {
+        Swal.fire({
+          title: "Error",
+          text: "Error: unable to fetch active university",
+          icon: "error",
+        });
+      }
+    };
 
-  //   fetchUniversity();
-  // }, [auth.data.token]);
+    fetchUniversity();
+  }, [auth.data.token]);
 
   const handleToggleIsActive = async (
     universityId: string,
@@ -59,7 +59,7 @@ const UniversityDashboard: React.FC = () => {
         setUniversity(updatedUniversity);
         Swal.fire({
           title: "Success",
-          text: "University updated successfully",
+          text: "Universidad actualizada exitosamente",
           icon: "success",
         });
       } else {
@@ -76,6 +76,14 @@ const UniversityDashboard: React.FC = () => {
         icon: "error",
       });
     }
+  };
+
+  const deletion = async (id: any) => {
+    const response = await Api.delete(
+      `/university/${id}`,
+      auth.data.token
+    );
+    window.location.reload();
   };
 
   return (
@@ -95,7 +103,6 @@ const UniversityDashboard: React.FC = () => {
             <th className="py-2 px-4 border-b text-center">Nombre</th>
             <th className="py-2 px-4 border-b text-center">Tipo de universidad</th>
             <th className="py-2 px-4 border-b text-center">Ciudad</th>
-            <th className="py-2 px-4 border-b text-center">Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -105,24 +112,47 @@ const UniversityDashboard: React.FC = () => {
                 {university.name}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                {university.university_type}
+                {university.type}
+              </td>
+              <td className="py-2 px-4 border-b text-center">
+                {university.City}
+              </td>
+              <td className="py-2 px-4 border-b text-center">
+                <label className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    className="toggle-switch"
+                    checked={university.isActive}
+                    //onChange={() => handleToggleIsActive(university.id)}
+                  />
+                  <span>
+                    {university.isActive ? "Activo" : "Inactivo"}
+                  </span>
+                </label>
               </td>
               <td className="py-2 px-4 border-b text-center space-x-4">
+              <button
+                  onClick={() =>
+                    navigate(`/read-university/${university.id}`)
+                  }
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  Ver detalle
+                </button>
                 <button
                   onClick={() =>
-                    navigate(`/dashboard/university/${university.id}`)
+                    navigate(`/edit-university/${university.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Editar
                 </button>
                 <button
-                  onClick={() =>
-                    navigate(`/dashboard/university/form/${university.id}`)
-                  }
+                  onClick={() => deletion(university.id)}
+                  
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
-                  Form
+                  Borrar
                 </button>
               </td>
             </tr>

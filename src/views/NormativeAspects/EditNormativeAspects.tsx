@@ -6,24 +6,19 @@ import Swal from "sweetalert2";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-// Constants from backend
-const MicrositeTypes = ["invoice", "subscription", "payment", "donation"];
-const DocumentTypes = ["CC", "NIT", "TI", "PPT"];
-const CurrencyTypes = ["COP", "USD", "JPY"];
-
-const EditMicrosite: React.FC = () => {
+const EditNormativeAspect: React.FC = () => {
   const { id } = useParams();
-  const [microsite, setMicrosite] = useState<any>(null);
+  const [normativeAspect, setNormativeAspect] = useState<any>(null);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMicrosite = async () => {
       try {
-        const response = await Api.get(`/microsites/${id}`, auth.data.token);
+        const response = await Api.get(`/normative-aspects/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
-          setMicrosite(data.microsite);
+          setNormativeAspect(data);
         } else {
           Swal.fire({
             title: "Error",
@@ -43,45 +38,37 @@ const EditMicrosite: React.FC = () => {
     fetchMicrosite();
   }, [id, auth.data.token]);
 
-  if (!microsite) return <div>Loading...</div>;
+  if (!normativeAspect) return <div>Loading...</div>;
 
   const initialValues = {
-    name: microsite.name || "",
-    slug: microsite.slug || "",
-    logo_url: microsite.logo_url || "",
-    category: microsite.category || "",
-    microsite_type: microsite.microsite_type || "",
-    currency_type: microsite.currency_type || "",
-    payment_expiration_time: microsite.payment_expiration_time || "",
-    document_type: microsite.document_type || "",
-    document: microsite.document || "",
+    type: normativeAspect.type || "",
+    description: normativeAspect.description || "",
+    source: normativeAspect.source || "",
   };
 
   const validationSchema = Yup.object({
-    name: Yup.string()
-      .max(50, "Must be 50 characters or less")
-      .required("Required"),
-    slug: Yup.string()
-      .max(50, "Must be 50 characters or less")
-      .required("Required"),
-    category: Yup.string()
-      .max(50, "Must be 50 characters or less")
-      .required("Required"),
-    microsite_type: Yup.string().required("Required"),
-    currency_type: Yup.string().required("Required"),
+    type: Yup.string()
+      .max(45, "Máximo 45 caracteres")
+      .required("Campo Obligatorio"),
+    description: Yup.string()
+      .max(45, "Máximo 45 caracteres")
+      .required("Campo Obligatorio"),
+    source: Yup.string()
+      .max(45, "Máximo 45 caracteres")
+      .required("Campo Obligatorio"),
   });
 
   const handleSubmit = async (values: any) => {
     try {
-      const response = await Api.patch(`/microsites/${id}`, values, auth.data.token);
+      const response = await Api.patch(`/normative-aspects/${id}`, { id: normativeAspect.id, ...values}, auth.data.token);
       const { data, statusCode } = response;
-      if (statusCode === 200) {
+      if (statusCode === 204) {
         Swal.fire({
           title: "Success",
           text: "Microsite updated successfully",
           icon: "success",
         });
-        navigate("/dashboard/microsites");
+        navigate("/normative-aspects-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -108,124 +95,43 @@ const EditMicrosite: React.FC = () => {
           onSubmit={handleSubmit}
         >
           <Form>
-            <div className="mb-4">
-              <label className="block text-gray-700">Name</label>
+          <div className="mb-4">
+              <label className="block text-gray-700">Tipo</label>
               <Field
-                name="name"
+                name="type"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="name"
+                name="type"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Alias</label>
+              <label className="block text-gray-700">Descripción</label>
               <Field
-                name="slug"
+                name="description"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="slug"
+                name="description"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Logo URL</label>
+              <label className="block text-gray-700">Fuente</label>
               <Field
-                name="logo_url"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Category</label>
-              <Field
-                name="category"
+                name="source"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="category"
+                name="source"
                 component="div"
                 className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Microsite Type</label>
-              <Field
-                as="select"
-                name="microsite_type"
-                className="w-full p-2 border border-gray-300 rounded"
-              >
-                <option value="">Select microsite type</option>
-                {MicrositeTypes.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
-                  </option>
-                ))}
-              </Field>
-              <ErrorMessage
-                name="microsite_type"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Currency Type</label>
-              <Field
-                as="select"
-                name="currency_type"
-                className="w-full p-2 border border-gray-300 rounded"
-              >
-                <option value="">Select currency type</option>
-                {CurrencyTypes.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
-                  </option>
-                ))}
-              </Field>
-              <ErrorMessage
-                name="currency_type"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">
-                Payment Expiration Time (minutes)
-              </label>
-              <Field
-                name="payment_expiration_time"
-                type="number"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Document Type</label>
-              <Field
-                as="select"
-                name="document_type"
-                className="w-full p-2 border border-gray-300 rounded"
-              >
-                <option value="">Select document type</option>
-                {DocumentTypes.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
-                  </option>
-                ))}
-              </Field>
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Document</label>
-              <Field
-                name="document"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
               />
             </div>
             <div className="mb-4">
@@ -250,4 +156,4 @@ const EditMicrosite: React.FC = () => {
   );
 };
 
-export default EditMicrosite;
+export default EditNormativeAspect;

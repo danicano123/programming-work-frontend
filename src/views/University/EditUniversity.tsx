@@ -6,11 +6,6 @@ import Swal from "sweetalert2";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-// Constants from backend
-const UniversityTypes = ["invoice", "subscription", "payment", "donation"];
-const DocumentTypes = ["CC", "NIT", "TI", "PPT"];
-const CurrencyTypes = ["COP", "USD", "JPY"];
-
 const EditUniversity: React.FC = () => {
   const { id } = useParams();
   const [university, setUniversity] = useState<any>(null);
@@ -23,7 +18,7 @@ const EditUniversity: React.FC = () => {
         const response = await Api.get(`/university/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
-          setUniversity(data.university);
+          setUniversity(data);
         } else {
           Swal.fire({
             title: "Error",
@@ -43,32 +38,24 @@ const EditUniversity: React.FC = () => {
     fetchUniversity();
   }, [id, auth.data.token]);
 
-  if (!university) return <div>Loading...</div>;
+  if (!university) return <div>Cargando...</div>;
 
   const initialValues = {
     name: university.name || "",
-    slug: university.slug || "",
-    logo_url: university.logo_url || "",
-    category: university.category || "",
-    microsite_type: university.university_type || "",
-    currency_type: university.currency_type || "",
-    payment_expiration_time: university.payment_expiration_time || "",
-    document_type: university.document_type || "",
-    document: university.document || "",
+    type: university.type || "",
+    City: university.City || "",
   };
 
   const validationSchema = Yup.object({
     name: Yup.string()
-      .max(50, "Must be 50 characters or less")
-      .required("Required"),
-    slug: Yup.string()
-      .max(50, "Must be 50 characters or less")
-      .required("Required"),
-    category: Yup.string()
-      .max(50, "Must be 50 characters or less")
-      .required("Required"),
-    university_type: Yup.string().required("Required"),
-    currency_type: Yup.string().required("Required"),
+      .max(50, "Máximo 60 caracteres")
+      .required("Requerido"),
+    type: Yup.string()
+      .max(50, "Máximo 45 caracteres")
+      .required("Requerido"),
+    City: Yup.string()
+      .max(50, "Máximo 45 caracteres")
+      .required("Requirido"),
   });
 
   const handleSubmit = async (values: any) => {
@@ -78,10 +65,10 @@ const EditUniversity: React.FC = () => {
       if (statusCode === 200) {
         Swal.fire({
           title: "Success",
-          text: "University updated successfully",
+          text: "Universidad actualizada con exito",
           icon: "success",
         });
-        navigate("/dashboard/university");
+        navigate("/university-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -141,6 +128,11 @@ const EditUniversity: React.FC = () => {
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
+              <ErrorMessage
+                name="City"
+                component="div"
+                className="text-red-600"
+              />
             </div>
             <div className="mb-4">
               <button
@@ -152,7 +144,7 @@ const EditUniversity: React.FC = () => {
               <button
                 type="button"
                 className="ml-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
-                onClick={() => navigate("/dashboard/university")}
+                onClick={() => navigate("/university-dashboard")}
               >
                 Cancelar
               </button>

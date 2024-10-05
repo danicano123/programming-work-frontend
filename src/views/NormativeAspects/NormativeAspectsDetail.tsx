@@ -14,7 +14,7 @@ const NormativeAspectsDetail: React.FC = () => {
   useEffect(() => {
     const fetchMicrosite = async () => {
       try {
-        const response = await Api.get(`/normativeAspect/${id}`, auth.data.token);
+        const response = await Api.get(`/normative-aspects/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
           setMicrosite(data);
@@ -41,7 +41,7 @@ const NormativeAspectsDetail: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4 max-w-lg">
-      <h1 className="text-3xl font-bold mb-6 text-center">Microsite Details</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">Detalle de Aspectos Normativos</h1>
       <div className="bg-white p-6 rounded-lg shadow-lg">
         <div className="space-y-4">
           <DetailItem label="Tipo" value={microsite.type} />

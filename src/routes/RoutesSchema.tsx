@@ -31,6 +31,11 @@ import UsersDashboard from "../views/Users/UsersDashboard";
 import CreateApproach from "../views/Approaches/CreateApproach";
 import ApproachDashboard from "../views/Approaches/ApproachDashboard";
 import NormativeAspectsDetail from "../views/NormativeAspects/NormativeAspectsDetail";
+import EditNormativeAspect from "../views/NormativeAspects/EditNormativeAspects";
+import UniversityDetail from "../views/University/UniversityDetail";
+import EditUniversity from "../views/University/EditUniversity";
+import ApproachDetail from "../views/Approaches/ApproachDetail";
+import EditApproach from "../views/Approaches/EditApproach";
 
 export const RoutesSchema = [
   {
@@ -78,6 +83,14 @@ export const RoutesSchema = [
     element: CreateUniversity,
   },
   {
+    path: "/read-university/:id",
+    element: UniversityDetail,
+  },
+  {
+    path: "/edit-university/:id",
+    element: EditUniversity,
+  },
+  {
     path: "/approach-dashboard",
     element: ApproachDashboard,
   },
@@ -86,22 +99,29 @@ export const RoutesSchema = [
     element: CreateApproach,
   },
   {
-    path: "/carinnovation-dashboard",
+    path: "/read-approach/:id",
+    element: ApproachDetail,
+  },
+  {
+    path: "/edit-approach/:id",
+    element: EditApproach,
+  },
+  {
+    path: "/car-innovation-dashboard",
     element: CarInnovationsDashboard,
   },
   {
-    path: "/carinnovation-detail",
+    path: "/read-car-innovations/:id",
     element: CarInnovationsDetail,
   },
   {
-    path: "/carinnovation-edit",
+    path: "/edit-car-innovations",
     element: EditCarInnovations,
   },
   {
-    path: "/carinnovation-Create",
+    path: "/create-car-innovations",
     element: CreateCarInnovations,
   },
-  
 
   // {CreateUniversity
   //   path: "/microsites/:slug",
@@ -127,19 +147,23 @@ export const RoutesSchema = [
   },
   {
     path: "/university",
-    element:RegisterForm,
+    element: RegisterForm,
   },
   {
     path: "/normative-aspects-dashboard",
-    element:NormativeAspectsDashboard,
+    element: NormativeAspectsDashboard,
   },
   {
     path: "/create-normative-aspects",
-    element:CreateNormativeAspects,
+    element: CreateNormativeAspects,
   },
   {
     path: "/read-normative-aspects/:id",
     element: NormativeAspectsDetail,
+  },
+  {
+    path: "/edit-normative-aspects/:id",
+    element: EditNormativeAspect,
   },
   // {
   //   path: "/payments",

@@ -6,9 +6,6 @@ import Swal from "sweetalert2";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-// Constants from backend
-const MicrositeTypes = ["invoice", "subscription", "payment", "donation"];
-const CurrencyTypes = ["COP", "USD", "JPY"];
 
 const CreateNormativeAspects: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -36,7 +33,7 @@ const CreateNormativeAspects: React.FC = () => {
   const handleSubmit = async (values: any) => {
     setIsLoading(true);
     try {
-      const response = await Api.post("/normativeAspect", values, auth.data.token);
+      const response = await Api.post("/normative-aspects", values, auth.data.token);
       const { data, statusCode } = response;
       if (statusCode === 201) {
         Swal.fire({
