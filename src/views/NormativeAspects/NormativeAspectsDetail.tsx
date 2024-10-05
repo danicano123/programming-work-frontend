@@ -14,7 +14,7 @@ const NormativeAspectsDetail: React.FC = () => {
   useEffect(() => {
     const fetchMicrosite = async () => {
       try {
-        const response = await Api.get(`/normativeAspect/${id}`, auth.data.token);
+        const response = await Api.get(`/normative-aspects/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
           setMicrosite(data);

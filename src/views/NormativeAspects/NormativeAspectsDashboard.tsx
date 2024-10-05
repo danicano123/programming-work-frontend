@@ -13,7 +13,7 @@ const NormativeAspectsDashboard: React.FC = () => {
      const fetchNormativeAspects = async () => {
        try {
          const { data, statusCode } = await Api.get(
-           "/normativeAspect",
+           "/normative-aspects",
            auth.data.token
         );
          if (statusCode === 200) {
@@ -79,7 +79,7 @@ const NormativeAspectsDashboard: React.FC = () => {
   };
 
   const deletion = async (id: any) => {
-      const response = await Api.delete(`/normativeAspect/${id}`, auth.data.token);
+      const response = await Api.delete(`/normative-aspects/${id}`, auth.data.token);
       window.location.reload();
      
     }
@@ -127,7 +127,7 @@ const NormativeAspectsDashboard: React.FC = () => {
                       handleToggleIsActive(normativeaspects.id, normativeaspects.is_active)
                     }
                   />
-                  <span>{normativeaspects.is_active ? "Active" : "Inactive"}</span>
+                  <span>{normativeaspects.is_active ? "Activo" : "Inactivo"}</span>
                 </label>
               </td>
               <td className="py-2 px-4 border-b text-center space-x-4">
@@ -141,11 +141,11 @@ const NormativeAspectsDashboard: React.FC = () => {
                 </button>
                 <button
                   onClick={() =>
-                    navigate(`/read-normative-aspects/${normativeaspects.id}`)
+                    navigate(`/edit-normative-aspects/${normativeaspects.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
-                  Edit
+                  Editar
                 </button>
                 <button
                   onClick={() =>

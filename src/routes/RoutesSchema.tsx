@@ -31,6 +31,7 @@ import UsersDashboard from "../views/Users/UsersDashboard";
 import CreateApproach from "../views/Approaches/CreateApproach";
 import ApproachDashboard from "../views/Approaches/ApproachDashboard";
 import NormativeAspectsDetail from "../views/NormativeAspects/NormativeAspectsDetail";
+import EditNormativeAspect from "../views/NormativeAspects/EditNormativeAspects";
 
 export const RoutesSchema = [
   {
@@ -140,6 +141,10 @@ export const RoutesSchema = [
   {
     path: "/read-normative-aspects/:id",
     element: NormativeAspectsDetail,
+  },
+  {
+    path: "/edit-normative-aspects/:id",
+    element: EditNormativeAspect,
   },
   // {
   //   path: "/payments",

@@ -71,7 +71,7 @@ export class Api {
 
     if (token) {
       headers["Authorization"] = `Bearer ${token}`;
-    }
+    }    
 
     try {
       const response = await fetch(`${Api.baseUrl}${url}`, {
@@ -80,7 +80,7 @@ export class Api {
         body: JSON.stringify(data),
       });
 
-      const fetchResult = await response.json();
+      const fetchResult = response;
 
       return {
         statusCode: response.status,
@@ -110,7 +110,7 @@ export class Api {
         headers: headers,
       });
 
-      const fetchResult = await response.json();
+      const fetchResult = response;
 
       return {
         statusCode: response.status,
