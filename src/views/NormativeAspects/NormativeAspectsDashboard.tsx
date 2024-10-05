@@ -13,11 +13,11 @@ const NormativeAspectsDashboard: React.FC = () => {
      const fetchNormativeAspects = async () => {
        try {
          const { data, statusCode } = await Api.get(
-           "/normativeaspects",
+           "/normativeAspect",
            auth.data.token
         );
          if (statusCode === 200) {
-           setNormativeAspects(data.normativeAspects);
+           setNormativeAspects(data);
         } else {
            Swal.fire({
              title: "Error",
@@ -78,6 +78,12 @@ const NormativeAspectsDashboard: React.FC = () => {
     }
   };
 
+  const deletion = async (id: any) => {
+      const response = await Api.delete(`/normativeAspect/${id}`, auth.data.token);
+      window.location.reload();
+     
+    }
+
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between items-center mb-4">
@@ -100,7 +106,7 @@ const NormativeAspectsDashboard: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {normativeaspects.map((normativeaspects) => (
+          {normativeaspects?.map((normativeaspects) => (
             <tr key={normativeaspects.id}>
               <td className="py-2 px-4 border-b text-center">
                 {normativeaspects.type}
@@ -109,11 +115,7 @@ const NormativeAspectsDashboard: React.FC = () => {
                 {normativeaspects.description}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                <img
-                  src={normativeaspects.fountain}
-                  alt={normativeaspects.name}
-                  className="w-12 h-12 rounded-full"
-                />
+                  {normativeaspects.source}
               </td>
               <td className="py-2 px-4 border-b text-center">
                 <label className="flex items-center space-x-2">
@@ -131,7 +133,7 @@ const NormativeAspectsDashboard: React.FC = () => {
               <td className="py-2 px-4 border-b text-center space-x-4">
               <button
                   onClick={() =>
-                    navigate(`/dashboard/normativeaspects/${normativeaspects.id}`)
+                    navigate(`/read-normative-aspects/${normativeaspects.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
@@ -139,7 +141,7 @@ const NormativeAspectsDashboard: React.FC = () => {
                 </button>
                 <button
                   onClick={() =>
-                    navigate(`/microsites/detail/${normativeaspects.id}`)
+                    navigate(`/microsites/detail/${microsite.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
@@ -147,19 +149,11 @@ const NormativeAspectsDashboard: React.FC = () => {
                 </button>
                 <button
                   onClick={() =>
-                    navigate(`/dashboard/normativeaspects/form/${normativeaspects.id}`)
+                    deletion(normativeaspects.id)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
-                  Form
-                </button>
-                <button
-                  onClick={() =>
-                    navigate(`/dashboard/normativeaspects/payments/${normativeaspects.id}`)
-                  }
-                  className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-                >
-                  View Payments
+                  Borrar
                 </button>
               </td>
             </tr>

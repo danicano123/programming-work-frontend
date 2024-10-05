@@ -83,7 +83,7 @@ const PracticesDashboard: React.FC = () => {
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold mb-4">Practica Estrategia</h1>
         <button
-          onClick={() => navigate("./create-practice")}
+          onClick={() => navigate("/create-practice")}
           className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
         >
           Crear Practica

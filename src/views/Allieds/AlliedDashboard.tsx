@@ -17,7 +17,7 @@ const AlliedDashboard: React.FC = () => {
           auth.data.token
         );
         if (statusCode === 200) {
-          setAllied(data.allied);
+          setAllied(data);
         } else {
           Swal.fire({
             title: "Error",
@@ -101,7 +101,7 @@ const AlliedDashboard: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {allied.map((allied) => (
+          {allied?.map((allied) => (
             <tr key={allied.nit}>
               <td className="py-2 px-4 border-b text-center">
                 {allied.name}
@@ -136,23 +136,7 @@ const AlliedDashboard: React.FC = () => {
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
-                  Edit
-                </button>
-                <button
-                  onClick={() =>
-                    navigate(`/dashboard/microsites/form/${allied.id}`)
-                  }
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                >
-                  Form
-                </button>
-                <button
-                  onClick={() =>
-                    navigate(`/dashboard/microsites/payments/${allied.id}`)
-                  }
-                  className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-                >
-                  View Payments
+                  Editar
                 </button>
               </td>
             </tr>

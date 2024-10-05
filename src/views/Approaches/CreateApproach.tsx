@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Api } from "../../services/Api";
 import Swal from "sweetalert2";
@@ -7,71 +7,40 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 // Constants from backend
-const FocusTypes = ["invoice", "subscription", "payment", "donation"];
-const DocumentTypes = ["CC", "NIT", "TI", "PPT"];
+const ApproachTypes = ["invoice", "subscription", "payment", "donation"];
 const CurrencyTypes = ["COP", "USD", "JPY"];
 
-const EditFocus: React.FC = () => {
-  const { id } = useParams();
-  const [focus, setFocus] = useState<any>(null);
+const CreateApproach: React.FC = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const fetchFocus = async () => {
-  //     try {
-  //       const response = await Api.get(`/focus/${id}`, auth.data.token);
-  //       const { data, statusCode } = response;
-  //       if (statusCode === 200) {
-  //         setFocus(data.focus);
-  //       } else {
-  //         Swal.fire({
-  //           title: "Error",
-  //           text: `${data.message}`,
-  //           icon: "error",
-  //         });
-  //       }
-  //     } catch (error: any) {
-  //       Swal.fire({
-  //         title: "Error",
-  //         text: `${error.message}`,
-  //         icon: "error",
-  //       });
-  //     }
-  //   };
-
-  //   fetchFocus();
-  // }, [id, auth.data.token]);
-
-  if (!focus) return <div>Loading...</div>;
-
   const initialValues = {
-    name: focus.name || "",
-    description: focus.slug || "",
+    name: "",
+    description: "",
   };
 
   const validationSchema = Yup.object({
     name: Yup.string()
-      .max(45, "Máximo 45 caracteres")
-      .required("Requerido"),
+      .max(60, "Maximo 60 carateres")
+      .required("Required"),
     description: Yup.string()
-      .max(45, "Máximo 45 caracteres")
-      .required("Requerido"),
-    focus_type: Yup.string().required("Requerido"),
-    currency_type: Yup.string().required("Requerido"),
+      .max(45, "Maximo 45 carateres")
+      .required("Required"),
   });
 
   const handleSubmit = async (values: any) => {
+    setIsLoading(true);
     try {
-      const response = await Api.patch(`/focus/${id}`, values, auth.data.token);
+      const response = await Api.post("/approach", values, auth.data.token);
       const { data, statusCode } = response;
-      if (statusCode === 200) {
+      if (statusCode === 201) {
         Swal.fire({
           title: "Success",
-          text: "Enfoque actualizado correctamente",
+          text: "Approach created successfully",
           icon: "success",
         });
-        navigate("/dashboard/focus");
+        navigate("/dashboard/approach");
       } else {
         Swal.fire({
           title: "Error",
@@ -85,12 +54,14 @@ const EditFocus: React.FC = () => {
         text: error.message,
         icon: "error",
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Editar enfoque</h1>
+      <h1 className="text-2xl font-bold mb-4">Crear enfoque</h1>
       <div className="bg-white p-4 rounded shadow-md">
         <Formik
           initialValues={initialValues}
@@ -114,29 +85,31 @@ const EditFocus: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Descripción</label>
               <Field
-                name="description"
+                name="type"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="description"
+                name="type"
                 component="div"
                 className="text-red-600"
               />
             </div>
-            <div className="mb-4">
+            <div className="flex justify-between">
               <button
                 type="submit"
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                className={`${
+                  isLoading ? "bg-gray-500 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-700"
+                } text-white font-bold py-2 px-4 rounded`}
+                disabled={isLoading}
               >
-                Guardar cambios
+                {isLoading ? "Guardando..." : "Guardar"}
               </button>
               <button
-                type="button"
-                className="ml-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
-                onClick={() => navigate("/dashboard/focus")}
+                onClick={() => navigate("/dashboard/approach")}
+                className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
               >
-                Cancelar
+                Salir
               </button>
             </div>
           </Form>
@@ -146,4 +119,4 @@ const EditFocus: React.FC = () => {
   );
 };
 
-export default EditFocus;
+export default CreateApproach;

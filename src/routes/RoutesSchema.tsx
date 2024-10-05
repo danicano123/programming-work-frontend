@@ -28,9 +28,9 @@ import CreateUniversity from "../views/University/CreateUniversity";
 import UniversityDashboard from "../views/University/UniversityDashboard";
 import EditUser from "../views/Users/EditUsers";
 import UsersDashboard from "../views/Users/UsersDashboard";
-import FocusDashboard from "../views/Focus/FocusDashboard";
-import CreateFocus from "../views/Focus/CreateFocus";
-
+import CreateApproach from "../views/Approaches/CreateApproach";
+import ApproachDashboard from "../views/Approaches/ApproachDashboard";
+import NormativeAspectsDetail from "../views/NormativeAspects/NormativeAspectsDetail";
 
 export const RoutesSchema = [
   {
@@ -50,7 +50,7 @@ export const RoutesSchema = [
     element: EditAllied,
   },
   {
-    path: "/allied-Create",
+    path: "/create-allied",
     element: CreateAllied,
   },
   {
@@ -66,7 +66,7 @@ export const RoutesSchema = [
     element: EditPractice,
   },
   {
-    path: "/practice-Create",
+    path: "/create-practice",
     element: CreatePractice,
   },
   {
@@ -78,12 +78,12 @@ export const RoutesSchema = [
     element: CreateUniversity,
   },
   {
-    path: "/focus-dashboard",
-    element: FocusDashboard,
+    path: "/approach-dashboard",
+    element: ApproachDashboard,
   },
   {
-    path: "/create-focus-dashboard",
-    element: CreateFocus,
+    path: "/create-approach-dashboard",
+    element: CreateApproach,
   },
   {
     path: "/carinnovation-dashboard",
@@ -136,6 +136,10 @@ export const RoutesSchema = [
   {
     path: "/create-normative-aspects",
     element:CreateNormativeAspects,
+  },
+  {
+    path: "/read-normative-aspects/:id",
+    element: NormativeAspectsDetail,
   },
   // {
   //   path: "/payments",

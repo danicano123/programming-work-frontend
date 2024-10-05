@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Api } from "../../services/Api";
 import Swal from "sweetalert2";
 
-const MicrositeDetail: React.FC = () => {
-  const location = useLocation();
-  const { micrositeId } = location.state;
+const NormativeAspectsDetail: React.FC = () => {
+  const { id } = useParams();
+  
   const [microsite, setMicrosite] = useState<any>(null);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
@@ -14,10 +14,10 @@ const MicrositeDetail: React.FC = () => {
   useEffect(() => {
     const fetchMicrosite = async () => {
       try {
-        const response = await Api.get(`/microsites/${micrositeId}`, auth.data.token);
+        const response = await Api.get(`/normativeAspect/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
-          setMicrosite(data.microsite);
+          setMicrosite(data);
         } else {
           // Swal.fire({
           //   title: "Error",
@@ -35,7 +35,7 @@ const MicrositeDetail: React.FC = () => {
     };
 
     fetchMicrosite();
-  }, [micrositeId, auth.data.token]);
+  }, [id, auth.data.token]);
 
   if (!microsite) return <div className="text-center py-4">Loading...</div>;
 
@@ -44,19 +44,13 @@ const MicrositeDetail: React.FC = () => {
       <h1 className="text-3xl font-bold mb-6 text-center">Microsite Details</h1>
       <div className="bg-white p-6 rounded-lg shadow-lg">
         <div className="space-y-4">
-          <DetailItem label="Name" value={microsite.name} />
-          <DetailItem label="Alias" value={microsite.slug} />
-          <DetailItem label="Logo URL" value={microsite.logo_url} />
-          <DetailItem label="Category" value={microsite.category} />
-          <DetailItem label="Microsite Type" value={microsite.microsite_type} />
-          <DetailItem label="Currency Type" value={microsite.currency_type} />
-          <DetailItem label="Payment Expiration Time (minutes)" value={microsite.payment_expiration_time?.toString()} />
-          <DetailItem label="Document Type" value={microsite.document_type} />
-          <DetailItem label="Document" value={microsite.document} />
+          <DetailItem label="Tipo" value={microsite.type} />
+          <DetailItem label="Descripción" value={microsite.description} />
+          <DetailItem label="Fuente" value={microsite.source} />
         </div>
         <div className="flex justify-end mt-6">
           <button
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/normative-aspects-dashboard")}
             className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
           >
             Go Back
@@ -74,4 +68,4 @@ const DetailItem: React.FC<{ label: string; value: string }> = ({ label, value }
   </div>
 );
 
-export default MicrositeDetail;
+export default NormativeAspectsDetail;

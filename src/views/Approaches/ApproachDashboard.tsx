@@ -4,20 +4,20 @@ import { useNavigate } from "react-router-dom";
 import { Api } from "../../services/Api";
 import Swal from "sweetalert2";
 
-const FocusDashboard: React.FC = () => {
-  const [focus, setFocus] = useState<any[]>([]);
+const ApproachDashboard: React.FC = () => {
+  const [approach, setApproach] = useState<any[]>([]);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
   // useEffect(() => {
-  //   const fetchUniversity = async () => {
+  //   const fetchApproach = async () => {
   //     try {
   //       const { data, statusCode } = await Api.get(
-  //         "/university",
+  //         "/approach",
   //         auth.data.token
   //       );
   //       if (statusCode === 200) {
-  //         setUniversity(data.microsites);
+  //         setApproach(data.microsites);
   //       } else {
   //         Swal.fire({
   //           title: "Error",
@@ -28,7 +28,7 @@ const FocusDashboard: React.FC = () => {
   //     } catch (error) {
   //       Swal.fire({
   //         title: "Error",
-  //         text: "Error: unable to fetch active university",
+  //         text: "Error: unable to fetch active approach",
   //         icon: "error",
   //       });
   //     }
@@ -38,12 +38,12 @@ const FocusDashboard: React.FC = () => {
   // }, [auth.data.token]);
 
   const handleToggleIsActive = async (
-    focusId: string,
+    approachId: string,
     isActive: boolean
   ) => {
     try {
       const response = await Api.patch(
-        `/university/${focusId}/is-active`,
+        `/approach/${approachId}/is-active`,
         {
           is_active: !isActive,
         },
@@ -51,12 +51,12 @@ const FocusDashboard: React.FC = () => {
       );
       const { data, statusCode } = response;
       if (statusCode === 200) {
-        const updatedFocus = focus.map((focus) =>
-          focus.id === focusId
-            ? { ...focus, is_active: !isActive }
-            : focus
+        const updatedApproach = approach.map((approach) =>
+          approach.id === approachId
+            ? { ...approach, is_active: !isActive }
+            : approach
         );
-        setFocus(updatedFocus);
+        setApproach(updatedApproach);
         Swal.fire({
           title: "Success",
           text: "Enfoque actualizado con exito",
@@ -83,7 +83,7 @@ const FocusDashboard: React.FC = () => {
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold mb-4">Tablero de enfoque</h1>
         <button
-          onClick={() => navigate("/create-focus-dashboard")}
+          onClick={() => navigate("/create-approach-dashboard")}
           className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
         >
           Crear enfoque
@@ -98,18 +98,18 @@ const FocusDashboard: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {focus.map((focus) => (
-            <tr key={focus.id}>
+          {approach.map((approach) => (
+            <tr key={approach.id}>
               <td className="py-2 px-4 border-b text-center">
-                {focus.name}
+                {approach.name}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                {focus.description}
+                {approach.description}
               </td>
               <td className="py-2 px-4 border-b text-center space-x-4">
                 <button
                   onClick={() =>
-                    navigate(`/dashboard/focus/${focus.id}`)
+                    navigate(`/edit-approach/${approach.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
@@ -117,7 +117,7 @@ const FocusDashboard: React.FC = () => {
                 </button>
                 <button
                   onClick={() =>
-                    navigate(`/dashboard/focus/form/${focus.id}`)
+                    navigate(`/dashboard/approach/form/${approach.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
@@ -132,4 +132,4 @@ const FocusDashboard: React.FC = () => {
   );
 };
 
-export default FocusDashboard;
+export default ApproachDashboard;

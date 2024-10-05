@@ -17,7 +17,7 @@ const PracticeDetail: React.FC = () => {
         const response = await Api.get(`/practices/${practiceId}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
-          setPractice(data.practice);
+          setPractice(data);
         } else {
           // Swal.fire({
           //   title: "Error",
