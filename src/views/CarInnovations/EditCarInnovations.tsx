@@ -6,24 +6,19 @@ import Swal from "sweetalert2";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-// Constants from backend
-const MicrositeTypes = ["invoice", "subscription", "payment", "donation"];
-const DocumentTypes = ["CC", "NIT", "TI", "PPT"];
-const CurrencyTypes = ["COP", "USD", "JPY"];
-
-const EditCarInnovations: React.FC = () => {
+const EditCarInnovation: React.FC = () => {
   const { id } = useParams();
-  const [carinnovations, setCarInnovations] = useState<any>(null);
+  const [carInnovation, setCarInnovation] = useState<any>(null);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchCarInnovations = async () => {
+    const fetchCarInnovation = async () => {
       try {
-        const response = await Api.get(`/carinnovations/${id}`, auth.data.token);
+        const response = await Api.get(`/car-innovations/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
-          setCarInnovations(data.carinnovations);
+          setCarInnovation(data);
         } else {
           Swal.fire({
             title: "Error",
@@ -40,42 +35,40 @@ const EditCarInnovations: React.FC = () => {
       }
     };
 
-    fetchCarInnovations();
+    fetchCarInnovation();
   }, [id, auth.data.token]);
 
-  if (!carinnovations) return <div>Loading...</div>;
+  if (!carInnovation) return <div>Loading...</div>;
 
   const initialValues = {
-    name: carinnovations.name || "",
-    description: carinnovations.description || "",
-    type: carinnovations.type || "",
+    name: carInnovation.name || "",
+    description: carInnovation.description || "",
+    type: carInnovation.type || "",
   };
 
   const validationSchema = Yup.object({
     name: Yup.string()
-      .max(50, "Must be 50 characters or less")
-      .required("Required"),
+      .max(100, "Máximo 100 caracteres")
+      .required("Campo Obligatorio"),
     description: Yup.string()
-      .max(50, "Must be 50 characters or less")
-      .required("Required"),
+      .max(255, "Máximo 255 caracteres")
+      .required("Campo Obligatorio"),
     type: Yup.string()
-      .max(50, "Must be 50 characters or less")
-      .required("Required"),
-    microsite_type: Yup.string().required("Required"),
-    currency_type: Yup.string().required("Required"),
+      .max(100, "Máximo 100 caracteres")
+      .required("Campo Obligatorio"),
   });
 
   const handleSubmit = async (values: any) => {
     try {
-      const response = await Api.patch(`/carinnovations/${id}`, values, auth.data.token);
+      const response = await Api.patch(`/car-innovations/${id}`, { id: carInnovation.id, ...values }, auth.data.token);
       const { data, statusCode } = response;
-      if (statusCode === 200) {
+      if (statusCode === 204) {
         Swal.fire({
-          title: "Success",
-          text: "carinnovations updated successfully",
+          title: "Éxito",
+          text: "Car Innovation actualizada correctamente",
           icon: "success",
         });
-        navigate("/dashboard/microsites");
+        navigate("/car-innovations-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -94,7 +87,7 @@ const EditCarInnovations: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Edit Car Innovations</h1>
+      <h1 className="text-2xl font-bold mb-4">Editar Car Innovation</h1>
       <div className="bg-white p-4 rounded shadow-md">
         <Formik
           initialValues={initialValues}
@@ -103,7 +96,7 @@ const EditCarInnovations: React.FC = () => {
         >
           <Form>
             <div className="mb-4">
-              <label className="block text-gray-700">Name</label>
+              <label className="block text-gray-700">Nombre</label>
               <Field
                 name="name"
                 type="text"
@@ -116,7 +109,7 @@ const EditCarInnovations: React.FC = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Alias</label>
+              <label className="block text-gray-700">Descripción</label>
               <Field
                 name="description"
                 type="text"
@@ -129,97 +122,16 @@ const EditCarInnovations: React.FC = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Logo URL</label>
+              <label className="block text-gray-700">Tipo</label>
               <Field
                 name="type"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Category</label>
-              <Field
-                name="category"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
               <ErrorMessage
-                name="category"
+                name="type"
                 component="div"
                 className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Microsite Type</label>
-              <Field
-                as="select"
-                name="microsite_type"
-                className="w-full p-2 border border-gray-300 rounded"
-              >
-                <option value="">Select microsite type</option>
-                {MicrositeTypes.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
-                  </option>
-                ))}
-              </Field>
-              <ErrorMessage
-                name="microsite_type"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Currency Type</label>
-              <Field
-                as="select"
-                name="currency_type"
-                className="w-full p-2 border border-gray-300 rounded"
-              >
-                <option value="">Select currency type</option>
-                {CurrencyTypes.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
-                  </option>
-                ))}
-              </Field>
-              <ErrorMessage
-                name="currency_type"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">
-                Payment Expiration Time (minutes)
-              </label>
-              <Field
-                name="payment_expiration_time"
-                type="number"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Document Type</label>
-              <Field
-                as="select"
-                name="document_type"
-                className="w-full p-2 border border-gray-300 rounded"
-              >
-                <option value="">Select document type</option>
-                {DocumentTypes.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
-                  </option>
-                ))}
-              </Field>
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Document</label>
-              <Field
-                name="document"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
               />
             </div>
             <div className="mb-4">
@@ -227,14 +139,14 @@ const EditCarInnovations: React.FC = () => {
                 type="submit"
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
               >
-                Save Changes
+                Guardar Cambios
               </button>
               <button
                 type="button"
                 className="ml-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
-                onClick={() => navigate("/dashboard/microsites")}
+                onClick={() => navigate("/dashboard/car-innovations")}
               >
-                Cancel
+                Cancelar
               </button>
             </div>
           </Form>
@@ -244,4 +156,4 @@ const EditCarInnovations: React.FC = () => {
   );
 };
 
-export default EditCarInnovations;
+export default EditCarInnovation;

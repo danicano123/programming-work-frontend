@@ -1,29 +1,29 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Api } from "../../services/Api";
 import Swal from "sweetalert2";
 
-const CarInnovationsDetail: React.FC = () => {
-  const location = useLocation();
-  const { carinnovationsId } = location.state;
-  const [carinnovations, setCarInnovations] = useState<any>(null);
+const CarInnovationDetail: React.FC = () => {
+  const { id } = useParams();
+  
+  const [carInnovation, setCarInnovation] = useState<any>(null);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchCarInnovations = async () => {
+    const fetchCarInnovation = async () => {
       try {
-        const response = await Api.get(`/carinnovations/${carinnovationsId}`, auth.data.token);
+        const response = await Api.get(`/car-innovations/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
-          setCarInnovations(data.carinnovations);
+          setCarInnovation(data);
         } else {
-          // Swal.fire({
-          //   title: "Error",
-          //   text: `${data.message}`,
-          //   icon: "error",
-          // });
+          Swal.fire({
+            title: "Error",
+            text: `${data.message}`,
+            icon: "error",
+          });
         }
       } catch (error: any) {
         Swal.fire({
@@ -34,29 +34,26 @@ const CarInnovationsDetail: React.FC = () => {
       }
     };
 
-    fetchCarInnovations();
-  }, [carinnovationsId, auth.data.token]);
+    fetchCarInnovation();
+  }, [id, auth.data.token]);
 
-  if (!carinnovations) return <div className="text-center py-4">Loading...</div>;
+  if (!carInnovation) return <div className="text-center py-4">Cargando...</div>;
 
   return (
     <div className="container mx-auto p-4 max-w-lg">
-      <h1 className="text-3xl font-bold mb-6 text-center">Microsite Details</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">Detalles de Innovación Automotriz</h1>
       <div className="bg-white p-6 rounded-lg shadow-lg">
         <div className="space-y-4">
-          <DetailItem label="Name" value={carinnovations.name} />
-          <DetailItem label="Description" value={carinnovations.description} />
-          <DetailItem label="Type" value={carinnovations.type} />
-          <DetailItem label="Payment Expiration Time (minutes)" value={carinnovations.payment_expiration_time?.toString()} />
-          <DetailItem label="Document Type" value={carinnovations.document_type} />
-          <DetailItem label="Document" value={carinnovations.document} />
+          <DetailItem label="Nombre" value={carInnovation.name} />
+          <DetailItem label="Descripción" value={carInnovation.description} />
+          <DetailItem label="Tipo" value={carInnovation.type} />
         </div>
         <div className="flex justify-end mt-6">
           <button
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/car-innovations-dashboard")}
             className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
           >
-            Go Back
+            Regresar
           </button>
         </div>
       </div>
@@ -71,4 +68,4 @@ const DetailItem: React.FC<{ label: string; value: string }> = ({ label, value }
   </div>
 );
 
-export default CarInnovationsDetail;
+export default CarInnovationDetail;

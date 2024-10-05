@@ -5,61 +5,56 @@ import { Api } from "../../services/Api";
 import Swal from "sweetalert2";
 
 const CarInnovationsDashboard: React.FC = () => {
-  const [carinnovations, setCarInnovations] = useState<any[]>([]);
+  const [carInnovations, setCarInnovations] = useState<any[]>([]);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
-   useEffect(() => {
-     const fetchCarInnovations = async () => {
-       try {
-         const { data, statusCode } = await Api.get(
-           "/carInnovations",
-           auth.data.token
-         );
-         if (statusCode === 200) {
-           setCarInnovations(data.carinnovations);
-         } else {
-           Swal.fire({
-             title: "Error",
-             text: `${data.message}`,
-             icon: "error",
-           });
+  useEffect(() => {
+    const fetchCarInnovations = async () => {
+      try {
+        const { data, statusCode } = await Api.get(
+          "/car-innovations",
+          auth.data.token
+        );
+        if (statusCode === 200) {
+          setCarInnovations(data);
+        } else {
+          Swal.fire({
+            title: "Error",
+            text: `${data.message}`,
+            icon: "error",
+          });
         }
-       } catch (error) {
-         Swal.fire({
-           title: "Error",
-           text: "Error: unable to fetch active carinnovations",
-           icon: "error",
-         });
-       }
-     };
+      } catch (error) {
+        Swal.fire({
+          title: "Error",
+          text: "Error: unable to fetch active car innovations",
+          icon: "error",
+        });
+      }
+    };
 
-     fetchCarInnovations();
-   }, [auth.data.token]);
+    fetchCarInnovations();
+  }, [auth.data.token]);
 
-  const handleToggleIsActive = async (
-    carinnovationsId: string,
-    isActive: boolean
-  ) => {
+  const handleToggleIsActive = async (carInnovationId: string) => {
     try {
-      const response = await Api.patch(
-        `/carinnovations/${carinnovationsId}/is-active`,
-        {
-          is_active: !isActive,
-        },
+      const response = await Api.post(
+        `/car-innovations/toggle-is-active/${carInnovationId}`,
         auth.data.token
       );
       const { data, statusCode } = response;
       if (statusCode === 200) {
-        const updatedCarInnovations = carinnovations.map((carinnovations) =>
-          carinnovations.id === carinnovationsId
-            ? { ...carinnovations, is_active: !isActive }
-            : carinnovations
+        const updatedCarInnovations = carInnovations.map(
+          (carInnovation) =>
+            carInnovation.id === carInnovationId
+              ? { ...carInnovation, isActive: data.isActive }
+              : carInnovation
         );
         setCarInnovations(updatedCarInnovations);
         Swal.fire({
           title: "Success",
-          text: "CarInnovations updated successfully",
+          text: "Car Innovation updated successfully",
           icon: "success",
         });
       } else {
@@ -78,79 +73,80 @@ const CarInnovationsDashboard: React.FC = () => {
     }
   };
 
+  const deletion = async (id: any) => {
+    const response = await Api.delete(
+      `/car-innovations/${id}`,
+      auth.data.token
+    );
+    window.location.reload();
+  };
+
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold mb-4">Tablero de Aspectos Normativos</h1>
+        <h1 className="text-2xl font-bold mb-4">Car Innovations Dashboard</h1>
         <button
-          onClick={() => navigate("/create-normative-aspects")}
+          onClick={() => navigate("/create-car-innovations")}
           className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
         >
-          Crear Innovaciones en el sector del automóvil
+          Create Car Innovation
         </button>
       </div>
       <table className="min-w-full bg-white border border-gray-200">
         <thead>
           <tr>
-            <th className="py-2 px-4 border-b text-center">Nit</th>
-            <th className="py-2 px-4 border-b text-center">Nombre</th>
-            <th className="py-2 px-4 border-b text-center">Descripcion</th>
-            <th className="py-2 px-4 border-b text-center">Tipo</th>
+            <th className="py-2 px-4 border-b text-center">Name</th>
+            <th className="py-2 px-4 border-b text-center">Description</th>
+            <th className="py-2 px-4 border-b text-center">Type</th>
           </tr>
         </thead>
         <tbody>
-          {carinnovations.map((carinnovations) => (
-            <tr key={carinnovations.id}>
+          {carInnovations?.map((carInnovation) => (
+            <tr key={carInnovation.id}>
               <td className="py-2 px-4 border-b text-center">
-                {carinnovations.name}
+                {carInnovation.name}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                {carinnovations.description}
+                {carInnovation.description}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                <img
-                  src={carinnovations.type}
-                  alt={carinnovations.name}
-                  className="w-12 h-12 rounded-full"
-                />
+                {carInnovation.type}
               </td>
               <td className="py-2 px-4 border-b text-center">
                 <label className="flex items-center space-x-2">
                   <input
                     type="checkbox"
                     className="toggle-switch"
-                    checked={carinnovations.is_active}
-                    onChange={() =>
-                      handleToggleIsActive(carinnovations.id, carinnovations.is_active)
-                    }
+                    checked={carInnovation.isActive}
+                    onChange={() => handleToggleIsActive(carInnovation.id)}
                   />
-                  <span>{carinnovations.is_active ? "Active" : "Inactive"}</span>
+                  <span>
+                    {carInnovation.isActive ? "Active" : "Inactive"}
+                  </span>
                 </label>
               </td>
               <td className="py-2 px-4 border-b text-center space-x-4">
                 <button
                   onClick={() =>
-                    navigate(`/dashboard/carinnovations/${carinnovations.id}`)
+                    navigate(`/read-car-innovations/${carInnovation.id}`)
+                  }
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  View Details
+                </button>
+                <button
+                  onClick={() =>
+                    navigate(`/edit-car-innovations/${carInnovation.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Edit
                 </button>
                 <button
-                  onClick={() =>
-                    navigate(`/dashboard/carinnovations/form/${carinnovations.id}`)
-                  }
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  onClick={() => deletion(carInnovation.id)}
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                 >
-                  Form
-                </button>
-                <button
-                  onClick={() =>
-                    navigate(`/dashboard/carinnovations/payments/${carinnovations.id}`)
-                  }
-                  className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-                >
-                  View Payments
+                  Delete
                 </button>
               </td>
             </tr>

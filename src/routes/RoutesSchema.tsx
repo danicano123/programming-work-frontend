@@ -87,19 +87,19 @@ export const RoutesSchema = [
     element: CreateApproach,
   },
   {
-    path: "/carinnovation-dashboard",
+    path: "/car-innovation-dashboard",
     element: CarInnovationsDashboard,
   },
   {
-    path: "/carinnovation-detail",
+    path: "/read-car-innovations/:id",
     element: CarInnovationsDetail,
   },
   {
-    path: "/carinnovation-edit",
+    path: "/edit-car-innovations",
     element: EditCarInnovations,
   },
   {
-    path: "/carinnovation-Create",
+    path: "/create-car-innovations",
     element: CreateCarInnovations,
   },
   
