@@ -66,7 +66,7 @@ export const RoutesSchema = [
     element: EditPractice,
   },
   {
-    path: "/practice-Create",
+    path: "/create-practice",
     element: CreatePractice,
   },
   {
@@ -138,7 +138,7 @@ export const RoutesSchema = [
     element:CreateNormativeAspects,
   },
   {
-    path: "/read-normative-aspects/:micrositeId",
+    path: "/read-normative-aspects/:id",
     element: NormativeAspectsDetail,
   },
   // {

@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Api } from "../../services/Api";
 import Swal from "sweetalert2";
 
 const NormativeAspectsDetail: React.FC = () => {
-  const location = useLocation();
-  const { micrositeId } = useParams();
-  console.log(micrositeId);
+  const { id } = useParams();
   
   const [microsite, setMicrosite] = useState<any>(null);
   const auth = useSelector((state: any) => state.auth);
@@ -16,7 +14,7 @@ const NormativeAspectsDetail: React.FC = () => {
   useEffect(() => {
     const fetchMicrosite = async () => {
       try {
-        const response = await Api.get(`/normativeAspect/${micrositeId}`, auth.data.token);
+        const response = await Api.get(`/normativeAspect/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
           setMicrosite(data);
@@ -37,7 +35,7 @@ const NormativeAspectsDetail: React.FC = () => {
     };
 
     fetchMicrosite();
-  }, [micrositeId, auth.data.token]);
+  }, [id, auth.data.token]);
 
   if (!microsite) return <div className="text-center py-4">Loading...</div>;
 

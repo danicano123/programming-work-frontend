@@ -109,7 +109,7 @@ const ApproachDashboard: React.FC = () => {
               <td className="py-2 px-4 border-b text-center space-x-4">
                 <button
                   onClick={() =>
-                    navigate(`/dashboard/approach/${approach.id}`)
+                    navigate(`/edit-approach/${approach.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >

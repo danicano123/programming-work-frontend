@@ -6,10 +6,6 @@ import Swal from "sweetalert2";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-// Constants from backend
-const AlliedTypes = ["invoice", "subscription", "payment", "donation"];
-const CurrencyTypes = ["COP", "USD", "JPY"];
-
 const CreateAllied: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const auth = useSelector((state: any) => state.auth);
@@ -22,7 +18,6 @@ const CreateAllied: React.FC = () => {
     mail: "",
     phone: "",
     city: "",
-    payment_expiration_time: 6,
   };
 
   const validationSchema = Yup.object({
@@ -38,9 +33,6 @@ const CreateAllied: React.FC = () => {
       mail: Yup.string().required("Required"),
       phone: Yup.string().required("Required"),
       city: Yup.string().required("Required"),
-    payment_expiration_time: Yup.number()
-    .min(6, "Must be 6 minutes or more")
-    .required("Required"),
   });
   const handleSubmit = async (values: any) => {
     setIsLoading(true);
