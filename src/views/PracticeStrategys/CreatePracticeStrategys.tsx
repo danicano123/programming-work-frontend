@@ -14,20 +14,22 @@ const CreatePracticeStrategy: React.FC = () => {
 
   const initialValues = {
     type: "",
+    name: "",
     description: "",
-    source: "",
+ 
   };
 
   const validationSchema = Yup.object({
     type: Yup.string()
       .max(45, "Máximo 45 caracteres")
       .required("Campo Obligatorio"),
+    name: Yup.string()
+      .max(45, "Máximo 45 caracteres")
+      .required("Campo Obligatorio"),
     description: Yup.string()
       .max(45, "Máximo 45 caracteres")
       .required("Campo Obligatorio"),
-    source: Yup.string()
-      .max(45, "Máximo 45 caracteres")
-      .required("Campo Obligatorio"),
+
   });
 
   const handleSubmit = async (values: any) => {
@@ -71,7 +73,7 @@ const CreatePracticeStrategy: React.FC = () => {
         >
           <Form>
             <div className="mb-4">
-              <label className="block text-gray-700">Tipo de Practica</label>
+              <label className="block text-gray-700">Tipo</label>
               <Field
                 name="type"
                 type="text"
@@ -120,7 +122,7 @@ const CreatePracticeStrategy: React.FC = () => {
                 {isLoading ? "Saving..." : "Save"}
               </button>
               <button
-                onClick={() => navigate("/dashboard/microsites")}
+                onClick={() => navigate("/practice-strategys-dashboard")}
                 className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
               >
                 Regresar
