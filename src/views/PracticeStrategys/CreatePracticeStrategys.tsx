@@ -7,49 +7,41 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 
-const CreateAllied: React.FC = () => {
+const CreatePracticeStrategy: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
   const initialValues = {
-    razonsocial: "",
-    namecontact: "",
-    mail: "",
-    phone: "",
-    city: "",
+    type: "",
+    description: "",
+    source: "",
   };
 
   const validationSchema = Yup.object({
-    companyreason: Yup.string()
-      .max(50, "Máximo 60 caracteres")
-      .required("Campo Requerido"),
-    namecontac: Yup.string()
-      .max(50, "Máximo 45 caracteres")
-      .required("Campo Requerido"),
-    mail: Yup.string()
-      .max(50, "Máximo 45 caracteres")
-      .required("Campo Requerido"),
-    phone: Yup.string()
-      .max(50, "Máximo 45 caracteres")
-      .required("Campo Requerido"),
-    city: Yup.string()
-      .max(50, "Máximo 45 caracteres")
-      .required("Campo Requerido"),
+    type: Yup.string()
+      .max(45, "Máximo 45 caracteres")
+      .required("Campo Obligatorio"),
+    description: Yup.string()
+      .max(45, "Máximo 45 caracteres")
+      .required("Campo Obligatorio"),
+    source: Yup.string()
+      .max(45, "Máximo 45 caracteres")
+      .required("Campo Obligatorio"),
   });
 
   const handleSubmit = async (values: any) => {
     setIsLoading(true);
     try {
-      const response = await Api.post("/allied", values, auth.data.token);
+      const response = await Api.post("/practice-strategys", values, auth.data.token);
       const { data, statusCode } = response;
       if (statusCode === 201) {
         Swal.fire({
           title: "Success",
-          text: "Aliado creada con exito",
+          text: "Estrategia de práctica creado con éxito",
           icon: "success",
         });
-        navigate("/allied-dashboard");
+        navigate("/practice-strategys-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -70,7 +62,7 @@ const CreateAllied: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Crear Aliado</h1>
+      <h1 className="text-2xl font-bold mb-4">Crear Estrategia de Práctica</h1>
       <div className="bg-white p-4 rounded shadow-md">
         <Formik
           initialValues={initialValues}
@@ -79,20 +71,7 @@ const CreateAllied: React.FC = () => {
         >
           <Form>
             <div className="mb-4">
-              <label className="block text-gray-700">Razon Social</label>
-              <Field
-                name="name"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="name"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Nombre de Contacto</label>
+              <label className="block text-gray-700">Tipo de Practica</label>
               <Field
                 name="type"
                 type="text"
@@ -105,40 +84,27 @@ const CreateAllied: React.FC = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Correo</label>
+              <label className="block text-gray-700">Nombre</label>
               <Field
-                name="type"
+                name="description"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="type"
+                name="description"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Telefono</label>
+              <label className="block text-gray-700">Descripción</label>
               <Field
-                name="type"
+                name="source"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="type"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Ciudad</label>
-              <Field
-                name="city"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="city"
+                name="source"
                 component="div"
                 className="text-red-600"
               />
@@ -151,13 +117,13 @@ const CreateAllied: React.FC = () => {
                 } text-white font-bold py-2 px-4 rounded`}
                 disabled={isLoading}
               >
-                {isLoading ? "Guardando..." : "Guardar"}
+                {isLoading ? "Saving..." : "Save"}
               </button>
               <button
-                onClick={() => navigate("/allied-dashboard")}
+                onClick={() => navigate("/dashboard/microsites")}
                 className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
               >
-                Salir
+                Regresar
               </button>
             </div>
           </Form>
@@ -167,4 +133,4 @@ const CreateAllied: React.FC = () => {
   );
 };
 
-export default CreateAllied;
+export default CreatePracticeStrategy;

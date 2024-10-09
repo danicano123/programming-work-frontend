@@ -4,26 +4,26 @@ import { useSelector } from "react-redux";
 import { Api } from "../../services/Api";
 import Swal from "sweetalert2";
 
-const NormativeAspectsDetail: React.FC = () => {
+const NormativeAspectDetail: React.FC = () => {
   const { id } = useParams();
   
-  const [microsite, setMicrosite] = useState<any>(null);
+  const [normativeAspect, setNormativeAspect] = useState<any>(null);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchMicrosite = async () => {
+    const fetchNormativeAspect = async () => {
       try {
         const response = await Api.get(`/normative-aspects/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
-          setMicrosite(data);
+          setNormativeAspect(data);
         } else {
-          // Swal.fire({
-          //   title: "Error",
-          //   text: `${data.message}`,
-          //   icon: "error",
-          // });
+          Swal.fire({
+            title: "Error",
+            text: `${data.message}`,
+            icon: "error",
+          });
         }
       } catch (error: any) {
         Swal.fire({
@@ -34,26 +34,26 @@ const NormativeAspectsDetail: React.FC = () => {
       }
     };
 
-    fetchMicrosite();
+    fetchNormativeAspect();
   }, [id, auth.data.token]);
 
-  if (!microsite) return <div className="text-center py-4">Loading...</div>;
+  if (!normativeAspect) return <div className="text-center py-4">Cargando...</div>;
 
   return (
     <div className="container mx-auto p-4 max-w-lg">
-      <h1 className="text-3xl font-bold mb-6 text-center">Detalle de Aspectos Normativos</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">Detalles de Aspecto Normativo</h1>
       <div className="bg-white p-6 rounded-lg shadow-lg">
         <div className="space-y-4">
-          <DetailItem label="Tipo" value={microsite.type} />
-          <DetailItem label="Descripción" value={microsite.description} />
-          <DetailItem label="Fuente" value={microsite.source} />
+          <DetailItem label="Tipo" value={normativeAspect.type} />
+          <DetailItem label="Nombre" value={normativeAspect.name} />
+          <DetailItem label="Descripción" value={normativeAspect.description} />
         </div>
         <div className="flex justify-end mt-6">
           <button
             onClick={() => navigate("/normative-aspects-dashboard")}
             className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
           >
-            Go Back
+            Regresar
           </button>
         </div>
       </div>
@@ -68,4 +68,4 @@ const DetailItem: React.FC<{ label: string; value: string }> = ({ label, value }
   </div>
 );
 
-export default NormativeAspectsDetail;
+export default NormativeAspectDetail;

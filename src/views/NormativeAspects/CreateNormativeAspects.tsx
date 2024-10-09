@@ -123,7 +123,7 @@ const CreateNormativeAspects: React.FC = () => {
                 onClick={() => navigate("/dashboard/microsites")}
                 className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
               >
-                Back
+                Regresar
               </button>
             </div>
           </Form>

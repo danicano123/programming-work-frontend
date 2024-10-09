@@ -4,20 +4,20 @@ import { useNavigate } from "react-router-dom";
 import { Api } from "../../services/Api";
 import Swal from "sweetalert2";
 
-const AlliedDashboard: React.FC = () => {
-  const [allied, setAllied] = useState<any[]>([]);
+const PracticeStrategysDashboard: React.FC = () => {
+  const [practiceStrategys, setPracticeStrategys] = useState<any[]>([]);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchAllied = async () => {
+    const fetchPracticeStrategys = async () => {
       try {
         const { data, statusCode } = await Api.get(
-          "/allied",
+          "/practice-strategys",
           auth.data.token
         );
         if (statusCode === 200) {
-          setAllied(data);
+          setPracticeStrategys(data);
         } else {
           Swal.fire({
             title: "Error",
@@ -28,38 +28,33 @@ const AlliedDashboard: React.FC = () => {
       } catch (error) {
         Swal.fire({
           title: "Error",
-          text: "Error: unable to fetch active allied",
+          text: "Error: unable to fetch active practiceStrategys",
           icon: "error",
         });
       }
     };
 
-    fetchAllied();
+    fetchPracticeStrategys();
   }, [auth.data.token]);
 
-  const handleToggleIsActive = async (
-    alliedId: string,
-    isActive: boolean
-  ) => {
+  const handleToggleIsActive = async (practiceStrategysId: string) => {
     try {
-      const response = await Api.patch(
-        `/allied/${alliedId}/is-active`,
-        {
-          is_active: !isActive,
-        },
+      const response = await Api.post(
+        `/practice-strategys/toggle-is-active/${practiceStrategysId}`,
         auth.data.token
       );
       const { data, statusCode } = response;
       if (statusCode === 200) {
-        const updatedAllied = allied.map((allied) =>
-          allied.id === alliedId
-            ? { ...allied, is_active: !isActive }
-            : allied
+        const updatedPracticeStrategys = practiceStrategys.map(
+          (practiceStrategys) =>
+            practiceStrategys.id === practiceStrategysId
+              ? { ...practiceStrategys, isActive: data.isActive }
+              : practiceStrategys
         );
-        setAllied(updatedAllied);
+        setPracticeStrategys(updatedPracticeStrategys);
         Swal.fire({
           title: "Success",
-          text: "Aliado actualizada exitosamente",
+          text: "practice-strategys updated successfully",
           icon: "success",
         });
       } else {
@@ -80,7 +75,7 @@ const AlliedDashboard: React.FC = () => {
 
   const deletion = async (id: any) => {
     const response = await Api.delete(
-      `/allied/${id}`,
+      `/practice-strategys/${id}`,
       auth.data.token
     );
     window.location.reload();
@@ -89,59 +84,53 @@ const AlliedDashboard: React.FC = () => {
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold mb-4">Tablero de Aliado</h1>
+        <h1 className="text-2xl font-bold mb-4">
+          Tablero de Estrategia de Practica
+        </h1>
         <button
-          onClick={() => navigate("/create-allied-dashboard")}
+          onClick={() => navigate("/create-practice-strategys")}
           className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
         >
-          Crear Aliado
+          Crear Estrategia de Practica
         </button>
       </div>
       <table className="min-w-full bg-white border border-gray-200">
         <thead>
           <tr>
-            <th className="py-2 px-4 border-b text-center">Razon Social</th>
-            <th className="py-2 px-4 border-b text-center">Nombre de Contacto</th>
-            <th className="py-2 px-4 border-b text-center">Correo</th>
-            <th className="py-2 px-4 border-b text-center">Telefono</th>
-            <th className="py-2 px-4 border-b text-center">Ciudad</th>
+            <th className="py-2 px-4 border-b text-center">Tipo</th>
+            <th className="py-2 px-4 border-b text-center">Nombre</th>
+            <th className="py-2 px-4 border-b text-center">Descripción</th>
           </tr>
         </thead>
         <tbody>
-          {allied.map((allied) => (
-            <tr key={allied.id}>
+          {practiceStrategys?.map((practiceStrategys) => (
+            <tr key={practiceStrategys.id}>
               <td className="py-2 px-4 border-b text-center">
-                {allied.razonsocial}
+                {practiceStrategys.type}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                {allied.name}
+                {practiceStrategys.description}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                {allied.mail}
-              </td>
-              <td className="py-2 px-4 border-b text-center">
-                {allied.telefono}
-              </td>
-              <td className="py-2 px-4 border-b text-center">
-                {allied.ciudad}
+                {practiceStrategys.source}
               </td>
               <td className="py-2 px-4 border-b text-center">
                 <label className="flex items-center space-x-2">
                   <input
                     type="checkbox"
                     className="toggle-switch"
-                    checked={allied.isActive}
-                    //onChange={() => handleToggleIsActive(allied.id)}
+                    checked={practiceStrategys.isActive}
+                    onChange={() => handleToggleIsActive(practiceStrategys.id)}
                   />
                   <span>
-                    {allied.isActive ? "Activo" : "Inactivo"}
+                    {practiceStrategys.isActive ? "Activo" : "Inactivo"}
                   </span>
                 </label>
               </td>
               <td className="py-2 px-4 border-b text-center space-x-4">
-              <button
+                <button
                   onClick={() =>
-                    navigate(`/read-allied/${allied.id}`)
+                    navigate(`/read-practice-strategys/${practiceStrategys.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
@@ -149,15 +138,14 @@ const AlliedDashboard: React.FC = () => {
                 </button>
                 <button
                   onClick={() =>
-                    navigate(`/edit-allied/${allied.id}`)
+                    navigate(`/edit-practice-strategys/${practiceStrategys.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Editar
                 </button>
                 <button
-                  onClick={() => deletion(allied.id)}
-                  
+                  onClick={() => deletion(practiceStrategys.id)}
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Borrar
@@ -171,4 +159,4 @@ const AlliedDashboard: React.FC = () => {
   );
 };
 
-export default AlliedDashboard;
+export default PracticeStrategysDashboard;

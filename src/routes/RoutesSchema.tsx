@@ -20,10 +20,6 @@ import CreateNormativeAspects from "../views/NormativeAspects/CreateNormativeAsp
 import NormativeAspectsDashboard from "../views/NormativeAspects/NormativeAspectsDashboard";
 import PaymentsDashboard from "../views/Payments/PaymentsDashboard";
 import PaymentsList from "../views/Payments/PaymentsList";
-import CreatePractice from "../views/PracticeStrategy/CreatePractice";
-import EditPractice from "../views/PracticeStrategy/EditPractice";
-import PracticesDashboard from "../views/PracticeStrategy/PracticesDashboard";
-import PracticesDetail from "../views/PracticeStrategy/PracticesDetail";
 import CreateUniversity from "../views/University/CreateUniversity";
 import UniversityDashboard from "../views/University/UniversityDashboard";
 import EditUser from "../views/Users/EditUsers";
@@ -36,6 +32,10 @@ import UniversityDetail from "../views/University/UniversityDetail";
 import EditUniversity from "../views/University/EditUniversity";
 import ApproachDetail from "../views/Approaches/ApproachDetail";
 import EditApproach from "../views/Approaches/EditApproach";
+import PracticeStrategyDetail from "../views/PracticeStrategys/PracticeStrategysDetail";
+import EditPracticeStrategy from "../views/PracticeStrategys/EditPracticeStrategys";
+import CreatePracticeStrategy from "../views/PracticeStrategys/CreatePracticeStrategys";
+import PracticeStrategysDashboard from "../views/PracticeStrategys/PracticeStrategysDashboard";
 
 export const RoutesSchema = [
   {
@@ -58,22 +58,7 @@ export const RoutesSchema = [
     path: "/create-allied",
     element: CreateAllied,
   },
-  {
-    path: "/practice-dashboard",
-    element: PracticesDashboard,
-  },
-  {
-    path: "/practice-detail",
-    element: PracticesDetail,
-  },
-  {
-    path: "/practice-edit",
-    element: EditPractice,
-  },
-  {
-    path: "/create-practice",
-    element: CreatePractice,
-  },
+
   {
     path: "/university-dashboard",
     element: UniversityDashboard,
@@ -122,6 +107,23 @@ export const RoutesSchema = [
     path: "/create-car-innovations",
     element: CreateCarInnovations,
   },
+  {
+    path: "/practice-strategys-dashboard",
+    element: PracticeStrategysDashboard,
+  },
+  {
+    path: "/read-practice-strategys/:id",
+    element: PracticeStrategyDetail,
+  },
+  {
+    path: "/edit-practice-strategys",
+    element: EditPracticeStrategy,
+  },
+  {
+    path: "/create-practice-strategys",
+    element: CreatePracticeStrategy,
+  },
+  
 
   // {CreateUniversity
   //   path: "/microsites/:slug",
