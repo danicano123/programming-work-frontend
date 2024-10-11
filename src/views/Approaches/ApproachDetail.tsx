@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Api } from "../../services/Api";
 import Swal from "sweetalert2";
@@ -19,11 +19,11 @@ const ApproachDetail: React.FC = () => {
         if (statusCode === 200) {
           setApproach(data);
         } else {
-          // Swal.fire({
-          //   title: "Error",
-          //   text: `${data.message}`,
-          //   icon: "error",
-          // });
+          Swal.fire({
+            title: "Error",
+            text: `${data.message}`,
+            icon: "error",
+          });
         }
       } catch (error: any) {
         Swal.fire({
@@ -45,7 +45,7 @@ const ApproachDetail: React.FC = () => {
       <div className="bg-white p-6 rounded-lg shadow-lg">
         <div className="space-y-4">
           <DetailItem label="Name" value={approach.name} />
-          <DetailItem label="Description" value={approach.Description} />
+          <DetailItem label="Description" value={approach.description} />
         </div>
         <div className="flex justify-end mt-6">
           <button

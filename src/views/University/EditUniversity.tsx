@@ -43,7 +43,7 @@ const EditUniversity: React.FC = () => {
   const initialValues = {
     name: university.name || "",
     type: university.type || "",
-    City: university.City || "",
+    City: university.city || "",
   };
 
   const validationSchema = Yup.object({
@@ -55,14 +55,14 @@ const EditUniversity: React.FC = () => {
       .required("Requerido"),
     City: Yup.string()
       .max(50, "Máximo 45 caracteres")
-      .required("Requirido"),
+      .required("Requerido"),
   });
 
   const handleSubmit = async (values: any) => {
     try {
-      const response = await Api.patch(`/university/${id}`, values, auth.data.token);
+      const response = await Api.patch(`/university/${id}`, { id: university.id, ...values}, auth.data.token);
       const { data, statusCode } = response;
-      if (statusCode === 200) {
+      if (statusCode === 204) {
         Swal.fire({
           title: "Success",
           text: "Universidad actualizada con exito",
@@ -124,7 +124,7 @@ const EditUniversity: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Ciudad</label>
               <Field
-                name="city"
+                name="City"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />

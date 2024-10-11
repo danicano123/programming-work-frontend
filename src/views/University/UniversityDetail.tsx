@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Api } from "../../services/Api";
 import Swal from "sweetalert2";
 
 const UniversityDetail: React.FC = () => {
-  const location = useLocation();
-  const { universityId } = location.state;
+  const { id } = useParams();
+
+ 
   const [university, setUniversity] = useState<any>(null);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
@@ -14,16 +15,16 @@ const UniversityDetail: React.FC = () => {
   useEffect(() => {
     const fetchUniversity = async () => {
       try {
-        const response = await Api.get(`/university/${universityId}`, auth.data.token);
+        const response = await Api.get(`/university/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
           setUniversity(data);
         } else {
-          // Swal.fire({
-          //   title: "Error",
-          //   text: `${data.message}`,
-          //   icon: "error",
-          // });
+          Swal.fire({
+            title: "Error",
+            text: `${data.message}`,
+            icon: "error",
+          });
         }
       } catch (error: any) {
         Swal.fire({
@@ -35,7 +36,7 @@ const UniversityDetail: React.FC = () => {
     };
 
     fetchUniversity();
-  }, [universityId, auth.data.token]);
+  }, [id, auth.data.token]);
 
   if (!university) return <div className="text-center py-4">Cargando...</div>;
 
@@ -44,7 +45,7 @@ const UniversityDetail: React.FC = () => {
       <h1 className="text-3xl font-bold mb-6 text-center">Detalles de universidad</h1>
       <div className="bg-white p-6 rounded-lg shadow-lg">
         <div className="space-y-4">
-          <DetailItem label="Name" value={university.name} />
+          <DetailItem label="Nombre" value={university.name} />
           <DetailItem label="Tipo" value={university.type} />
           <DetailItem label="Ciudad" value={university.city} />
         </div>

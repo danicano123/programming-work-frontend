@@ -15,7 +15,7 @@ const CreateUniversity: React.FC = () => {
   const initialValues = {
     name: "",
     type: "",
-    city: "",
+    City: "",
   };
 
   const validationSchema = Yup.object({
@@ -25,7 +25,7 @@ const CreateUniversity: React.FC = () => {
     type: Yup.string()
       .max(45, "Maximo 45 carateres")
       .required("Campo requerido"),
-    city: Yup.string()
+    City: Yup.string()
       .max(45, "Maximo 45 carateres")
       .required("Campo requerido"),
   });
@@ -99,12 +99,12 @@ const CreateUniversity: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Ciudad</label>
               <Field
-                name="city"
+                name="City"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="city"
+                name="City"
                 component="div"
                 className="text-red-600"
               />

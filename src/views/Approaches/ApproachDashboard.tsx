@@ -116,7 +116,7 @@ const ApproachDashboard: React.FC = () => {
                 {approach.description}
               </td>
               <td className="py-2 px-4 border-b text-center space-x-4">
-              <button
+               <button
                   onClick={() =>
                     navigate(`/read-approach/${approach.id}`)
                   }
@@ -134,7 +134,6 @@ const ApproachDashboard: React.FC = () => {
                 </button>
                 <button
                   onClick={() => deletion(approach.id)}
-                  
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Borrar

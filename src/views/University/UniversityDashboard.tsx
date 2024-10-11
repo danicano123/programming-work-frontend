@@ -37,23 +37,17 @@ const UniversityDashboard: React.FC = () => {
     fetchUniversity();
   }, [auth.data.token]);
 
-  const handleToggleIsActive = async (
-    universityId: string,
-    isActive: boolean
-  ) => {
+  const handleToggleIsActive = async (universityId: string) => {
     try {
       const response = await Api.patch(
-        `/university/${universityId}/is-active`,
-        {
-          is_active: !isActive,
-        },
+        `/university/toggle-is-active${universityId}`,
         auth.data.token
       );
       const { data, statusCode } = response;
       if (statusCode === 200) {
         const updatedUniversity = university.map((university) =>
           university.id === universityId
-            ? { ...university, is_active: !isActive }
+            ? { ...university, isActive: data.isActive }
             : university
         );
         setUniversity(updatedUniversity);
@@ -91,7 +85,7 @@ const UniversityDashboard: React.FC = () => {
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold mb-4">Tablero de universidad</h1>
         <button
-          onClick={() => navigate("/create-university-dashboard")}
+          onClick={() => navigate("/create-university")}
           className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
         >
           Crear universidad
@@ -106,7 +100,7 @@ const UniversityDashboard: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {university.map((university) => (
+          {university?.map((university) => (
             <tr key={university.id}>
               <td className="py-2 px-4 border-b text-center">
                 {university.name}
@@ -115,7 +109,7 @@ const UniversityDashboard: React.FC = () => {
                 {university.type}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                {university.City}
+                {university.city}
               </td>
               <td className="py-2 px-4 border-b text-center">
                 <label className="flex items-center space-x-2">
@@ -123,7 +117,7 @@ const UniversityDashboard: React.FC = () => {
                     type="checkbox"
                     className="toggle-switch"
                     checked={university.isActive}
-                    //onChange={() => handleToggleIsActive(university.id)}
+                    onChange={() => handleToggleIsActive(university.id)}
                   />
                   <span>
                     {university.isActive ? "Activo" : "Inactivo"}

@@ -56,7 +56,8 @@ const UniversityList: React.FC = () => {
               />
               <div>
                 <h2 className="text-xl font-bold">{university.name}</h2>
-                <p className="text-gray-600">{university.university_type}</p>
+                <p className="text-gray-600">{university.type}</p>
+                <h2 className="text-gray-600">{university.city}</h2>
               </div>
             </div>
             <div className="py-2 px-4 border-b space-x-4">

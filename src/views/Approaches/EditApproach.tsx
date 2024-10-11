@@ -57,9 +57,9 @@ const EditApproach: React.FC = () => {
 
   const handleSubmit = async (values: any) => {
     try {
-      const response = await Api.patch(`/approach/${id}`, values, auth.data.token);
+      const response = await Api.patch(`/approach/${id}`, { id: approach.id, ...values}, auth.data.token);
       const { data, statusCode } = response;
-      if (statusCode === 200) {
+      if (statusCode === 204) {
         Swal.fire({
           title: "Success",
           text: "Enfoque actualizado correctamente",

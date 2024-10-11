@@ -64,7 +64,7 @@ export const RoutesSchema = [
     element: UniversityDashboard,
   },
   {
-    path: "/create-university-dashboard",
+    path: "/create-university",
     element: CreateUniversity,
   },
   {
