@@ -6,19 +6,20 @@ import Swal from "sweetalert2";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-const EditPracticeStrategy: React.FC = () => {
+
+const EditAnProgram: React.FC = () => {
   const { id } = useParams();
-  const [practiceStrategy, setPracticeStrategy] = useState<any>(null);
+  const [anProgram, setAnProgram] = useState<any>(null);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchPracticeStrategy = async () => {
+    const fetchAnProgram = async () => {
       try {
-        const response = await Api.get(`/practice-strategys/${id}`, auth.data.token);
+        const response = await Api.get(`/anProgram/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
-          setPracticeStrategy(data);
+          setAnProgram(data);
         } else {
           Swal.fire({
             title: "Error",
@@ -35,44 +36,36 @@ const EditPracticeStrategy: React.FC = () => {
       }
     };
 
-    fetchPracticeStrategy();
+    fetchAnProgram();
   }, [id, auth.data.token]);
 
-  if (!practiceStrategy) return <div>Cargando...</div>;
+  if (!anProgram) return <div>Cargando...</div>;
 
   const initialValues = {
-    id: practiceStrategy.type || "",
-    name: practiceStrategy.type || "",
-    type: practiceStrategy.name || "",
-    City: practiceStrategy.description || "",
+    normativeaspects: anProgram.normativeaspects || "",
+    program: anProgram.program || "",
   };
 
   const validationSchema = Yup.object({
-    id: Yup.string()
-    .max(50, "Máximo 60 caracteres")
-    .required("Requerido"),
-    name: Yup.string()
-      .max(50, "Máximo 60 caracteres")
+    normativeaspects: Yup.string()
+      .max(45, "Máximo 45 caracteres")
       .required("Requerido"),
-    type: Yup.string()
-      .max(50, "Máximo 45 caracteres")
+      program: Yup.string()
+      .max(45, "Máximo 45 caracteres")
       .required("Requerido"),
-    City: Yup.string()
-      .max(50, "Máximo 45 caracteres")
-      .required("Requirido"),
   });
 
   const handleSubmit = async (values: any) => {
     try {
-      const response = await Api.patch(`/practice-strategys/${id}`, values, auth.data.token);
+      const response = await Api.patch(`/anProgram/${id}`, { id: anProgram.id, ...values}, auth.data.token);
       const { data, statusCode } = response;
-      if (statusCode === 200) {
+      if (statusCode === 204) {
         Swal.fire({
           title: "Success",
-          text: "Estrategia de Práctica actualizada con exito",
+          text: "An Programa actualizado correctamente",
           icon: "success",
         });
-        navigate("/practice-strategys-dashboard");
+        navigate("/an-program-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -91,7 +84,7 @@ const EditPracticeStrategy: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Editar Estrategia de Practica</h1>
+      <h1 className="text-2xl font-bold mb-4">Editar An Programa</h1>
       <div className="bg-white p-4 rounded shadow-md">
         <Formik
           initialValues={initialValues}
@@ -99,34 +92,8 @@ const EditPracticeStrategy: React.FC = () => {
           onSubmit={handleSubmit}
         >
           <Form>
-          <div className="mb-4">
-              <label className="block text-gray-700">Id</label>
-              <Field
-                name="id"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="id"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Tipo de Practica</label>
-              <Field
-                name="type"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="type"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Nombre</label>
+              <label className="block text-gray-700">Aspecto Normativo</label>
               <Field
                 name="name"
                 type="text"
@@ -139,7 +106,7 @@ const EditPracticeStrategy: React.FC = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Descripcion</label>
+              <label className="block text-gray-700">Programa</label>
               <Field
                 name="description"
                 type="text"
@@ -161,7 +128,7 @@ const EditPracticeStrategy: React.FC = () => {
               <button
                 type="button"
                 className="ml-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
-                onClick={() => navigate("/practice-strategys-dashboard")}
+                onClick={() => navigate("/an-program-dashboard")}
               >
                 Cancelar
               </button>
@@ -173,4 +140,4 @@ const EditPracticeStrategy: React.FC = () => {
   );
 };
 
-export default EditPracticeStrategy;
+export default EditAnProgram;

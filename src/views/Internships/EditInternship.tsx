@@ -6,19 +6,20 @@ import Swal from "sweetalert2";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-const EditPracticeStrategy: React.FC = () => {
+
+const EditInternship: React.FC = () => {
   const { id } = useParams();
-  const [practiceStrategy, setPracticeStrategy] = useState<any>(null);
+  const [internship, setInternship] = useState<any>(null);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchPracticeStrategy = async () => {
+    const fetchInternship = async () => {
       try {
-        const response = await Api.get(`/practice-strategys/${id}`, auth.data.token);
+        const response = await Api.get(`/internship/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
-          setPracticeStrategy(data);
+          setInternship(data);
         } else {
           Swal.fire({
             title: "Error",
@@ -35,44 +36,51 @@ const EditPracticeStrategy: React.FC = () => {
       }
     };
 
-    fetchPracticeStrategy();
+    fetchInternship();
   }, [id, auth.data.token]);
 
-  if (!practiceStrategy) return <div>Cargando...</div>;
+  if (!internship) return <div>Cargando...</div>;
 
   const initialValues = {
-    id: practiceStrategy.type || "",
-    name: practiceStrategy.type || "",
-    type: practiceStrategy.name || "",
-    City: practiceStrategy.description || "",
+    id: internship.id || "",
+    name: internship.name || "",
+    country: internship.country || "",
+    company: internship.company || "",
+    description: internship.description || "",
+    program: internship.program || "",
   };
 
   const validationSchema = Yup.object({
     id: Yup.string()
-    .max(50, "Máximo 60 caracteres")
-    .required("Requerido"),
+      .max(45, "Máximo 45 caracteres")
+      .required("Requerido"),
     name: Yup.string()
-      .max(50, "Máximo 60 caracteres")
+      .max(45, "Máximo 45 caracteres"),
+    country: Yup.string()
+      .max(45, "Máximo 45 caracteres")
       .required("Requerido"),
-    type: Yup.string()
-      .max(50, "Máximo 45 caracteres")
+    company: Yup.string()
+      .max(45, "Máximo 45 caracteres")
       .required("Requerido"),
-    City: Yup.string()
-      .max(50, "Máximo 45 caracteres")
-      .required("Requirido"),
+    description: Yup.string()
+      .max(45, "Máximo 45 caracteres")
+      .required("Requerido"),
+    program: Yup.string()
+      .max(45, "Máximo 45 caracteres")
+      .required("Requerido"),
   });
 
   const handleSubmit = async (values: any) => {
     try {
-      const response = await Api.patch(`/practice-strategys/${id}`, values, auth.data.token);
+      const response = await Api.patch(`/internship/${id}`, { id: internship.id, ...values}, auth.data.token);
       const { data, statusCode } = response;
-      if (statusCode === 200) {
+      if (statusCode === 204) {
         Swal.fire({
           title: "Success",
-          text: "Estrategia de Práctica actualizada con exito",
+          text: "Pasantia actualizado correctamente",
           icon: "success",
         });
-        navigate("/practice-strategys-dashboard");
+        navigate("/internship-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -91,7 +99,7 @@ const EditPracticeStrategy: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Editar Estrategia de Practica</h1>
+      <h1 className="text-2xl font-bold mb-4">Editar Pasantia</h1>
       <div className="bg-white p-4 rounded shadow-md">
         <Formik
           initialValues={initialValues}
@@ -113,19 +121,6 @@ const EditPracticeStrategy: React.FC = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Tipo de Practica</label>
-              <Field
-                name="type"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="type"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
               <label className="block text-gray-700">Nombre</label>
               <Field
                 name="name"
@@ -139,7 +134,34 @@ const EditPracticeStrategy: React.FC = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Descripcion</label>
+              <label className="block text-gray-700">Pais</label>
+              <Field
+                name="country"
+                type="text"
+                className="w-full p-2 border border-gray-300 rounded"
+              />
+              <ErrorMessage
+                name="country"
+                component="div"
+                className="text-red-600"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700">Compañia</label>
+              <Field
+                name="company"
+                type="text"
+                className="w-full p-2 border border-gray-300 rounded"
+              />
+              <ErrorMessage
+                name="company"
+                component="div"
+                className="text-red-600"
+              />
+            </div>
+            
+            <div className="mb-4">
+              <label className="block text-gray-700">Descripción</label>
               <Field
                 name="description"
                 type="text"
@@ -147,6 +169,19 @@ const EditPracticeStrategy: React.FC = () => {
               />
               <ErrorMessage
                 name="description"
+                component="div"
+                className="text-red-600"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700">Programa</label>
+              <Field
+                name="program"
+                type="text"
+                className="w-full p-2 border border-gray-300 rounded"
+              />
+              <ErrorMessage
+                name="program"
                 component="div"
                 className="text-red-600"
               />
@@ -161,7 +196,7 @@ const EditPracticeStrategy: React.FC = () => {
               <button
                 type="button"
                 className="ml-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
-                onClick={() => navigate("/practice-strategys-dashboard")}
+                onClick={() => navigate("/internship-dashboard")}
               >
                 Cancelar
               </button>
@@ -173,4 +208,4 @@ const EditPracticeStrategy: React.FC = () => {
   );
 };
 
-export default EditPracticeStrategy;
+export default EditInternship;

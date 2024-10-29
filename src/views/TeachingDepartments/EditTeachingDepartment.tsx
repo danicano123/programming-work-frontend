@@ -6,19 +6,20 @@ import Swal from "sweetalert2";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-const EditPracticeStrategy: React.FC = () => {
+
+const EditTeachingDepartament: React.FC = () => {
   const { id } = useParams();
-  const [practiceStrategy, setPracticeStrategy] = useState<any>(null);
+  const [teachingDepartament, setTeachingDepartament] = useState<any>(null);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchPracticeStrategy = async () => {
+    const fetchTeachingDepartament = async () => {
       try {
-        const response = await Api.get(`/practice-strategys/${id}`, auth.data.token);
+        const response = await Api.get(`/teaching-departament/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
-          setPracticeStrategy(data);
+          setTeachingDepartament(data);
         } else {
           Swal.fire({
             title: "Error",
@@ -35,44 +36,48 @@ const EditPracticeStrategy: React.FC = () => {
       }
     };
 
-    fetchPracticeStrategy();
+    fetchTeachingDepartament();
   }, [id, auth.data.token]);
 
-  if (!practiceStrategy) return <div>Cargando...</div>;
+  if (!teachingDepartament) return <div>Cargando...</div>;
 
   const initialValues = {
-    id: practiceStrategy.type || "",
-    name: practiceStrategy.type || "",
-    type: practiceStrategy.name || "",
-    City: practiceStrategy.description || "",
+    name: teachingDepartament.name || "",
+    description: teachingDepartament.description || "",
   };
 
   const validationSchema = Yup.object({
-    id: Yup.string()
-    .max(50, "Máximo 60 caracteres")
-    .required("Requerido"),
-    name: Yup.string()
-      .max(50, "Máximo 60 caracteres")
-      .required("Requerido"),
-    type: Yup.string()
-      .max(50, "Máximo 45 caracteres")
-      .required("Requerido"),
-    City: Yup.string()
-      .max(50, "Máximo 45 caracteres")
-      .required("Requirido"),
+  teaching: Yup.string()
+    .max(60, "Maximo 60 carateres")
+    .required("Campo requerido"),
+  departament: Yup.string()
+    .max(45, "Maximo 45 carateres")
+    .required("Campo requerido"),
+  dedication: Yup.string()
+    .max(45, "Maximo 45 carateres")
+    .required("Campo requerido"),
+  mode: Yup.string()
+    .max(45, "Maximo 45 carateres")
+    .required("Campo requerido"),
+  entrydate: Yup.string()
+    .max(45, "Maximo 45 carateres")
+    .required("Campo requerido"),
+  departuredate: Yup.string()
+    .max(45, "Maximo 45 carateres")
+    .required("Campo requerido"),
   });
 
   const handleSubmit = async (values: any) => {
     try {
-      const response = await Api.patch(`/practice-strategys/${id}`, values, auth.data.token);
+      const response = await Api.patch(`/teaching-departament/${id}`, { id: teachingDepartament.id, ...values}, auth.data.token);
       const { data, statusCode } = response;
-      if (statusCode === 200) {
+      if (statusCode === 204) {
         Swal.fire({
           title: "Success",
-          text: "Estrategia de Práctica actualizada con exito",
+          text: "Docente Departamento actualizado correctamente",
           icon: "success",
         });
-        navigate("/practice-strategys-dashboard");
+        navigate("/teaching-departament-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -91,7 +96,7 @@ const EditPracticeStrategy: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Editar Estrategia de Practica</h1>
+      <h1 className="text-2xl font-bold mb-4">Editar Docente Departamento</h1>
       <div className="bg-white p-4 rounded shadow-md">
         <Formik
           initialValues={initialValues}
@@ -99,54 +104,80 @@ const EditPracticeStrategy: React.FC = () => {
           onSubmit={handleSubmit}
         >
           <Form>
-          <div className="mb-4">
-              <label className="block text-gray-700">Id</label>
+            <div className="mb-4">
+              <label className="block text-gray-700">Docente</label>
               <Field
-                name="id"
+                name="teaching"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="id"
+                name="teaching"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Tipo de Practica</label>
+              <label className="block text-gray-700">Departamento</label>
               <Field
-                name="type"
+                name="departament"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="type"
+                name="departament"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Nombre</label>
+              <label className="block text-gray-700">Dedicación</label>
               <Field
-                name="name"
+                name="dedication"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="name"
+                name="dedication"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Descripcion</label>
+              <label className="block text-gray-700">Modalidad</label>
               <Field
-                name="description"
+                name="mode"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="description"
+                name="mode"
+                component="div"
+                className="text-red-600"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700">Fecha Ingreso</label>
+              <Field
+                name="entrydate"
+                type="text"
+                className="w-full p-2 border border-gray-300 rounded"
+              />
+              <ErrorMessage
+                name="entrydate"
+                component="div"
+                className="text-red-600"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700">Fecha Salida</label>
+              <Field
+                name="departuredate"
+                type="text"
+                className="w-full p-2 border border-gray-300 rounded"
+              />
+              <ErrorMessage
+                name="departuredate"
                 component="div"
                 className="text-red-600"
               />
@@ -161,7 +192,7 @@ const EditPracticeStrategy: React.FC = () => {
               <button
                 type="button"
                 className="ml-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
-                onClick={() => navigate("/practice-strategys-dashboard")}
+                onClick={() => navigate("/teaching-departament-dashboard")}
               >
                 Cancelar
               </button>
@@ -173,4 +204,4 @@ const EditPracticeStrategy: React.FC = () => {
   );
 };
 
-export default EditPracticeStrategy;
+export default EditTeachingDepartament;

@@ -4,20 +4,20 @@ import { useNavigate } from "react-router-dom";
 import { Api } from "../../services/Api";
 import Swal from "sweetalert2";
 
-const CarInnovationsDashboard: React.FC = () => {
-  const [carInnovations, setCarInnovations] = useState<any[]>([]);
+const AllianceDashboard: React.FC = () => {
+  const [alliance, setAlliance] = useState<any[]>([]);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchCarInnovations = async () => {
+    const fetchAlliance = async () => {
       try {
         const { data, statusCode } = await Api.get(
-          "/car-innovations",
+          "/alliance",
           auth.data.token
         );
         if (statusCode === 200) {
-          setCarInnovations(data);
+          setAlliance(data);
         } else {
           Swal.fire({
             title: "Error",
@@ -28,33 +28,38 @@ const CarInnovationsDashboard: React.FC = () => {
       } catch (error) {
         Swal.fire({
           title: "Error",
-          text: "Error: unable to fetch active car innovations",
+          text: "Error: unable to fetch active alliance",
           icon: "error",
         });
       }
     };
 
-    fetchCarInnovations();
+    fetchAlliance();
   }, [auth.data.token]);
 
-  const handleToggleIsActive = async (carInnovationId: string) => {
+  const handleToggleIsActive = async (
+    allianceId: string,
+    isActive: boolean
+  ) => {
     try {
-      const response = await Api.post(
-        `/car-innovations/toggle-is-active/${carInnovationId}`,
+      const response = await Api.patch(
+        `/alliance/${allianceId}/is-active`,
+        {
+          is_active: !isActive,
+        },
         auth.data.token
       );
       const { data, statusCode } = response;
       if (statusCode === 200) {
-        const updatedCarInnovations = carInnovations.map(
-          (carInnovation) =>
-            carInnovation.id === carInnovationId
-              ? { ...carInnovation, isActive: data.isActive }
-              : carInnovation
+        const updatedAlliance = alliance.map((alliance) =>
+          alliance.id === allianceId
+            ? { ...alliance, is_active: !isActive }
+            : alliance
         );
-        setCarInnovations(updatedCarInnovations);
+        setAlliance(updatedAlliance);
         Swal.fire({
           title: "Success",
-          text: "Car Innovation updated successfully",
+          text: "Alianza actualizado con exito",
           icon: "success",
         });
       } else {
@@ -75,78 +80,74 @@ const CarInnovationsDashboard: React.FC = () => {
 
   const deletion = async (id: any) => {
     const response = await Api.delete(
-      `/car-innovations/${id}`,
+      `/alliance/${id}`,
       auth.data.token
     );
     window.location.reload();
   };
 
+
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold mb-4">Innovación automovilística</h1>
+        <h1 className="text-2xl font-bold mb-4">Tablero de Alianza</h1>
         <button
-          onClick={() => navigate("/create-car-innovations")}
+          onClick={() => navigate("/create-alliance-dashboard")}
           className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
         >
-          Create Car Innovation
+          Crear Alianza
         </button>
       </div>
       <table className="min-w-full bg-white border border-gray-200">
         <thead>
           <tr>
-            <th className="py-2 px-4 border-b text-center">Name</th>
-            <th className="py-2 px-4 border-b text-center">Description</th>
-            <th className="py-2 px-4 border-b text-center">Type</th>
+            <th className="py-2 px-4 border-b text-center">Aliado</th>
+            <th className="py-2 px-4 border-b text-center">Departamento</th>
+            <th className="py-2 px-4 border-b text-center">Fecha Inicio</th>
+            <th className="py-2 px-4 border-b text-center">Fecha Fin</th>
+            <th className="py-2 px-4 border-b text-center">Docente</th>
           </tr>
         </thead>
         <tbody>
-          {carInnovations?.map((carInnovation) => (
-            <tr key={carInnovation.id}>
+          {alliance.map((alliance) => (
+            <tr key={alliance.id}>
               <td className="py-2 px-4 border-b text-center">
-                {carInnovation.name}
+                {alliance.allied}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                {carInnovation.description}
+                {alliance.departament}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                {carInnovation.type}
+                {alliance.startdate}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                <label className="flex items-center space-x-2">
-                  <input
-                    type="checkbox"
-                    className="toggle-switch"
-                    checked={carInnovation.isActive}
-                    onChange={() => handleToggleIsActive(carInnovation.id)}
-                  />
-                  <span>
-                    {carInnovation.isActive ? "Active" : "Inactive"}
-                  </span>
-                </label>
+                {alliance.enddate}
+              </td>
+              <td className="py-2 px-4 border-b text-center">
+                {alliance.teaching}
               </td>
               <td className="py-2 px-4 border-b text-center space-x-4">
-                <button
+               <button
                   onClick={() =>
-                    navigate(`/read-car-innovations/${carInnovation.id}`)
+                    navigate(`/read-alliance/${alliance.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
-                  View Details
+                  Ver detalle
                 </button>
                 <button
                   onClick={() =>
-                    navigate(`/edit-car-innovations/${carInnovation.id}`)
+                    navigate(`/edit-alliance/${alliance.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
-                  Edit
+                  Editar
                 </button>
                 <button
-                  onClick={() => deletion(carInnovation.id)}
-                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                  onClick={() => deletion(alliance.id)}
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
-                  Delete
+                  Borrar
                 </button>
               </td>
             </tr>
@@ -157,4 +158,4 @@ const CarInnovationsDashboard: React.FC = () => {
   );
 };
 
-export default CarInnovationsDashboard;
+export default AllianceDashboard;
