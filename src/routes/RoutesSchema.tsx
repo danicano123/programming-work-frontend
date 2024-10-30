@@ -36,6 +36,26 @@ import PracticeStrategyDetail from "../views/PracticeStrategys/PracticeStrategys
 import EditPracticeStrategy from "../views/PracticeStrategys/EditPracticeStrategys";
 import CreatePracticeStrategy from "../views/PracticeStrategys/CreatePracticeStrategys";
 import PracticeStrategysDashboard from "../views/PracticeStrategys/PracticeStrategysDashboard";
+import EditFaculty from "../views/Faculties/EditFaculty";
+import FacultyDetail from "../views/Faculties/FacultyDetail";
+import CreateFaculty from "../views/Faculties/CreateFaculty";
+import FacultyDashboard from "../views/Faculties/FacultyDashboard";
+import CreateAcreditation from "../views/Acreditations/CreateAcreditation";
+import AcreditationDetail from "../views/Acreditations/AdreditationDetail";
+import EditAcreditation from "../views/Acreditations/EditAcreditation";
+import AcreditationDashboard from "../views/Acreditations/AcreditationDashboard";
+import QualifiedRegistrationDashboard from "../views/QualifiedRegistrations/QualifiedRegistrationDashboard";
+import EditQualifiedRegistration from "../views/QualifiedRegistrations/EditQualifiedRegistration";
+import QualifiedRegistrationDetail from "../views/QualifiedRegistrations/QualifiedRegistrationDetail";
+import CreateQualifiedRegistration from "../views/QualifiedRegistrations/CreateQualifiedRegistration";
+import AcademicActivityDashboard from "../views/AcademicActivities/AcademicActivityDashboard";
+import EditAcademicActivity from "../views/AcademicActivities/EditAcademicActivity";
+import AcademicActivityDetail from "../views/AcademicActivities/AcademicActivityDetail";
+import CreateAcademicActivity from "../views/AcademicActivities/CreateAcademicActivity";
+import AwardDashboard from "../views/Awards/AwardDashboard";
+import EditAward from "../views/Awards/EditAward";
+import AwardDetail from "../views/Awards/AwardDetail";
+import CreateAward from "../views/Awards/CreateAward";
 
 export const RoutesSchema = [
   {
@@ -58,11 +78,6 @@ export const RoutesSchema = [
     path: "/create-allied",
     element: CreateAllied,
   },
-
-  {
-    path: "/university-dashboard",
-    element: UniversityDashboard,
-  },
   {
     path: "/create-university",
     element: CreateUniversity,
@@ -74,6 +89,94 @@ export const RoutesSchema = [
   {
     path: "/edit-university/:id",
     element: EditUniversity,
+  },
+  {
+    path: "/university-dashboard",
+    element: UniversityDashboard,
+  },
+  {
+    path: "/create-faculty",
+    element: CreateFaculty,
+  },
+  {
+    path: "/read-faculty/:id",
+    element: FacultyDetail,
+  },
+  {
+    path: "/edit-faculty/:id",
+    element: EditFaculty,
+  },
+  {
+    path: "/faculty-dashboard",
+    element: FacultyDashboard,
+  },
+  {
+    path: "/university-dashboard",
+    element: UniversityDashboard,
+  },
+  {
+    path: "/create-academic-activity",
+    element: CreateAcademicActivity,
+  },
+  {
+    path: "/read-academic-activity/:id",
+    element: AcademicActivityDetail,
+  },
+  {
+    path: "/edit-academic-activity/:id",
+    element: EditAcademicActivity,
+  },
+  {
+    path: "/academic-activity-dashboard",
+    element: AcademicActivityDashboard,
+  },
+  {
+    path: "/create-qualified-registration",
+    element: CreateQualifiedRegistration,
+  },
+  {
+    path: "/read-qualified-registration/:id",
+    element: QualifiedRegistrationDetail,
+  },
+  {
+    path: "/edit-qualified-registration/:id",
+    element: EditQualifiedRegistration,
+  },
+  {
+    path: "/qualified-registration-dashboard",
+    element: QualifiedRegistrationDashboard,
+  },
+  {
+    path: "/create-acreditation",
+    element: CreateAcreditation,
+  },
+  {
+    path: "/read-acreditation/:id",
+    element: AcreditationDetail,
+  },
+  {
+    path: "/edit-acreditation/:id",
+    element: EditAcreditation,
+  },
+  {
+    path: "/acreditation-dashboard",
+    element: AcreditationDashboard,
+  },
+  {
+    path: "/create-award",
+    element: CreateAward,
+  },
+  {
+    path: "/read-award/:id",
+    element: AwardDetail,
+  },
+  {
+    path: "/edit-award/:id",
+    element: EditAward,
+  },
+  {
+    path: "/award-dashboard",
+    element: AwardDashboard,
   },
   {
     path: "/approach-dashboard",
