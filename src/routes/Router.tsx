@@ -5,7 +5,7 @@ import ProtectedRoutes from "./protectedRoutes";
 import Layout from "../components/Layout/Layout";
 
 const router = createBrowserRouter(
-  RoutesSchema.map((route) => ({
+  RoutesSchema.map((route: any) => ({
     ...route,
     element: (
       <Layout>
@@ -16,7 +16,7 @@ const router = createBrowserRouter(
         )}
       </Layout>
     ),
-    children: route.children?.map((child) => ({
+    children: route.children?.map((child: any) => ({
       ...child,
       element: createElement(child.element),
     })),
