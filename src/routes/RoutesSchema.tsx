@@ -194,6 +194,7 @@ export const RoutesSchema = [
     path: "/edit-approach/:id",
     element: EditApproach,
   },
+
   {
     path: "/car-innovation-dashboard",
     element: CarInnovationsDashboard,
@@ -210,6 +211,7 @@ export const RoutesSchema = [
     path: "/create-car-innovations",
     element: CreateCarInnovations,
   },
+
   {
     path: "/practice-strategys-dashboard",
     element: PracticeStrategysDashboard,
@@ -226,6 +228,152 @@ export const RoutesSchema = [
     path: "/create-practice-strategys",
     element: CreatePracticeStrategy,
   },
+
+//Alliances
+  {
+    path: "/alliance-dashboard",
+    element: AllianceDashboard,
+  },
+  {
+    path: "/alliance-detail",
+    element: AllianceDetail,
+  },
+  {
+    path: "/alliance-edit",
+    element: EditAlliance,
+  },
+  {
+    path: "/create-alliance",
+    element: CreateAlliance,
+  },
+
+  //Teaching-department
+  {
+    path: "/teaching-department-dashboard",
+    element: TeachingDepartamentDashboard,
+  },
+  {
+    path: "/teaching-department-detail",
+    element: TeachingDepartamentDetail,
+  },
+  {
+    path: "/teaching-department-edit",
+    element: EditTeachingDepartament,
+  },
+  {
+    path: "/create-teaching-department",
+    element: CreateTeachingDepartament,
+  },
+
+  //Program
+  {
+    path: "/program-dashboard",
+    element: ProgramDashboard,
+  },
+  {
+    path: "/program-detail",
+    element: ProgramDetail,
+  },
+  {
+    path: "/program-edit",
+    element: EditProgram,
+  },
+  {
+    path: "/create-program",
+    element: CreateProgram,
+  },
+  
+  //ProgramPe
+  {
+    path: "/program-pe-dashboard",
+    element: ProgramPeDashboard,
+  },
+  {
+    path: "/program-pe-detail",
+    element: ProgramPeDetail,
+  },
+  {
+    path: "/program-pe-edit",
+    element: EditProgramPe,
+  },
+  {
+    path: "/create-program-pe",
+    element: CreateProgramPe,
+  },
+
+  //ProgramAc
+  {
+    path: "/program-pe-dashboard",
+    element: ProgramAcDashboard,
+  },
+  {
+    path: "/program-pe-detail",
+    element: ProgramAcDetail,
+  },
+  {
+    path: "/program-pe-edit",
+    element: EditProgramAc,
+  },
+  {
+    path: "/create-program-pe",
+    element: CreateProgramAc,
+  },
+
+   //ProgramCi
+   {
+    path: "/program-ci-dashboard",
+    element: ProgramCiDashboard,
+  },
+  {
+    path: "/program-ci-detail",
+    element: ProgramCiDetail,
+  },
+  {
+    path: "/program-ci-edit",
+    element: EditProgramCi,
+  },
+  {
+    path: "/create-program-ci",
+    element: CreateProgramCi,
+  },
+
+  //AnPrograms
+  {
+    path: "/an-program-dashboard",
+    element: AnProgramDashboard,
+  },
+  {
+    path: "/an-program-detail",
+    element: AnProgramDetail,
+  },
+  {
+    path: "/an-program-edit",
+    element: EditAnProgram,
+  },
+  {
+    path: "/create-an-program",
+    element: CreateAnProgram,
+  },
+
+  //Internships
+  {
+    path: "/internship-dashboard",
+    element: InternshipDashboard,
+  },
+  {
+    path: "/internship-detail",
+    element: InternshipDetail,
+  },
+  {
+    path: "/internship-edit",
+    element: EditInternship,
+  },
+  {
+    path: "/create-internship",
+    element: CreateInternship,
+  },
+
+
   
 
   // {CreateUniversity

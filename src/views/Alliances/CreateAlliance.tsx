@@ -7,49 +7,50 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 
-const CreateAllied: React.FC = () => {
+
+const CreateAlliance: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
   const initialValues = {
-    companyreason: "",
-    namecontact: "",
-    mail: "",
-    phone: "",
-    city: "",
+    alliance: "",
+    departament: "",
+    startdate: "",
+    enddate: "",
+    teaching: "",
   };
 
   const validationSchema = Yup.object({
-    companyreason: Yup.string()
-      .max(50, "Máximo 60 caracteres")
-      .required("Campo Requerido"),
-    namecontac: Yup.string()
-      .max(50, "Máximo 45 caracteres")
-      .required("Campo Requerido"),
-    mail: Yup.string()
-      .max(50, "Máximo 45 caracteres")
-      .required("Campo Requerido"),
-    phone: Yup.string()
-      .max(50, "Máximo 45 caracteres")
-      .required("Campo Requerido"),
-    city: Yup.string()
-      .max(50, "Máximo 45 caracteres")
-      .required("Campo Requerido"),
+    alliance: Yup.string()
+      .max(60, "Maximo 60 carateres")
+      .required("Campo requerido"),
+      departament: Yup.string()
+      .max(45, "Maximo 45 carateres")
+      .required("Campo requerido"),
+      startdate: Yup.string()
+      .max(45, "Maximo 45 carateres")
+      .required("Campo requerido"),
+      enddate: Yup.string()
+      .max(45, "Maximo 45 carateres")
+      .required("Campo requerido"),
+      teaching: Yup.string()
+      .max(45, "Maximo 45 carateres")
+      .required("Campo requerido"),
   });
 
   const handleSubmit = async (values: any) => {
     setIsLoading(true);
     try {
-      const response = await Api.post("/allied", values, auth.data.token);
+      const response = await Api.post("/Alliance", values, auth.data.token);
       const { data, statusCode } = response;
       if (statusCode === 201) {
-        Swal.fire({
+        Swal.fire({ 
           title: "Success",
-          text: "Aliado creada con exito",
+          text: "Alianza creado con exito",
           icon: "success",
         });
-        navigate("/allied-dashboard");
+        navigate("/alliance-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -70,7 +71,7 @@ const CreateAllied: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Crear Aliado</h1>
+      <h1 className="text-2xl font-bold mb-4">Crear Alianza</h1>
       <div className="bg-white p-4 rounded shadow-md">
         <Formik
           initialValues={initialValues}
@@ -79,7 +80,7 @@ const CreateAllied: React.FC = () => {
         >
           <Form>
             <div className="mb-4">
-              <label className="block text-gray-700">Razon Social</label>
+              <label className="block text-gray-700">Aliado</label>
               <Field
                 name="name"
                 type="text"
@@ -92,58 +93,58 @@ const CreateAllied: React.FC = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Nombre de Contacto</label>
+              <label className="block text-gray-700">Departamento</label>
               <Field
-                name="type"
+                name="description"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="type"
+                name="description"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Correo</label>
+              <label className="block text-gray-700">Fecha inicio</label>
               <Field
-                name="type"
+                name="description"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="type"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Telefono</label>
-              <Field
-                name="type"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="type"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Ciudad</label>
-              <Field
-                name="city"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="city"
+                name="description"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="flex justify-between">
+            <div className="mb-4">
+              <label className="block text-gray-700">Fecha fin</label>
+              <Field
+                name="description"
+                type="text"
+                className="w-full p-2 border border-gray-300 rounded"
+              />
+              <ErrorMessage
+                name="description"
+                component="div"
+                className="text-red-600"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700">Docente</label>
+              <Field
+                name="description"
+                type="text"
+                className="w-full p-2 border border-gray-300 rounded"
+              />
+              <ErrorMessage
+                name="description"
+                component="div"
+                className="text-red-600"
+              />
+            </div>
               <button
                 type="submit"
                 className={`${
@@ -154,7 +155,7 @@ const CreateAllied: React.FC = () => {
                 {isLoading ? "Guardando..." : "Guardar"}
               </button>
               <button
-                onClick={() => navigate("/allied-dashboard")}
+                onClick={() => navigate("/alliance-dashboard")}
                 className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
               >
                 Salir
@@ -167,4 +168,4 @@ const CreateAllied: React.FC = () => {
   );
 };
 
-export default CreateAllied;
+export default CreateAlliance;

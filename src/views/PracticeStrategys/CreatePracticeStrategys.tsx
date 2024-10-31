@@ -13,6 +13,7 @@ const CreatePracticeStrategy: React.FC = () => {
   const navigate = useNavigate();
 
   const initialValues = {
+    id: "",
     type: "",
     name: "",
     description: "",
@@ -20,6 +21,9 @@ const CreatePracticeStrategy: React.FC = () => {
   };
 
   const validationSchema = Yup.object({
+    id: Yup.string()
+      .max(45, "Máximo 45 caracteres")
+      .required("Campo Obligatorio"),
     type: Yup.string()
       .max(45, "Máximo 45 caracteres")
       .required("Campo Obligatorio"),
@@ -72,6 +76,19 @@ const CreatePracticeStrategy: React.FC = () => {
           onSubmit={handleSubmit}
         >
           <Form>
+          <div className="mb-4">
+              <label className="block text-gray-700">Id</label>
+              <Field
+                name="id"
+                type="text"
+                className="w-full p-2 border border-gray-300 rounded"
+              />
+              <ErrorMessage
+                name="id"
+                component="div"
+                className="text-red-600"
+              />
+            </div>
             <div className="mb-4">
               <label className="block text-gray-700">Tipo</label>
               <Field

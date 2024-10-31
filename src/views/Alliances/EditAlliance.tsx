@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Api } from "../../services/Api";
 import Swal from "sweetalert2";
@@ -7,49 +7,75 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 
-const CreateAllied: React.FC = () => {
-  const [isLoading, setIsLoading] = useState(false);
+const EditAlliance: React.FC = () => {
+  const { id } = useParams();
+  const [alliance, setAlliance] = useState<any>(null);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const fetchAlliance = async () => {
+      try {
+        const response = await Api.get(`/alliance/${id}`, auth.data.token);
+        const { data, statusCode } = response;
+        if (statusCode === 200) {
+          setAlliance(data);
+        } else {
+          Swal.fire({
+            title: "Error",
+            text: `${data.message}`,
+            icon: "error",
+          });
+        }
+      } catch (error: any) {
+        Swal.fire({
+          title: "Error",
+          text: `${error.message}`,
+          icon: "error",
+        });
+      }
+    };
+
+    fetchAlliance();
+  }, [id, auth.data.token]);
+
+  if (!alliance) return <div>Cargando...</div>;
+
   const initialValues = {
-    companyreason: "",
-    namecontact: "",
-    mail: "",
-    phone: "",
-    city: "",
+    name: alliance.name || "",
+    description: alliance.description || "",
   };
 
   const validationSchema = Yup.object({
-    companyreason: Yup.string()
-      .max(50, "Máximo 60 caracteres")
-      .required("Campo Requerido"),
-    namecontac: Yup.string()
-      .max(50, "Máximo 45 caracteres")
-      .required("Campo Requerido"),
-    mail: Yup.string()
-      .max(50, "Máximo 45 caracteres")
-      .required("Campo Requerido"),
-    phone: Yup.string()
-      .max(50, "Máximo 45 caracteres")
-      .required("Campo Requerido"),
-    city: Yup.string()
-      .max(50, "Máximo 45 caracteres")
-      .required("Campo Requerido"),
+    allied: Yup.string()
+      .max(45, "Máximo 45 caracteres")
+      .required("Requerido"),
+    departament: Yup.string()
+      .max(45, "Máximo 45 caracteres")
+      .required("Requerido"),
+    startdate: Yup.string()
+      .max(45, "Máximo 45 caracteres")
+      .required("Requerido"),
+    enddate: Yup.string()
+      .max(45, "Máximo 45 caracteres")
+      .required("Requerido"),
+    teaching: Yup.string()
+      .max(45, "Máximo 45 caracteres")
+      .required("Requerido"),
+      
   });
 
   const handleSubmit = async (values: any) => {
-    setIsLoading(true);
     try {
-      const response = await Api.post("/allied", values, auth.data.token);
+      const response = await Api.patch(`/alliance/${id}`, { id: alliance.id, ...values}, auth.data.token);
       const { data, statusCode } = response;
-      if (statusCode === 201) {
+      if (statusCode === 204) {
         Swal.fire({
           title: "Success",
-          text: "Aliado creada con exito",
+          text: "Alianza actualizado correctamente",
           icon: "success",
         });
-        navigate("/allied-dashboard");
+        navigate("/alliance-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -63,14 +89,12 @@ const CreateAllied: React.FC = () => {
         text: error.message,
         icon: "error",
       });
-    } finally {
-      setIsLoading(false);
     }
   };
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Crear Aliado</h1>
+      <h1 className="text-2xl font-bold mb-4">Editar Alianza</h1>
       <div className="bg-white p-4 rounded shadow-md">
         <Formik
           initialValues={initialValues}
@@ -79,7 +103,7 @@ const CreateAllied: React.FC = () => {
         >
           <Form>
             <div className="mb-4">
-              <label className="block text-gray-700">Razon Social</label>
+              <label className="block text-gray-700">Aliado</label>
               <Field
                 name="name"
                 type="text"
@@ -92,72 +116,70 @@ const CreateAllied: React.FC = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Nombre de Contacto</label>
+              <label className="block text-gray-700">Departamento</label>
               <Field
-                name="type"
+                name="description"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="type"
+                name="description"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Correo</label>
+              <label className="block text-gray-700">Fecha inicio</label>
               <Field
-                name="type"
+                name="description"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="type"
+                name="description"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Telefono</label>
+              <label className="block text-gray-700">Fecha fin</label>
               <Field
-                name="type"
+                name="description"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="type"
+                name="description"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Ciudad</label>
+              <label className="block text-gray-700">Docente</label>
               <Field
-                name="city"
+                name="description"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="city"
+                name="description"
                 component="div"
                 className="text-red-600"
               />
             </div>
-            <div className="flex justify-between">
+            <div className="mb-4">
               <button
                 type="submit"
-                className={`${
-                  isLoading ? "bg-gray-500 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-700"
-                } text-white font-bold py-2 px-4 rounded`}
-                disabled={isLoading}
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
               >
-                {isLoading ? "Guardando..." : "Guardar"}
+                Guardar cambios
               </button>
               <button
-                onClick={() => navigate("/allied-dashboard")}
-                className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+                type="button"
+                className="ml-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
+                onClick={() => navigate("/alliance-dashboard")}
               >
-                Salir
+                Cancelar
               </button>
             </div>
           </Form>
@@ -167,4 +189,4 @@ const CreateAllied: React.FC = () => {
   );
 };
 
-export default CreateAllied;
+export default EditAlliance;

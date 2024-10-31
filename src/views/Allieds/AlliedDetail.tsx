@@ -51,7 +51,6 @@ const AlliedDetail: React.FC = () => {
           <DetailItem label="Mail" value={allied.mail} />
           <DetailItem label="Phone" value={allied.phone} />
           <DetailItem label="City" value={allied.city} />
-          <DetailItem label="Payment Expiration Time (minutes)" value={allied.payment_expiration_time?.toString()} />
         </div>
         <div className="flex justify-end mt-6">
           <button
