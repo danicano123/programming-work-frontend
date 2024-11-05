@@ -46,6 +46,21 @@ const Header: React.FC<HeaderProps> = ({ isLogged, userName, role }) => {
           <Link to="/approach-dashboard" className="text-wood-darker font-bold">
             Enfoque
           </Link>
+          <Link to="/faculty-dashboard" className="text-wood-darker font-bold">
+            Facultad
+          </Link>
+          <Link to="/acreditation-dashboard" className="text-wood-darker font-bold">
+            Acreditacion
+          </Link>
+          <Link to="/qualified-registration-dashboard" className="text-wood-darker font-bold">
+            Registro calificado
+          </Link>
+          <Link to="/academic-activity-dashboard" className="text-wood-darker font-bold">
+            Actividad académica
+          </Link>
+          <Link to="/award-dashboard" className="text-wood-darker font-bold">
+            Premio
+          </Link>
           {isLogged && (
             <>
               <Link to="/payments" className="text-wood-darker font-bold">
