@@ -1,3 +1,4 @@
+
 import Dashboard from "../components/Dashboard/Dashboard";
 import RegisterForm from "../components/Register/RegisterForm";
 import AlliedDashboard from "../views/Allieds/AlliedDashboard";
@@ -32,10 +33,6 @@ import UniversityDetail from "../views/University/UniversityDetail";
 import EditUniversity from "../views/University/EditUniversity";
 import ApproachDetail from "../views/Approaches/ApproachDetail";
 import EditApproach from "../views/Approaches/EditApproach";
-import PracticeStrategyDetail from "../views/PracticeStrategys/PracticeStrategysDetail";
-import EditPracticeStrategy from "../views/PracticeStrategys/EditPracticeStrategys";
-import CreatePracticeStrategy from "../views/PracticeStrategys/CreatePracticeStrategys";
-import PracticeStrategysDashboard from "../views/PracticeStrategys/PracticeStrategysDashboard";
 import EditFaculty from "../views/Faculties/EditFaculty";
 import FacultyDetail from "../views/Faculties/FacultyDetail";
 import CreateFaculty from "../views/Faculties/CreateFaculty";
@@ -56,6 +53,43 @@ import AwardDashboard from "../views/Awards/AwardDashboard";
 import EditAward from "../views/Awards/EditAward";
 import AwardDetail from "../views/Awards/AwardDetail";
 import CreateAward from "../views/Awards/CreateAward";
+import AllianceDashboard from "../views/Alliances/AllianceDashboard";
+import CreateAlliance from "../views/Alliances/CreateAlliance";
+import EditAlliance from "../views/Alliances/EditAlliance";
+import AllianceDetail from "../views/Alliances/AlliancesDetail";
+import TeachingDepartamentDashboard from "../views/TeachingDepartments/TeachingDepartmentDashboard";
+import TeachingDepartamentDetail from "../views/TeachingDepartments/TeachingDepartmentsDetail";
+import EditTeachingDepartament from "../views/TeachingDepartments/EditTeachingDepartment";
+import CreateTeachingDepartament from "../views/TeachingDepartments/CreateTeachingDepartment";
+import ProgramDashboard from "../views/Programs/ProgramDashboard";
+import ProgramDetail from "../views/Programs/ProgramsDetail";
+import EditProgram from "../views/Programs/EditProgram";
+import CreateProgram from "../views/Programs/CreateProgram";
+import ProgramPeDashboard from "../views/ProgramPe/ProgramPeDashboard";
+import ProgramPeDetail from "../views/ProgramPe/ProgramsPeDetail";
+import EditProgramPe from "../views/ProgramPe/EditProgramPe";
+import CreateProgramPe from "../views/ProgramPe/CreateProgramPe";
+import ProgramAcDashboard from "../views/ProgramsAc/ProgramAcDashboard";
+import ProgramAcDetail from "../views/ProgramsAc/ProgramsAcDetail";
+import EditProgramAc from "../views/ProgramsAc/EditProgramAc";
+import CreateProgramAc from "../views/ProgramsAc/CreateProgramAc";
+import ProgramCiDashboard from "../views/ProgramsCi/ProgramCiDashboard";
+import ProgramCiDetail from "../views/ProgramsCi/ProgramsCiDetail";
+import EditProgramCi from "../views/ProgramsCi/EditProgramCi";
+import CreateProgramCi from "../views/ProgramsCi/CreateProgramCi";
+import AnProgramDashboard from "../views/AnPrograms/AnProgramDashboard";
+import AnProgramDetail from "../views/AnPrograms/AnProgramsDetail";
+import EditAnProgram from "../views/AnPrograms/EditAnProgram";
+import CreateAnProgram from "../views/AnPrograms/CreateAnProgram";
+import InternshipDashboard from "../views/Internships/InternshipDashboard";
+import InternshipDetail from "../views/Internships/InternshipsDetail";
+import EditInternship from "../views/Internships/EditInternship";
+import CreateInternship from "../views/Internships/CreateInternship";
+import PracticeStrategysDashboard from "../views/PracticeStrategys/PracticeStrategysDashboard";
+import PracticeStrategyDetail from "../views/PracticeStrategys/PracticeStrategysDetail";
+import EditPracticeStrategy from "../views/PracticeStrategys/EditPracticeStrategys";
+import CreatePracticeStrategy from "../views/PracticeStrategys/CreatePracticeStrategys";
+
 
 export const RoutesSchema = [
   {
