@@ -233,19 +233,19 @@ export const RoutesSchema = [
 
   //ProgramAc
   {
-    path: "/program-pe-dashboard",
+    path: "/program-ac-dashboard",
     element: ProgramAcDashboard,
   },
   {
-    path: "/program-pe-detail",
+    path: "/program-ac-detail",
     element: ProgramAcDetail,
   },
   {
-    path: "/program-pe-edit",
+    path: "/program-ac-edit",
     element: EditProgramAc,
   },
   {
-    path: "/create-program-pe",
+    path: "/create-program-ac",
     element: CreateProgramAc,
   },
 
