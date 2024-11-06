@@ -56,6 +56,38 @@ import AwardDashboard from "../views/Awards/AwardDashboard";
 import EditAward from "../views/Awards/EditAward";
 import AwardDetail from "../views/Awards/AwardDetail";
 import CreateAward from "../views/Awards/CreateAward";
+import AllianceDashboard from "../views/Alliances/AllianceDashboard";
+import AllianceDetail from "../views/Alliances/AlliancesDetail";
+import EditAlliance from "../views/Alliances/EditAlliance";
+import CreateAlliance from "../views/Alliances/CreateAlliance";
+import TeachingDepartamentDashboard from "../views/TeachingDepartments/TeachingDepartmentDashboard";
+import TeachingDepartamentDetail from "../views/TeachingDepartments/TeachingDepartmentsDetail";
+import EditTeachingDepartament from "../views/TeachingDepartments/EditTeachingDepartment";
+import CreateTeachingDepartament from "../views/TeachingDepartments/CreateTeachingDepartment";
+import ProgramDashboard from "../views/Programs/ProgramDashboard";
+import ProgramDetail from "../views/Programs/ProgramsDetail";
+import EditProgram from "../views/Programs/EditProgram";
+import CreateProgram from "../views/Programs/CreateProgram";
+import ProgramPeDashboard from "../views/ProgramPe/ProgramPeDashboard";
+import ProgramPeDetail from "../views/ProgramPe/ProgramsPeDetail";
+import CreateInternship from "../views/Internships/CreateInternship";
+import EditInternship from "../views/Internships/EditInternship";
+import InternshipDetail from "../views/Internships/InternshipsDetail";
+import InternshipDashboard from "../views/Internships/InternshipDashboard";
+import CreateAnProgram from "../views/AnPrograms/CreateAnProgram";
+import EditAnProgram from "../views/AnPrograms/EditAnProgram";
+import AnProgramDetail from "../views/AnPrograms/AnProgramsDetail";
+import AnProgramDashboard from "../views/AnPrograms/AnProgramDashboard";
+import CreateProgramCi from "../views/ProgramsCi/CreateProgramCi";
+import EditProgramCi from "../views/ProgramsCi/EditProgramCi";
+import ProgramCiDetail from "../views/ProgramsCi/ProgramsCiDetail";
+import ProgramCiDashboard from "../views/ProgramsCi/ProgramCiDashboard";
+import CreateProgramAc from "../views/ProgramsAc/CreateProgramAc";
+import EditProgramAc from "../views/ProgramsAc/EditProgramAc";
+import ProgramAcDetail from "../views/ProgramsAc/ProgramsAcDetail";
+import ProgramAcDashboard from "../views/ProgramsAc/ProgramAcDashboard";
+import CreateProgramPe from "../views/ProgramPe/CreateProgramPe";
+import EditProgramPe from "../views/ProgramPe/EditProgramPe";
 
 export const RoutesSchema = [
   {

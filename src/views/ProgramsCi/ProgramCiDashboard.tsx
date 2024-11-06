@@ -13,7 +13,7 @@ const ProgramCiDashboard: React.FC = () => {
     const fetchProgramCi = async () => {
       try {
         const { data, statusCode } = await Api.get(
-          "/programCi",
+          "/programm-car-innovations",
           auth.data.token
         );
         if (statusCode === 200) {
@@ -80,7 +80,7 @@ const ProgramCiDashboard: React.FC = () => {
 
   const deletion = async (id: any) => {
     const response = await Api.delete(
-      `/approach/${id}`,
+      `/programm-car-innovations/${id}`,
       auth.data.token
     );
     window.location.reload();
@@ -92,7 +92,7 @@ const ProgramCiDashboard: React.FC = () => {
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold mb-4">Tablero de Programa Ci</h1>
         <button
-          onClick={() => navigate("/create-approach-dashboard")}
+          onClick={() => navigate("/create-program-ci")}
           className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
         >
           Crear Programa Ci
@@ -109,10 +109,10 @@ const ProgramCiDashboard: React.FC = () => {
           {programCi.map((programCi) => (
             <tr key={programCi.id}>
               <td className="py-2 px-4 border-b text-center">
-                {programCi.program}
+                {programCi.programmId}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                {programCi.carinnovacion}
+                {programCi.carInnovationId}
               </td>
               <td className="py-2 px-4 border-b text-center space-x-4">
                <button
