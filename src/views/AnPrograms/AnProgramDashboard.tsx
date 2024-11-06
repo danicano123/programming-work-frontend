@@ -13,7 +13,7 @@ const AnProgramDashboard: React.FC = () => {
     const fetchAnProgram = async () => {
       try {
         const { data, statusCode } = await Api.get(
-          "/anProgram",
+          "/NormativeAspectProgramm",
           auth.data.token
         );
         if (statusCode === 200) {
@@ -90,9 +90,9 @@ const AnProgramDashboard: React.FC = () => {
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold mb-4">Tablero de An Programa</h1>
+        <h1 className="text-2xl font-bold mb-4">Tablero Programa Aspecto Normativo</h1>
         <button
-          onClick={() => navigate("/create-anProgram-dashboard")}
+          onClick={() => navigate("/create-NormativeAspectProgramm")}
           className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
         >
           Crear An Programa

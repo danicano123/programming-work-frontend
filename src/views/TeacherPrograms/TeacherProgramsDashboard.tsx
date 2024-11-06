@@ -4,20 +4,20 @@ import { useNavigate } from "react-router-dom";
 import { Api } from "../../services/Api";
 import Swal from "sweetalert2";
 
-const TeachingDepartamentDashboard: React.FC = () => {
-  const [teachingDepartament, setTeachingDepartament] = useState<any[]>([]);
+const TeacherProgramsDashboard: React.FC = () => {
+  const [teacherPrograms, setTeacherPrograms] = useState<any[]>([]);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchTeachingDepartament = async () => {
+    const fetchTeacherPrograms = async () => {
       try {
         const { data, statusCode } = await Api.get(
-          "/teachingDepartament",
+          "/teacher-programs",
           auth.data.token
         );
         if (statusCode === 200) {
-          setTeachingDepartament(data);
+          setTeacherPrograms(data);
         } else {
           Swal.fire({
             title: "Error",
@@ -28,13 +28,13 @@ const TeachingDepartamentDashboard: React.FC = () => {
       } catch (error) {
         Swal.fire({
           title: "Error",
-          text: "Error: unable to fetch active teachingDepartament",
+          text: "Error: unable to fetch active teacher-programs",
           icon: "error",
         });
       }
     };
 
-    fetchTeachingDepartament();
+    fetchTeacherPrograms();
   }, [auth.data.token]);
 
   const handleToggleIsActive = async (
@@ -43,7 +43,7 @@ const TeachingDepartamentDashboard: React.FC = () => {
   ) => {
     try {
       const response = await Api.patch(
-        `/teachingDepartament/${teachingDepartamentId}/is-active`,
+        `/teacher-programs/${teachingDepartamentId}/is-active`,
         {
           is_active: !isActive,
         },
@@ -51,12 +51,12 @@ const TeachingDepartamentDashboard: React.FC = () => {
       );
       const { data, statusCode } = response;
       if (statusCode === 200) {
-        const updatedTeachingDepartament = teachingDepartament.map((teachingDepartament) =>
-          teachingDepartament.id === teachingDepartamentId
-            ? { ...teachingDepartament, is_active: !isActive }
-            : teachingDepartament
+        const updatedTeacherPrograms = teacherPrograms.map((teacherPrograms) =>
+          teacherPrograms.id === teacherPrograms.Id
+            ? { ...teacherPrograms, is_active: !isActive }
+            : teacherPrograms
         );
-        setTeachingDepartament(updatedTeachingDepartament);
+        setTeacherPrograms(updatedTeacherPrograms);
         Swal.fire({
           title: "Success",
           text: "Docente Departamento actualizado con exito",
@@ -90,12 +90,12 @@ const TeachingDepartamentDashboard: React.FC = () => {
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold mb-4">Tablero de Departamento Docente</h1>
+        <h1 className="text-2xl font-bold mb-4">Tablero de Programa Docente</h1>
         <button
-          onClick={() => navigate("/create-approach-dashboard")}
+          onClick={() => navigate("/create-teacher-programs")}
           className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
         >
-          Crear Departamento Docente
+          Crear Programa Docente
         </button>
       </div>
       <table className="min-w-full bg-white border border-gray-200">
@@ -110,31 +110,31 @@ const TeachingDepartamentDashboard: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {teachingDepartament.map((teachingDepartament) => (
-            <tr key={teachingDepartament.id}>
+          {teacherPrograms.map((teacherPrograms) => (
+            <tr key={teacherPrograms.id}>
               <td className="py-2 px-4 border-b text-center">
-                {teachingDepartament.teaching}
+                {teacherPrograms.teaching}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                {teachingDepartament.departament}
+                {teacherPrograms.departament}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                {teachingDepartament.dedication}
+                {teacherPrograms.dedication}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                {teachingDepartament.mode}
+                {teacherPrograms.mode}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                {teachingDepartament.entrydate}
+                {teacherPrograms.entrydate}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                {teachingDepartament.departuredate}
+                {teacherPrograms.departuredate}
               </td>
               <td className="py-2 px-4 border-b text-center space-x-4">
                 
                <button
                   onClick={() =>
-                    navigate(`/read-teachingDepartament/${teachingDepartament.id}`)
+                    navigate(`/read-teachingDepartament/${teacherPrograms.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
@@ -142,14 +142,14 @@ const TeachingDepartamentDashboard: React.FC = () => {
                 </button>
                 <button
                   onClick={() =>
-                    navigate(`/edit-teachingDepartament/${teachingDepartament.id}`)
+                    navigate(`/edit-teachingDepartament/${teacherPrograms.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Editar
                 </button>
                 <button
-                  onClick={() => deletion(teachingDepartament.id)}
+                  onClick={() => deletion(teacherPrograms.id)}
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Borrar
@@ -163,4 +163,4 @@ const TeachingDepartamentDashboard: React.FC = () => {
   );
 };
 
-export default TeachingDepartamentDashboard;
+export default TeacherProgramsDashboard;

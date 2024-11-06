@@ -54,13 +54,9 @@ import EditAward from "../views/Awards/EditAward";
 import AwardDetail from "../views/Awards/AwardDetail";
 import CreateAward from "../views/Awards/CreateAward";
 import AllianceDashboard from "../views/Alliances/AllianceDashboard";
-import CreateAlliance from "../views/Alliances/CreateAlliance";
 import EditAlliance from "../views/Alliances/EditAlliance";
 import AllianceDetail from "../views/Alliances/AlliancesDetail";
-import TeachingDepartamentDashboard from "../views/TeachingDepartments/TeachingDepartmentDashboard";
-import TeachingDepartamentDetail from "../views/TeachingDepartments/TeachingDepartmentsDetail";
-import EditTeachingDepartament from "../views/TeachingDepartments/EditTeachingDepartment";
-import CreateTeachingDepartament from "../views/TeachingDepartments/CreateTeachingDepartment";
+import CreateAlliance from "../views/Alliances/CreateAlliance";
 import ProgramDashboard from "../views/Programs/ProgramDashboard";
 import ProgramDetail from "../views/Programs/ProgramsDetail";
 import EditProgram from "../views/Programs/EditProgram";
@@ -89,6 +85,11 @@ import PracticeStrategysDashboard from "../views/PracticeStrategys/PracticeStrat
 import PracticeStrategyDetail from "../views/PracticeStrategys/PracticeStrategysDetail";
 import EditPracticeStrategy from "../views/PracticeStrategys/EditPracticeStrategys";
 import CreatePracticeStrategy from "../views/PracticeStrategys/CreatePracticeStrategys";
+import CreateTeacherPrograms from "../views/TeacherPrograms/CreateTeacherPrograms";
+import TeacherProgramsDashboard from "../views/TeacherPrograms/TeacherProgramsDashboard";
+import TeacherProgramsDetail from "../views/TeacherPrograms/TeacherProgramsDetail";
+import EditTeacherPrograms from "../views/TeacherPrograms/EditTeacherPrograms";
+
 
 
 export const RoutesSchema = [
@@ -281,22 +282,22 @@ export const RoutesSchema = [
     element: CreateAlliance,
   },
 
-  //Teaching-department
+  //Teacher-programs
   {
-    path: "/teaching-department-dashboard",
-    element: TeachingDepartamentDashboard,
+    path: "/teacher-programs-dashboard",
+    element: TeacherProgramsDashboard,
   },
   {
-    path: "/teaching-department-detail",
-    element: TeachingDepartamentDetail,
+    path: "/teacher-programs-detail",
+    element: TeacherProgramsDetail,
   },
   {
-    path: "/teaching-department-edit",
-    element: EditTeachingDepartament,
+    path: "/teacher-programs-edit",
+    element: EditTeacherPrograms,
   },
   {
-    path: "/create-teaching-department",
-    element: CreateTeachingDepartament,
+    path: "/create-teacher-programs",
+    element: CreateTeacherPrograms
   },
 
   //Program

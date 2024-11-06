@@ -14,39 +14,33 @@ const CreateInternship: React.FC = () => {
   const navigate = useNavigate();
 
   const initialValues = {
-    id: "",
-    name: "",
-    country: "",
-    company: "",
-    description: "",
-    program: "",
+    id: 0,
+    name: 0,
+    country: 0,
+    company: 0,
+    description: 0,
+    program: 0,
   };
 
   const validationSchema = Yup.object({
-    id: Yup.string()
-      .max(60, "Maximo 60 carateres")
+    id: Yup.number()
       .required("Campo requerido"),
     name: Yup.string()
-      .max(45, "Maximo 45 carateres")
       .required("Campo requerido"),
     country: Yup.string()
-      .max(45, "Maximo 45 carateres")
       .required("Campo requerido"),
     company: Yup.string()
-      .max(45, "Maximo 45 carateres")
       .required("Campo requerido"),
     description: Yup.string()
-      .max(45, "Maximo 45 carateres")
       .required("Campo requerido"),
     program: Yup.string()
-      .max(45, "Maximo 45 carateres")
       .required("Campo requerido"),
   });
 
   const handleSubmit = async (values: any) => {
     setIsLoading(true);
     try {
-      const response = await Api.post("/internship", values, auth.data.token);
+      const response = await Api.post("/Internship", values, auth.data.token);
       const { data, statusCode } = response;
       if (statusCode === 201) {
         Swal.fire({ 
@@ -87,7 +81,7 @@ const CreateInternship: React.FC = () => {
               <label className="block text-gray-700">Id</label>
               <Field
                 name="id"
-                type="text"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
@@ -100,7 +94,7 @@ const CreateInternship: React.FC = () => {
               <label className="block text-gray-700">Nombre</label>
               <Field
                 name="name"
-                type="text"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
@@ -113,7 +107,7 @@ const CreateInternship: React.FC = () => {
               <label className="block text-gray-700">Pais</label>
               <Field
                 name="country"
-                type="text"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
@@ -126,7 +120,7 @@ const CreateInternship: React.FC = () => {
               <label className="block text-gray-700">Compañia</label>
               <Field
                 name="company"
-                type="text"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
@@ -139,7 +133,7 @@ const CreateInternship: React.FC = () => {
               <label className="block text-gray-700">Descripción</label>
               <Field
                 name="description"
-                type="text"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
@@ -152,7 +146,7 @@ const CreateInternship: React.FC = () => {
               <label className="block text-gray-700">Programa</label>
               <Field
                 name="program"
-                type="text"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage

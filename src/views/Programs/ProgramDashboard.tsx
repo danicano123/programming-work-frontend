@@ -13,7 +13,7 @@ const ProgramDashboard: React.FC = () => {
     const fetchProgram = async () => {
       try {
         const { data, statusCode } = await Api.get(
-          "/program",
+          "/programs",
           auth.data.token
         );
         if (statusCode === 200) {
@@ -28,7 +28,7 @@ const ProgramDashboard: React.FC = () => {
       } catch (error) {
         Swal.fire({
           title: "Error",
-          text: "Error: unable to fetch active program",
+          text: "Error: unable to fetch active programs",
           icon: "error",
         });
       }
@@ -43,7 +43,7 @@ const ProgramDashboard: React.FC = () => {
   ) => {
     try {
       const response = await Api.patch(
-        `/program/${programId}/is-active`,
+        `/programs/${programId}/is-active`,
         {
           is_active: !isActive,
         },
@@ -80,7 +80,7 @@ const ProgramDashboard: React.FC = () => {
 
   const deletion = async (id: any) => {
     const response = await Api.delete(
-      `/approach/${id}`,
+      `/programs/${id}`,
       auth.data.token
     );
     window.location.reload();
@@ -92,7 +92,7 @@ const ProgramDashboard: React.FC = () => {
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold mb-4">Tablero de Programa</h1>
         <button
-          onClick={() => navigate("/create-program-dashboard")}
+          onClick={() => navigate("/create-programs")}
           className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
         >
           Crear Programa

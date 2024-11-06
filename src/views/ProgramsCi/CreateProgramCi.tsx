@@ -6,34 +6,32 @@ import Swal from "sweetalert2";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-
-
 const CreateProgramCi: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
   const initialValues = {
-    program: "",
-    carinnovacion: "",
+    programmId: 0,
+    carInnovationId: 0,
   };
 
   const validationSchema = Yup.object({
-    program: Yup.string()
-      .max(60, "Maximo 60 carateres")
-      .required("Campo requerido"),
-    carinnovacion: Yup.string()
-      .max(45, "Maximo 45 carateres")
-      .required("Campo requerido"),
+    programmId: Yup.number().required("Campo requerido"),
+    carInnovationId: Yup.number().required("Campo requerido"),
   });
 
   const handleSubmit = async (values: any) => {
     setIsLoading(true);
     try {
-      const response = await Api.post("/program-ci", values, auth.data.token);
+      const response = await Api.post(
+        "/program-car-innovations",
+        values,
+        auth.data.token
+      );
       const { data, statusCode } = response;
       if (statusCode === 201) {
-        Swal.fire({ 
+        Swal.fire({
           title: "Success",
           text: "Programa Ci creado con exito",
           icon: "success",
@@ -70,25 +68,27 @@ const CreateProgramCi: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Programa</label>
               <Field
-                name="name"
-                type="text"
+                name="programmId"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="name"
+                name="programmId"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Innovación automovilística</label>
+              <label className="block text-gray-700">
+                Innovación automovilística
+              </label>
               <Field
-                name="description"
-                type="text"
+                name="carInnovationId"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="description"
+                name="carInnovationId"
                 component="div"
                 className="text-red-600"
               />
@@ -97,7 +97,9 @@ const CreateProgramCi: React.FC = () => {
               <button
                 type="submit"
                 className={`${
-                  isLoading ? "bg-gray-500 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-700"
+                  isLoading
+                    ? "bg-gray-500 cursor-not-allowed"
+                    : "bg-blue-500 hover:bg-blue-700"
                 } text-white font-bold py-2 px-4 rounded`}
                 disabled={isLoading}
               >

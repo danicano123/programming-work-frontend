@@ -16,7 +16,7 @@ const EditInternship: React.FC = () => {
   useEffect(() => {
     const fetchInternship = async () => {
       try {
-        const response = await Api.get(`/internship/${id}`, auth.data.token);
+        const response = await Api.get(`Internship/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
           setInternship(data);

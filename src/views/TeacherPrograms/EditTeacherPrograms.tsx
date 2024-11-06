@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Api } from "../../services/Api";
 import Swal from "sweetalert2";
@@ -7,54 +7,77 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 
-
-const CreateTeachingDepartament: React.FC = () => {
-  const [isLoading, setIsLoading] = useState(false);
+const EditTeacherPrograms: React.FC = () => {
+  const { id } = useParams();
+  const [teacherPrograms, setTeacherPrograms] = useState<any>(null);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const fetchTeacherPrograms = async () => {
+      try {
+        const response = await Api.get(`/teacher-programs/${id}`, auth.data.token);
+        const { data, statusCode } = response;
+        if (statusCode === 200) {
+          setTeacherPrograms(data);
+        } else {
+          Swal.fire({
+            title: "Error",
+            text: `${data.message}`,
+            icon: "error",
+          });
+        }
+      } catch (error: any) {
+        Swal.fire({
+          title: "Error",
+          text: `${error.message}`,
+          icon: "error",
+        });
+      }
+    };
+
+    fetchTeacherPrograms();
+  }, [id, auth.data.token]);
+
+  if (!teacherPrograms) return <div>Cargando...</div>;
+
   const initialValues = {
-    teaching: "",
-    departament: "",
-    dedication: "",
-    mode: "",
-    entrydate: "",
-    departuredate: "",
+    name: teacherPrograms.name || "",
+    description: teacherPrograms.description || "",
   };
 
   const validationSchema = Yup.object({
-    teaching: Yup.string()
-      .max(60, "Maximo 60 carateres")
-      .required("Campo requerido"),
-    departament: Yup.string()
-      .max(45, "Maximo 45 carateres")
-      .required("Campo requerido"),
-    dedication: Yup.string()
-      .max(45, "Maximo 45 carateres")
-      .required("Campo requerido"),
-    mode: Yup.string()
-      .max(45, "Maximo 45 carateres")
-      .required("Campo requerido"),
-    entrydate: Yup.string()
-      .max(45, "Maximo 45 carateres")
-      .required("Campo requerido"),
-    departuredate: Yup.string()
-      .max(45, "Maximo 45 carateres")
-      .required("Campo requerido"),
+  teaching: Yup.string()
+    .max(60, "Maximo 60 carateres")
+    .required("Campo requerido"),
+  departament: Yup.string()
+    .max(45, "Maximo 45 carateres")
+    .required("Campo requerido"),
+  dedication: Yup.string()
+    .max(45, "Maximo 45 carateres")
+    .required("Campo requerido"),
+  mode: Yup.string()
+    .max(45, "Maximo 45 carateres")
+    .required("Campo requerido"),
+  entrydate: Yup.string()
+    .max(45, "Maximo 45 carateres")
+    .required("Campo requerido"),
+  departuredate: Yup.string()
+    .max(45, "Maximo 45 carateres")
+    .required("Campo requerido"),
   });
 
   const handleSubmit = async (values: any) => {
-    setIsLoading(true);
     try {
-      const response = await Api.post("/teaching-departament", values, auth.data.token);
+      const response = await Api.patch(`/teacher-programs/${id}`, { id: teacherPrograms.id, ...values}, auth.data.token);
       const { data, statusCode } = response;
-      if (statusCode === 201) {
-        Swal.fire({ 
+      if (statusCode === 204) {
+        Swal.fire({
           title: "Success",
-          text: "Docente Departamento creado con exito",
+          text: "Docente Departamento actualizado correctamente",
           icon: "success",
         });
-        navigate("/teaching-departament-dashboard");
+        navigate("/teacher-programs-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -68,14 +91,12 @@ const CreateTeachingDepartament: React.FC = () => {
         text: error.message,
         icon: "error",
       });
-    } finally {
-      setIsLoading(false);
     }
   };
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Crear Docente Departamento</h1>
+      <h1 className="text-2xl font-bold mb-4">Editar Programa Docente</h1>
       <div className="bg-white p-4 rounded shadow-md">
         <Formik
           initialValues={initialValues}
@@ -121,7 +142,7 @@ const CreateTeachingDepartament: React.FC = () => {
                 component="div"
                 className="text-red-600"
               />
-              </div>
+            </div>
             <div className="mb-4">
               <label className="block text-gray-700">Modalidad</label>
               <Field
@@ -135,7 +156,6 @@ const CreateTeachingDepartament: React.FC = () => {
                 className="text-red-600"
               />
             </div>
-
             <div className="mb-4">
               <label className="block text-gray-700">Fecha Ingreso</label>
               <Field
@@ -149,7 +169,6 @@ const CreateTeachingDepartament: React.FC = () => {
                 className="text-red-600"
               />
             </div>
-
             <div className="mb-4">
               <label className="block text-gray-700">Fecha Salida</label>
               <Field
@@ -163,21 +182,19 @@ const CreateTeachingDepartament: React.FC = () => {
                 className="text-red-600"
               />
             </div>
-            <div className="flex justify-between">
+            <div className="mb-4">
               <button
                 type="submit"
-                className={`${
-                  isLoading ? "bg-gray-500 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-700"
-                } text-white font-bold py-2 px-4 rounded`}
-                disabled={isLoading}
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
               >
-                {isLoading ? "Guardando..." : "Guardar"}
+                Guardar cambios
               </button>
               <button
-                onClick={() => navigate("/teaching-departament-dashboard")}
-                className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+                type="button"
+                className="ml-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
+                onClick={() => navigate("/teacher-programs-dashboard")}
               >
-                Salir
+                Cancelar
               </button>
             </div>
           </Form>
@@ -187,4 +204,4 @@ const CreateTeachingDepartament: React.FC = () => {
   );
 };
 
-export default CreateTeachingDepartament;
+export default EditTeacherPrograms;

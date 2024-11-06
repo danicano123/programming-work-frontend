@@ -25,41 +25,88 @@ const Header: React.FC<HeaderProps> = ({ isLogged, userName, role }) => {
           <Link to="/" className="text-gold font-bold text-xl">
             Inicio
           </Link>
-          <Link to="/microsites" className="text-wood-darker font-bold">
-            Test
-          </Link>
-          <Link to="/allied-dashboard" className="text-wood-darker font-bold">
+          <Link to="/allied-dashboard" 
+            className="text-wood-darker font-bold">
             Aliado
           </Link>
-          <Link to="/practice-strategys-dashboard" className="text-wood-darker font-bold">
+          <Link
+            to="/practice-strategys-dashboard"
+            className="text-wood-darker font-bold"
+          >
             Practica Estrategica
           </Link>
-          <Link to="/normative-aspects-dashboard" className="text-wood-darker font-bold">
+          <Link
+            to="/normative-aspects-dashboard"
+            className="text-wood-darker font-bold"
+          >
             Aspectos Normativos
           </Link>
-          <Link to="/car-innovation-dashboard" className="text-wood-darker font-bold">
+          <Link
+            to="/car-innovation-dashboard"
+            className="text-wood-darker font-bold"
+          >
             Car Innovacion
           </Link>
-          <Link to="/university-dashboard" className="text-wood-darker font-bold">
+          <Link
+            to="/university-dashboard"
+            className="text-wood-darker font-bold"
+          >
             Universidad
           </Link>
-          <Link to="/approach-dashboard" className="text-wood-darker font-bold">
+          <Link to="/approach-dashboard" 
+            className="text-wood-darker font-bold">
             Enfoque
           </Link>
-          <Link to="/faculty-dashboard" className="text-wood-darker font-bold">
+          <Link to="/faculty-dashboard" 
+            className="text-wood-darker font-bold">
             Facultad
           </Link>
-          <Link to="/acreditation-dashboard" className="text-wood-darker font-bold">
-            Acreditacion
+          <Link
+            to="/internship-dashboard"
+            className="text-wood-darker font-bold"
+          >
+            Pasantia
           </Link>
-          <Link to="/qualified-registration-dashboard" className="text-wood-darker font-bold">
+          <Link
+            to="/teacher-programs-dashboard"
+            className="text-wood-darker font-bold"
+          >
+             Programa Docente
+          </Link>
+          <Link
+            to="/program-dashboard"
+            className="text-wood-darker font-bold"
+          >
+            Programa
+          </Link>
+          <Link
+            to="/qualified-registration-dashboard"
+            className="text-wood-darker font-bold"
+          >
             Registro calificado
           </Link>
-          <Link to="/academic-activity-dashboard" className="text-wood-darker font-bold">
+          <Link
+            to="/qualified-registration-dashboard"
+            className="text-wood-darker font-bold"
+          >
+            Alianza
+          </Link>
+          <Link
+            to="/alliance-dashboard"
+            className="text-wood-darker font-bold"
+          >
             Actividad académica
           </Link>
-          <Link to="/award-dashboard" className="text-wood-darker font-bold">
+          <Link to="/award-dashboard" 
+            className="text-wood-darker font-bold">
             Premio
+          </Link>
+          <Link
+            to="/program-ci-dashboard"
+            className="text-wood-darker font-bold"
+          >
+            
+            Programa {"\n CarInnovation"}
           </Link>
           {isLogged && (
             <>

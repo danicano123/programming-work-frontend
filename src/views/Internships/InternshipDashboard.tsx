@@ -13,7 +13,7 @@ const InternshipDashboard: React.FC = () => {
     const fetchInternship = async () => {
       try {
         const { data, statusCode } = await Api.get(
-          "/internship",
+          "/Internship",
           auth.data.token
         );
         if (statusCode === 200) {
@@ -28,7 +28,7 @@ const InternshipDashboard: React.FC = () => {
       } catch (error) {
         Swal.fire({
           title: "Error",
-          text: "Error: unable to fetch active internship",
+          text: "Error: unable to fetch active Internship",
           icon: "error",
         });
       }
@@ -43,7 +43,7 @@ const InternshipDashboard: React.FC = () => {
   ) => {
     try {
       const response = await Api.patch(
-        `/internship/${internshipId}/is-active`,
+        `/Internship/${internshipId}/is-active`,
         {
           is_active: !isActive,
         },
@@ -80,7 +80,7 @@ const InternshipDashboard: React.FC = () => {
 
   const deletion = async (id: any) => {
     const response = await Api.delete(
-      `/internship/${id}`,
+      `/Internship/${id}`,
       auth.data.token
     );
     window.location.reload();
@@ -92,7 +92,7 @@ const InternshipDashboard: React.FC = () => {
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold mb-4">Tablero de Pasantia</h1>
         <button
-          onClick={() => navigate("/create-internship-dashboard")}
+          onClick={() => navigate("/create-internship")}
           className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
         >
           Crear Pasantia
@@ -114,7 +114,7 @@ const InternshipDashboard: React.FC = () => {
           {internship.map((internship) => (
             <tr key={internship.id}>
               <td className="py-2 px-4 border-b text-center">
-                {internship.name}
+                {internship.programId}
               </td>
               <td className="py-2 px-4 border-b text-center">
                 {internship.description}
