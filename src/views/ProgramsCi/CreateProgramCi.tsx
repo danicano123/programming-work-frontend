@@ -23,9 +23,10 @@ const CreateProgramCi: React.FC = () => {
 
   const handleSubmit = async (values: any) => {
     setIsLoading(true);
+    
     try {
       const response = await Api.post(
-        "/program-car-innovations",
+        "/programm-car-innovations",
         values,
         auth.data.token
       );
