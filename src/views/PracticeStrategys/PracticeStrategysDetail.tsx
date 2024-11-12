@@ -14,7 +14,7 @@ const PracticeStrategyDetail: React.FC = () => {
   useEffect(() => {
     const fetchPracticeStrategy = async () => {
       try {
-        const response = await Api.get(`/practice-strategys/${id}`, auth.data.token);
+        const response = await Api.get(`/practice-strategy/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
           setPracticeStrategy(data);
@@ -45,13 +45,13 @@ const PracticeStrategyDetail: React.FC = () => {
       <div className="bg-white p-6 rounded-lg shadow-lg">
         <div className="space-y-4">
           <DetailItem label="Tipo" value={practiceStrategy.id} />
-          <DetailItem label="Tipo" value={practiceStrategy.type} />
+          <DetailItem label="Tipo" value={practiceStrategy.type_practice} />
           <DetailItem label="Nombre" value={practiceStrategy.name} />
           <DetailItem label="Descripción" value={practiceStrategy.description} />
         </div>
         <div className="flex justify-end mt-6">
           <button
-            onClick={() => navigate("/practice-strategys-dashboard")}
+            onClick={() => navigate("/practice-strategy-dashboard")}
             className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
           >
             Regresar

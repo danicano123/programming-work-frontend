@@ -43,7 +43,7 @@ const AllianceDashboard: React.FC = () => {
   ) => {
     try {
       const response = await Api.patch(
-        `/alliance/${allianceId}/is-active`,
+        `/alliances/${allianceId}/is-active`,
         {
           is_active: !isActive,
         },

@@ -4,20 +4,20 @@ import { useNavigate } from "react-router-dom";
 import { Api } from "../../services/Api";
 import Swal from "sweetalert2";
 
-const PracticeStrategyDashboard: React.FC = () => {
-  const [practiceStrategy, setPracticeStrategy] = useState<any[]>([]);
+const NormativeAspectProgrammDashboard: React.FC = () => {
+  const [normativeAspectProgramm, setNormativeAspectProgramm] = useState<any[]>([]);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchPracticeStrategy = async () => {
+    const fetchNormativeAspectProgramm = async () => {
       try {
         const { data, statusCode } = await Api.get(
-          "/practice-strategy",
+          "/programm-car-innovations",
           auth.data.token
         );
         if (statusCode === 200) {
-          setPracticeStrategy(data);
+          setNormativeAspectProgramm(data);
         } else {
           Swal.fire({
             title: "Error",
@@ -28,33 +28,38 @@ const PracticeStrategyDashboard: React.FC = () => {
       } catch (error) {
         Swal.fire({
           title: "Error",
-          text: "Error: unable to fetch active practiceStrategy",
+          text: "Error: unable to fetch active NormativeAspectProgramm",
           icon: "error",
         });
       }
     };
 
-    fetchPracticeStrategy();
+    fetchNormativeAspectProgramm();
   }, [auth.data.token]);
 
-  const handleToggleIsActive = async (practiceStrategyId: string) => {
+  const handleToggleIsActive = async (
+    normativeAspectProgrammId: string,
+    isActive: boolean
+  ) => {
     try {
-      const response = await Api.post(
-        `/practice-strategy/toggle-is-active/${practiceStrategyId}`,
+      const response = await Api.patch(
+        `/NormativeAspectProgramm/${normativeAspectProgrammId}/is-active`,
+        {
+          is_active: !isActive,
+        },
         auth.data.token
       );
       const { data, statusCode } = response;
       if (statusCode === 200) {
-        const updatedPracticeStrategy = practiceStrategy.map(
-          (practiceStrategy) =>
-            practiceStrategy.id === practiceStrategyId
-              ? { ...practiceStrategy, isActive: data.isActive }
-              : practiceStrategy
+        const updatedNormativeAspectProgramm = normativeAspectProgramm.map((normativeAspectProgramm) =>
+          normativeAspectProgramm.id === normativeAspectProgramm
+            ? { ...normativeAspectProgramm, is_active: !isActive }
+            : normativeAspectProgramm
         );
-        setPracticeStrategy(updatedPracticeStrategy);
+        setNormativeAspectProgramm(updatedNormativeAspectProgramm);
         Swal.fire({
           title: "Success",
-          text: "practice-strategy updated successfully",
+          text: "Programa Aspecto Normativo actualizado con exito",
           icon: "success",
         });
       } else {
@@ -75,66 +80,44 @@ const PracticeStrategyDashboard: React.FC = () => {
 
   const deletion = async (id: any) => {
     const response = await Api.delete(
-      `/practice-strategy/${id}`,
+      `/NormativeAspectProgramm/${id}`,
       auth.data.token
     );
     window.location.reload();
   };
 
+
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold mb-4">
-          Tablero de Estrategia de Practica
-        </h1>
+        <h1 className="text-2xl font-bold mb-4">Tablero de Programa Aspecto Normativo</h1>
         <button
-          onClick={() => navigate("/create-practice-strategy")}
+          onClick={() => navigate("/create-normative-aspect-programm")}
           className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
         >
-          Crear Estrategia de Practica
+          Crear Programa Aspecto Normativo
         </button>
       </div>
       <table className="min-w-full bg-white border border-gray-200">
         <thead>
           <tr>
-            <th className="py-2 px-4 border-b text-center">Id</th>
-            <th className="py-2 px-4 border-b text-center">Tipo de Practica</th>
-            <th className="py-2 px-4 border-b text-center">Nombre</th>
-            <th className="py-2 px-4 border-b text-center">Descripción</th>
+            <th className="py-2 px-4 border-b text-center">Apecto Normativo</th>
+            <th className="py-2 px-4 border-b text-center">Programa</th>
           </tr>
         </thead>
         <tbody>
-          {practiceStrategy?.map((practiceStrategy) => (
-            <tr key={practiceStrategy.id}>
+          {normativeAspectProgramm.map((normativeAspectProgramm) => (
+            <tr key={normativeAspectProgramm.id}>
               <td className="py-2 px-4 border-b text-center">
-                {practiceStrategy.id}
+                {normativeAspectProgramm.normative_aspect}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                {practiceStrategy.type_practice}
-              </td>
-              <td className="py-2 px-4 border-b text-center">
-                {practiceStrategy.name}
-              </td>
-              <td className="py-2 px-4 border-b text-center">
-                {practiceStrategy.description}
-              </td>
-              <td className="py-2 px-4 border-b text-center">
-                <label className="flex items-center space-x-2">
-                  <input
-                    type="checkbox"
-                    className="toggle-switch"
-                    checked={practiceStrategy.isActive}
-                    onChange={() => handleToggleIsActive(practiceStrategy.id)}
-                  />
-                  <span>
-                    {practiceStrategy.isActive ? "Activo" : "Inactivo"}
-                  </span>
-                </label>
+                {normativeAspectProgramm.program}
               </td>
               <td className="py-2 px-4 border-b text-center space-x-4">
-                <button
+               <button
                   onClick={() =>
-                    navigate(`/read-practice-strategy/${practiceStrategy.id}`)
+                    navigate(`/read-normative-aspect-programm/${normativeAspectProgramm.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
@@ -142,14 +125,14 @@ const PracticeStrategyDashboard: React.FC = () => {
                 </button>
                 <button
                   onClick={() =>
-                    navigate(`/edit-practice-strategy/${practiceStrategy.id}`)
+                    navigate(`/edit-normative-aspect-programm/${normativeAspectProgramm.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Editar
                 </button>
                 <button
-                  onClick={() => deletion(practiceStrategy.id)}
+                  onClick={() => deletion(normativeAspectProgramm.id)}
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Borrar
@@ -163,4 +146,4 @@ const PracticeStrategyDashboard: React.FC = () => {
   );
 };
 
-export default PracticeStrategyDashboard;
+export default NormativeAspectProgrammDashboard;

@@ -10,7 +10,7 @@ const AllianceList: React.FC = () => {
   useEffect(() => {
     const fetchAlliance = async () => {
       try {
-        const { data, statusCode } = await Api.get("/alliance/active");
+        const { data, statusCode } = await Api.get("/alliances/active");
         if (statusCode === 200) {
           setAlliance(data);
         } else {
@@ -33,11 +33,11 @@ const AllianceList: React.FC = () => {
   }, []);
 
   const handleNavigate = (description: string, allianceId: string) => {
-    navigate(`/alliance/${description}`, { state: { allianceId } });
+    navigate(`/alliances/${description}`, { state: { allianceId } });
   };
 
   const handleNavigateToform = (description: string, allianceId: string) => {
-    navigate(`/alliance/${description}/form/${allianceId}`, {
+    navigate(`/alliances/${description}/form/${allianceId}`, {
       state: { allianceId },
     });
   };

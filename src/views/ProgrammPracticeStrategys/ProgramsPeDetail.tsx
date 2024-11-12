@@ -4,20 +4,20 @@ import { useSelector } from "react-redux";
 import { Api } from "../../services/Api";
 import Swal from "sweetalert2";
 
-const AllianceDetail: React.FC = () => {
+const ProgrammPracticeStrategyDetail: React.FC = () => {
   const { id } = useParams();
  
-  const [alliance, setAlliance] = useState<any>(null);
+  const [programPe, setProgrammPracticeStrategy] = useState<any>(null);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchAlliance = async () => {
+    const fetchProgrammPracticeStrategy = async () => {
       try {
-        const response = await Api.get(`/alliances/${id}`, auth.data.token);
+        const response = await Api.get(`/ProgrammPracticeStrategy/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
-          setAlliance(data);
+          setProgrammPracticeStrategy(data);
         } else {
           Swal.fire({
             title: "Error",
@@ -34,25 +34,22 @@ const AllianceDetail: React.FC = () => {
       }
     };
 
-    fetchAlliance();
+    fetchProgrammPracticeStrategy();
   }, [id, auth.data.token]);
 
-  if (!alliance) return <div className="text-center py-4">Cargando...</div>;
+  if (!programPe) return <div className="text-center py-4">Cargando...</div>;
 
   return (
     <div className="container mx-auto p-4 max-w-lg">
-      <h1 className="text-3xl font-bold mb-6 text-center">Detalles de Alianza</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">Detalles de Programa Practica Estrategia</h1>
       <div className="bg-white p-6 rounded-lg shadow-lg">
         <div className="space-y-4">
-          <DetailItem label="Allied" value={alliance.allied} />
-          <DetailItem label="Departament" value={alliance.departament} />
-          <DetailItem label="Stardate" value={alliance.startdate} />
-          <DetailItem label="Enddate" value={alliance.enddate} />
-          <DetailItem label="Teaching" value={alliance.teaching} />
+          <DetailItem label="Practicestrategy" value={programPe.practicestrategy} />
+          <DetailItem label="Program" value={programPe.program} />
         </div>
         <div className="flex justify-end mt-6">
           <button
-            onClick={() => navigate("/alliance-dashboard")}
+            onClick={() => navigate("/programm-practice-strategy-dashboard")}
             className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
           >
             regresar
@@ -70,4 +67,4 @@ const DetailItem: React.FC<{ label: string; value: string }> = ({ label, value }
   </div>
 );
 
-export default AllianceDetail;
+export default ProgrammPracticeStrategyDetail;

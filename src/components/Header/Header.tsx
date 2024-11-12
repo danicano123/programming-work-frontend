@@ -30,7 +30,7 @@ const Header: React.FC<HeaderProps> = ({ isLogged, userName, role }) => {
             Aliado
           </Link>
           <Link
-            to="/practice-strategys-dashboard"
+            to="/practice-strategy-dashboard"
             className="text-wood-darker font-bold"
           >
             Practica Estrategica
@@ -39,7 +39,7 @@ const Header: React.FC<HeaderProps> = ({ isLogged, userName, role }) => {
             to="/normative-aspects-dashboard"
             className="text-wood-darker font-bold"
           >
-            Aspectos Normativos
+            Aspecto Normativo
           </Link>
           <Link
             to="/car-innovation-dashboard"
@@ -54,11 +54,13 @@ const Header: React.FC<HeaderProps> = ({ isLogged, userName, role }) => {
             Universidad
           </Link>
           <Link to="/approach-dashboard" 
-            className="text-wood-darker font-bold">
+            className="text-wood-darker font-bold"
+            >
             Enfoque
           </Link>
           <Link to="/faculty-dashboard" 
-            className="text-wood-darker font-bold">
+            className="text-wood-darker font-bold"
+            >
             Facultad
           </Link>
           <Link
@@ -84,6 +86,18 @@ const Header: React.FC<HeaderProps> = ({ isLogged, userName, role }) => {
             className="text-wood-darker font-bold"
           >
             Registro calificado
+            </Link>
+          <Link
+            to="/normative-aspect-programm-dashboard"
+            className="text-wood-darker font-bold"
+          >
+            Programa Aspecto Normativo
+          </Link>
+          <Link
+            to="/programm-practice-strategy-dashboard"
+            className="text-wood-darker font-bold"
+          >
+            Programa Practica Estrategia
           </Link>
           <Link
             to="/qualified-registration-dashboard"
@@ -98,7 +112,8 @@ const Header: React.FC<HeaderProps> = ({ isLogged, userName, role }) => {
             Actividad académica
           </Link>
           <Link to="/award-dashboard" 
-            className="text-wood-darker font-bold">
+            className="text-wood-darker font-bold"
+          >
             Premio
           </Link>
           <Link

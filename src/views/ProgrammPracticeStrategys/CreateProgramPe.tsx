@@ -7,45 +7,35 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 
-
-const CreateAlliance: React.FC = () => {
+const CreateProgrammPracticeStrategy: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
   const initialValues = {
-    alliance: 0,
-    departament: 0,
-    startdate: 0,
-    enddate: 0,
-    teaching: 0,
+    program: 0,
+    practice_strategy: 0,
   };
 
   const validationSchema = Yup.object({
-    alliance: Yup.number()
+    program: Yup.number()
       .required("Campo requerido"),
-      departament: Yup.string()
-      .required("Campo requerido"),
-      startdate: Yup.string()
-      .required("Campo requerido"),
-      enddate: Yup.string()
-      .required("Campo requerido"),
-      teaching: Yup.string()
+    practice_strategy: Yup.number()
       .required("Campo requerido"),
   });
 
   const handleSubmit = async (values: any) => {
     setIsLoading(true);
     try {
-      const response = await Api.post("/Alliances", values, auth.data.token);
+      const response = await Api.post("/ProgrammPracticeStrategy", values, auth.data.token);
       const { data, statusCode } = response;
       if (statusCode === 201) {
         Swal.fire({ 
           title: "Success",
-          text: "Alianza creado con exito",
+          text: "Programa Practica Estrategia creado con exito",
           icon: "success",
         });
-        navigate("/alliance-dashboard");
+        navigate("/programm-practice-strategy-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -66,7 +56,7 @@ const CreateAlliance: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Crear Alianza</h1>
+      <h1 className="text-2xl font-bold mb-4">Crear Programa Practica Estrategia</h1>
       <div className="bg-white p-4 rounded shadow-md">
         <Formik
           initialValues={initialValues}
@@ -75,71 +65,32 @@ const CreateAlliance: React.FC = () => {
         >
           <Form>
             <div className="mb-4">
-              <label className="block text-gray-700">Aliado</label>
+              <label className="block text-gray-700">Programa</label>
               <Field
-                name="allied"
+                name="program"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="allied"
+                name="program"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Departamento</label>
+              <label className="block text-gray-700">Practica Estrategia</label>
               <Field
-                name="departament"
+                name="practice_strategy"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="departament"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Fecha inicio</label>
-              <Field
-                name="startdate"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="startdate"
+                name="practice_strategy"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="flex justify-between">
-            <div className="mb-4">
-              <label className="block text-gray-700">Fecha fin</label>
-              <Field
-                name="enddate"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="enddate"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Docente</label>
-              <Field
-                name="teaching"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="teaching"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
               <button
                 type="submit"
                 className={`${
@@ -150,7 +101,7 @@ const CreateAlliance: React.FC = () => {
                 {isLoading ? "Guardando..." : "Guardar"}
               </button>
               <button
-                onClick={() => navigate("/alliance-dashboard")}
+                onClick={() => navigate("/programm-practice-strategy-dashboard")}
                 className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
               >
                 Salir
@@ -163,4 +114,4 @@ const CreateAlliance: React.FC = () => {
   );
 };
 
-export default CreateAlliance;
+export default CreateProgrammPracticeStrategy;

@@ -7,19 +7,19 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 
-const EditAlliance: React.FC = () => {
+const EditNormativeAspectProgramm: React.FC = () => {
   const { id } = useParams();
-  const [alliance, setAlliance] = useState<any>(null);
+  const [normativeAspectProgramm, setNormativeAspectProgramm] = useState<any>(null);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchAlliance = async () => {
+    const fetchNormativeAspectProgramm = async () => {
       try {
-        const response = await Api.get(`/alliances/${id}`, auth.data.token);
+        const response = await Api.get(`/NormativeAspectProgramm/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
-          setAlliance(data);
+          setNormativeAspectProgramm(data);
         } else {
           Swal.fire({
             title: "Error",
@@ -36,49 +36,36 @@ const EditAlliance: React.FC = () => {
       }
     };
 
-    fetchAlliance();
+    fetchNormativeAspectProgramm();
   }, [id, auth.data.token]);
 
-  if (!alliance) return <div>Cargando...</div>;
+  if (!normativeAspectProgramm) return <div>Cargando...</div>;
 
   const initialValues = {
-    allied: alliance.allied || "",
-    departament: alliance.departament || "",
-    startdate: alliance.startdate || "",
-    enddate: alliance.enddate || "",
-    teaching: alliance.teaching || "",
+    normative_aspect: normativeAspectProgramm.normative_aspect || "",
+    program: normativeAspectProgramm.program || "",
   };
 
   const validationSchema = Yup.object({
-    allied: Yup.string()
-    .max(45, "Máximo 45 caracteres")
-      .required("Requerido"),
-    departament: Yup.string()
+    normative_aspect: Yup.string()
       .max(45, "Máximo 45 caracteres")
       .required("Requerido"),
-    startdate: Yup.string()
+      program: Yup.string()
       .max(45, "Máximo 45 caracteres")
       .required("Requerido"),
-    enddate: Yup.string()
-      .max(45, "Máximo 45 caracteres")
-      .required("Requerido"),
-    teaching: Yup.string()
-      .max(45, "Máximo 45 caracteres")
-      .required("Requerido"),
-      
   });
 
   const handleSubmit = async (values: any) => {
     try {
-      const response = await Api.patch(`/alliances/${id}`, { id: alliance.id, ...values}, auth.data.token);
+      const response = await Api.patch(`/NormativeAspectProgramm/${id}`, { id: normativeAspectProgramm.id, ...values}, auth.data.token);
       const { data, statusCode } = response;
       if (statusCode === 204) {
         Swal.fire({
           title: "Success",
-          text: "Alianza actualizado correctamente",
+          text: "Programa Aspecto Normativo actualizado correctamente",
           icon: "success",
         });
-        navigate("/alliance-dashboard");
+        navigate("/normative-aspect-programm-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -97,7 +84,7 @@ const EditAlliance: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Editar Alianza</h1>
+      <h1 className="text-2xl font-bold mb-4">Editar Programa Aspecto Normativo</h1>
       <div className="bg-white p-4 rounded shadow-md">
         <Formik
           initialValues={initialValues}
@@ -106,66 +93,27 @@ const EditAlliance: React.FC = () => {
         >
           <Form>
             <div className="mb-4">
-              <label className="block text-gray-700">Aliado</label>
+              <label className="block text-gray-700">Aspecto Normativo</label>
               <Field
-                name="allied"
+                name="normative_aspect"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="allied"
+                name="normative_aspect"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Departamento</label>
+              <label className="block text-gray-700">Programa</label>
               <Field
-                name="departament"
+                name="program"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="departament"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Fecha inicio</label>
-              <Field
-                name="startdate"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="startdate"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Fecha fin</label>
-              <Field
-                name="enddate"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="enddate"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Docente</label>
-              <Field
-                name="teaching"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="teaching"
+                name="program"
                 component="div"
                 className="text-red-600"
               />
@@ -180,7 +128,7 @@ const EditAlliance: React.FC = () => {
               <button
                 type="button"
                 className="ml-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
-                onClick={() => navigate("/alliance-dashboard")}
+                onClick={() => navigate("/normative-aspect-programm-dashboard")}
               >
                 Cancelar
               </button>
@@ -192,4 +140,4 @@ const EditAlliance: React.FC = () => {
   );
 };
 
-export default EditAlliance;
+export default EditNormativeAspectProgramm;
