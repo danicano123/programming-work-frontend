@@ -65,10 +65,6 @@ import ProgramCiDashboard from "../views/ProgrammCarInnovations/ProgramCiDashboa
 import ProgramCiDetail from "../views/ProgrammCarInnovations/ProgramsCiDetail";
 import EditProgramCi from "../views/ProgrammCarInnovations/EditProgramCi";
 import CreateProgramCi from "../views/ProgrammCarInnovations/CreateProgramCi";
-import AnProgramDashboard from "../views/AnPrograms/AnProgramDashboard";
-import AnProgramDetail from "../views/AnPrograms/AnProgramsDetail";
-import EditAnProgram from "../views/AnPrograms/EditAnProgram";
-import CreateAnProgram from "../views/AnPrograms/CreateAnProgram";
 import InternshipDashboard from "../views/Internships/InternshipDashboard";
 import InternshipDetail from "../views/Internships/InternshipsDetail";
 import EditInternship from "../views/Internships/EditInternship";
@@ -373,23 +369,6 @@ export const RoutesSchema = [
     element: CreateProgramCi,
   },
 
-  //AnPrograms
-  {
-    path: "/an-program-dashboard",
-    element: AnProgramDashboard,
-  },
-  {
-    path: "/an-program-detail",
-    element: AnProgramDetail,
-  },
-  {
-    path: "/an-program-edit",
-    element: EditAnProgram,
-  },
-  {
-    path: "/create-an-program",
-    element: CreateAnProgram,
-  },
 
   //Internships
   {

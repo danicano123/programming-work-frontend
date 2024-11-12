@@ -131,12 +131,12 @@ const EditProgram: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Id</label>
               <Field
-                name="name"
+                name="id"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="name"
+                name="id"
                 component="div"
                 className="text-red-600"
               />
@@ -144,12 +144,12 @@ const EditProgram: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Nombre</label>
               <Field
-                name="description"
+                name="name"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="description"
+                name="name"
                 component="div"
                 className="text-red-600"
               />
@@ -157,12 +157,12 @@ const EditProgram: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Tipo</label>
               <Field
-                name="description"
+                name="type"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="description"
+                name="type"
                 component="div"
                 className="text-red-600"
               />
@@ -170,12 +170,12 @@ const EditProgram: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Nivel</label>
               <Field
-                name="description"
+                name="level"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="description"
+                name="level"
                 component="div"
                 className="text-red-600"
               />
@@ -183,12 +183,12 @@ const EditProgram: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Fecha creación</label>
               <Field
-                name="description"
+                name="cration_date"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="description"
+                name="cration_date"
                 component="div"
                 className="text-red-600"
               />
@@ -196,12 +196,12 @@ const EditProgram: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Fecha cierre</label>
               <Field
-                name="description"
+                name="closing_date"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="description"
+                name="closing_date"
                 component="div"
                 className="text-red-600"
               />
@@ -209,12 +209,12 @@ const EditProgram: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Numero cohortes</label>
               <Field
-                name="description"
+                name="nomber_cohorts"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="description"
+                name="nomber_cohorts"
                 component="div"
                 className="text-red-600"
               />
@@ -222,12 +222,12 @@ const EditProgram: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Cantidad de graduados</label>
               <Field
-                name="description"
+                name="number_graduates"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="description"
+                name="number_graduates"
                 component="div"
                 className="text-red-600"
               />
@@ -235,12 +235,12 @@ const EditProgram: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Fecha actualización</label>
               <Field
-                name="description"
+                name="update_date"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="description"
+                name="update_date"
                 component="div"
                 className="text-red-600"
               />
@@ -248,12 +248,12 @@ const EditProgram: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Ciudad</label>
               <Field
-                name="description"
+                name="city"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="description"
+                name="city"
                 component="div"
                 className="text-red-600"
               />
@@ -261,12 +261,12 @@ const EditProgram: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Facultad</label>
               <Field
-                name="description"
+                name="faculty"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="description"
+                name="faculty"
                 component="div"
                 className="text-red-600"
               />

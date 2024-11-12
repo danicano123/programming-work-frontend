@@ -92,7 +92,7 @@ const ProgramDashboard: React.FC = () => {
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold mb-4">Tablero de Programa</h1>
         <button
-          onClick={() => navigate("/create-programs")}
+          onClick={() => navigate("/create-program")}
           className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
         >
           Crear Programa
