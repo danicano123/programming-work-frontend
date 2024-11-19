@@ -4,20 +4,20 @@ import { useNavigate } from "react-router-dom";
 import { Api } from "../../services/Api";
 import Swal from "sweetalert2";
 
-const PracticeStrategysDashboard: React.FC = () => {
-  const [practiceStrategys, setPracticeStrategys] = useState<any[]>([]);
+const PracticeStrategyDashboard: React.FC = () => {
+  const [practiceStrategy, setPracticeStrategy] = useState<any[]>([]);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchPracticeStrategys = async () => {
+    const fetchPracticeStrategy = async () => {
       try {
         const { data, statusCode } = await Api.get(
-          "/practice-strategys",
+          "/practice-strategy",
           auth.data.token
         );
         if (statusCode === 200) {
-          setPracticeStrategys(data);
+          setPracticeStrategy(data);
         } else {
           Swal.fire({
             title: "Error",
@@ -28,33 +28,33 @@ const PracticeStrategysDashboard: React.FC = () => {
       } catch (error) {
         Swal.fire({
           title: "Error",
-          text: "Error: unable to fetch active practiceStrategys",
+          text: "Error: unable to fetch active practiceStrategy",
           icon: "error",
         });
       }
     };
 
-    fetchPracticeStrategys();
+    fetchPracticeStrategy();
   }, [auth.data.token]);
 
-  const handleToggleIsActive = async (practiceStrategysId: string) => {
+  const handleToggleIsActive = async (practiceStrategyId: string) => {
     try {
       const response = await Api.post(
-        `/practice-strategys/toggle-is-active/${practiceStrategysId}`,
+        `/practice-strategy/toggle-is-active/${practiceStrategyId}`,
         auth.data.token
       );
       const { data, statusCode } = response;
       if (statusCode === 200) {
-        const updatedPracticeStrategys = practiceStrategys.map(
-          (practiceStrategys) =>
-            practiceStrategys.id === practiceStrategysId
-              ? { ...practiceStrategys, isActive: data.isActive }
-              : practiceStrategys
+        const updatedPracticeStrategy = practiceStrategy.map(
+          (practiceStrategy) =>
+            practiceStrategy.id === practiceStrategyId
+              ? { ...practiceStrategy, isActive: data.isActive }
+              : practiceStrategy
         );
-        setPracticeStrategys(updatedPracticeStrategys);
+        setPracticeStrategy(updatedPracticeStrategy);
         Swal.fire({
           title: "Success",
-          text: "practice-strategys updated successfully",
+          text: "practice-strategy updated successfully",
           icon: "success",
         });
       } else {
@@ -75,7 +75,7 @@ const PracticeStrategysDashboard: React.FC = () => {
 
   const deletion = async (id: any) => {
     const response = await Api.delete(
-      `/practice-strategys/${id}`,
+      `/practice-strategy/${id}`,
       auth.data.token
     );
     window.location.reload();
@@ -88,7 +88,7 @@ const PracticeStrategysDashboard: React.FC = () => {
           Tablero de Estrategia de Practica
         </h1>
         <button
-          onClick={() => navigate("/create-practice-strategys")}
+          onClick={() => navigate("/create-practice-strategy")}
           className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
         >
           Crear Estrategia de Practica
@@ -98,43 +98,43 @@ const PracticeStrategysDashboard: React.FC = () => {
         <thead>
           <tr>
             <th className="py-2 px-4 border-b text-center">Id</th>
-            <th className="py-2 px-4 border-b text-center">Tipo</th>
+            <th className="py-2 px-4 border-b text-center">Tipo de Practica</th>
             <th className="py-2 px-4 border-b text-center">Nombre</th>
             <th className="py-2 px-4 border-b text-center">Descripción</th>
           </tr>
         </thead>
         <tbody>
-          {practiceStrategys?.map((practiceStrategys) => (
-            <tr key={practiceStrategys.id}>
+          {practiceStrategy?.map((practiceStrategy) => (
+            <tr key={practiceStrategy.id}>
               <td className="py-2 px-4 border-b text-center">
-                {practiceStrategys.id}
+                {practiceStrategy.id}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                {practiceStrategys.type}
+                {practiceStrategy.type_practice}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                {practiceStrategys.name}
+                {practiceStrategy.name}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                {practiceStrategys.description}
+                {practiceStrategy.description}
               </td>
               <td className="py-2 px-4 border-b text-center">
                 <label className="flex items-center space-x-2">
                   <input
                     type="checkbox"
                     className="toggle-switch"
-                    checked={practiceStrategys.isActive}
-                    onChange={() => handleToggleIsActive(practiceStrategys.id)}
+                    checked={practiceStrategy.isActive}
+                    onChange={() => handleToggleIsActive(practiceStrategy.id)}
                   />
                   <span>
-                    {practiceStrategys.isActive ? "Activo" : "Inactivo"}
+                    {practiceStrategy.isActive ? "Activo" : "Inactivo"}
                   </span>
                 </label>
               </td>
               <td className="py-2 px-4 border-b text-center space-x-4">
                 <button
                   onClick={() =>
-                    navigate(`/read-practice-strategys/${practiceStrategys.id}`)
+                    navigate(`/read-practice-strategy/${practiceStrategy.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
@@ -142,14 +142,14 @@ const PracticeStrategysDashboard: React.FC = () => {
                 </button>
                 <button
                   onClick={() =>
-                    navigate(`/edit-practice-strategys/${practiceStrategys.id}`)
+                    navigate(`/edit-practice-strategy/${practiceStrategy.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Editar
                 </button>
                 <button
-                  onClick={() => deletion(practiceStrategys.id)}
+                  onClick={() => deletion(practiceStrategy.id)}
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Borrar
@@ -163,4 +163,4 @@ const PracticeStrategysDashboard: React.FC = () => {
   );
 };
 
-export default PracticeStrategysDashboard;
+export default PracticeStrategyDashboard;

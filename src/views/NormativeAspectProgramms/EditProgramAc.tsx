@@ -7,19 +7,19 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 
-const EditInternship: React.FC = () => {
+const EditNormativeAspectProgramm: React.FC = () => {
   const { id } = useParams();
-  const [internship, setInternship] = useState<any>(null);
+  const [normativeAspectProgramm, setNormativeAspectProgramm] = useState<any>(null);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchInternship = async () => {
+    const fetchNormativeAspectProgramm = async () => {
       try {
-        const response = await Api.get(`Internship/${id}`, auth.data.token);
+        const response = await Api.get(`/NormativeAspectProgramm/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
-          setInternship(data);
+          setNormativeAspectProgramm(data);
         } else {
           Swal.fire({
             title: "Error",
@@ -36,51 +36,36 @@ const EditInternship: React.FC = () => {
       }
     };
 
-    fetchInternship();
+    fetchNormativeAspectProgramm();
   }, [id, auth.data.token]);
 
-  if (!internship) return <div>Cargando...</div>;
+  if (!normativeAspectProgramm) return <div>Cargando...</div>;
 
   const initialValues = {
-    id: internship.id || "",
-    name: internship.name || "",
-    country: internship.country || "",
-    company: internship.company || "",
-    description: internship.description || "",
-    program: internship.program || "",
+    normative_aspect: normativeAspectProgramm.normative_aspect || "",
+    program: normativeAspectProgramm.program || "",
   };
 
   const validationSchema = Yup.object({
-    id: Yup.string()
+    normative_aspect: Yup.string()
       .max(45, "Máximo 45 caracteres")
       .required("Requerido"),
-    name: Yup.string()
-      .max(45, "Máximo 45 caracteres"),
-    country: Yup.string()
-      .max(45, "Máximo 45 caracteres")
-      .required("Requerido"),
-    company: Yup.string()
-      .max(45, "Máximo 45 caracteres")
-      .required("Requerido"),
-    description: Yup.string()
-      .max(45, "Máximo 45 caracteres")
-      .required("Requerido"),
-    program: Yup.string()
+      program: Yup.string()
       .max(45, "Máximo 45 caracteres")
       .required("Requerido"),
   });
 
   const handleSubmit = async (values: any) => {
     try {
-      const response = await Api.patch(`/internship/${id}`, { id: internship.id, ...values}, auth.data.token);
+      const response = await Api.patch(`/NormativeAspectProgramm/${id}`, { id: normativeAspectProgramm.id, ...values}, auth.data.token);
       const { data, statusCode } = response;
       if (statusCode === 204) {
         Swal.fire({
           title: "Success",
-          text: "Pasantia actualizado correctamente",
+          text: "Programa Aspecto Normativo actualizado correctamente",
           icon: "success",
         });
-        navigate("/internship-dashboard");
+        navigate("/normative-aspect-programm-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -99,7 +84,7 @@ const EditInternship: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Editar Pasantia</h1>
+      <h1 className="text-2xl font-bold mb-4">Editar Programa Aspecto Normativo</h1>
       <div className="bg-white p-4 rounded shadow-md">
         <Formik
           initialValues={initialValues}
@@ -107,68 +92,15 @@ const EditInternship: React.FC = () => {
           onSubmit={handleSubmit}
         >
           <Form>
-          <div className="mb-4">
-              <label className="block text-gray-700">Id</label>
-              <Field
-                name="id"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="id"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Nombre</label>
+              <label className="block text-gray-700">Aspecto Normativo</label>
               <Field
-                name="name"
+                name="normative_aspect"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="name"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Pais</label>
-              <Field
-                name="country"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="country"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Compañia</label>
-              <Field
-                name="company"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="company"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            
-            <div className="mb-4">
-              <label className="block text-gray-700">Descripción</label>
-              <Field
-                name="description"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="description"
+                name="normative_aspect"
                 component="div"
                 className="text-red-600"
               />
@@ -196,7 +128,7 @@ const EditInternship: React.FC = () => {
               <button
                 type="button"
                 className="ml-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
-                onClick={() => navigate("/internship-dashboard")}
+                onClick={() => navigate("/normative-aspect-programm-dashboard")}
               >
                 Cancelar
               </button>
@@ -208,4 +140,4 @@ const EditInternship: React.FC = () => {
   );
 };
 
-export default EditInternship;
+export default EditNormativeAspectProgramm;

@@ -10,7 +10,7 @@ const AllianceList: React.FC = () => {
   useEffect(() => {
     const fetchAlliance = async () => {
       try {
-        const { data, statusCode } = await Api.get("/alliance/active");
+        const { data, statusCode } = await Api.get("/alliances/active");
         if (statusCode === 200) {
           setAlliance(data);
         } else {
@@ -33,18 +33,18 @@ const AllianceList: React.FC = () => {
   }, []);
 
   const handleNavigate = (description: string, allianceId: string) => {
-    navigate(`/alliance/${description}`, { state: { allianceId } });
+    navigate(`/alliances/${description}`, { state: { allianceId } });
   };
 
   const handleNavigateToform = (description: string, allianceId: string) => {
-    navigate(`/alliance/${description}/form/${allianceId}`, {
+    navigate(`/alliances/${description}/form/${allianceId}`, {
       state: { allianceId },
     });
   };
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Enfoque</h1>
+      <h1 className="text-2xl font-bold mb-4">Alianza</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {alliance?.map((alliance) => (
           <div key={alliance.id} className="bg-white rounded-lg shadow-md p-4">

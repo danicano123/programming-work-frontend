@@ -4,20 +4,20 @@ import { useNavigate } from "react-router-dom";
 import { Api } from "../../services/Api";
 import Swal from "sweetalert2";
 
-const AnProgramDashboard: React.FC = () => {
-  const [anProgram, setAnProgram] = useState<any[]>([]);
+const TeacherProgramsDashboard: React.FC = () => {
+  const [teacherPrograms, setTeacherPrograms] = useState<any[]>([]);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchAnProgram = async () => {
+    const fetchTeacherPrograms = async () => {
       try {
         const { data, statusCode } = await Api.get(
-          "/NormativeAspectProgramm",
+          "/teacher-programs",
           auth.data.token
         );
         if (statusCode === 200) {
-          setAnProgram(data);
+          setTeacherPrograms(data);
         } else {
           Swal.fire({
             title: "Error",
@@ -28,22 +28,22 @@ const AnProgramDashboard: React.FC = () => {
       } catch (error) {
         Swal.fire({
           title: "Error",
-          text: "Error: unable to fetch active anProgram",
+          text: "Error: unable to fetch active teacher-programs",
           icon: "error",
         });
       }
     };
 
-    fetchAnProgram();
+    fetchTeacherPrograms();
   }, [auth.data.token]);
 
   const handleToggleIsActive = async (
-    approachId: string,
+    teachingDepartamentId: string,
     isActive: boolean
   ) => {
     try {
       const response = await Api.patch(
-        `/anProgram/${approachId}/is-active`,
+        `/teacher-programs/${teachingDepartamentId}/is-active`,
         {
           is_active: !isActive,
         },
@@ -51,15 +51,15 @@ const AnProgramDashboard: React.FC = () => {
       );
       const { data, statusCode } = response;
       if (statusCode === 200) {
-        const updatedAnProgram = anProgram.map((anProgram) =>
-          anProgram.id === anProgram.Id
-            ? { ...anProgram, is_active: !isActive }
-            : anProgram
+        const updatedTeacherPrograms = teacherPrograms.map((teacherPrograms) =>
+          teacherPrograms.id === teacherPrograms.Id
+            ? { ...teacherPrograms, is_active: !isActive }
+            : teacherPrograms
         );
-        setAnProgram(updatedAnProgram);
+        setTeacherPrograms(updatedTeacherPrograms);
         Swal.fire({
           title: "Success",
-          text: "An Programa actualizado con exito",
+          text: "Docente Departamento actualizado con exito",
           icon: "success",
         });
       } else {
@@ -90,34 +90,51 @@ const AnProgramDashboard: React.FC = () => {
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold mb-4">Tablero Programa Aspecto Normativo</h1>
+        <h1 className="text-2xl font-bold mb-4">Tablero de Programa Docente</h1>
         <button
-          onClick={() => navigate("/create-NormativeAspectProgramm")}
+          onClick={() => navigate("/create-teacher-programs")}
           className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
         >
-          Crear An Programa
+          Crear Programa Docente
         </button>
       </div>
       <table className="min-w-full bg-white border border-gray-200">
         <thead>
           <tr>
-            <th className="py-2 px-4 border-b text-center">Aspecto Normativo</th>
-            <th className="py-2 px-4 border-b text-center">Programa</th>
+            <th className="py-2 px-4 border-b text-center">Docente</th>
+            <th className="py-2 px-4 border-b text-center">Departamento</th>
+            <th className="py-2 px-4 border-b text-center">Dedicación</th>
+            <th className="py-2 px-4 border-b text-center">Modalidad</th>
+            <th className="py-2 px-4 border-b text-center">Fecha Ingreso</th>
+            <th className="py-2 px-4 border-b text-center">Fecha Salida</th>
           </tr>
         </thead>
         <tbody>
-          {anProgram.map((anProgram) => (
-            <tr key={anProgram.id}>
+          {teacherPrograms.map((teacherPrograms) => (
+            <tr key={teacherPrograms.id}>
               <td className="py-2 px-4 border-b text-center">
-                {anProgram.normativeaspects}
+                {teacherPrograms.teaching}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                {anProgram.program}
+                {teacherPrograms.departament}
+              </td>
+              <td className="py-2 px-4 border-b text-center">
+                {teacherPrograms.dedication}
+              </td>
+              <td className="py-2 px-4 border-b text-center">
+                {teacherPrograms.mode}
+              </td>
+              <td className="py-2 px-4 border-b text-center">
+                {teacherPrograms.entrydate}
+              </td>
+              <td className="py-2 px-4 border-b text-center">
+                {teacherPrograms.departuredate}
               </td>
               <td className="py-2 px-4 border-b text-center space-x-4">
+                
                <button
                   onClick={() =>
-                    navigate(`/read-anProgram/${anProgram.id}`)
+                    navigate(`/read-teachingDepartament/${teacherPrograms.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
@@ -125,14 +142,14 @@ const AnProgramDashboard: React.FC = () => {
                 </button>
                 <button
                   onClick={() =>
-                    navigate(`/edit-anProgram/${anProgram.id}`)
+                    navigate(`/edit-teachingDepartament/${teacherPrograms.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Editar
                 </button>
                 <button
-                  onClick={() => deletion(anProgram.id)}
+                  onClick={() => deletion(teacherPrograms.id)}
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Borrar
@@ -146,4 +163,4 @@ const AnProgramDashboard: React.FC = () => {
   );
 };
 
-export default AnProgramDashboard;
+export default TeacherProgramsDashboard;

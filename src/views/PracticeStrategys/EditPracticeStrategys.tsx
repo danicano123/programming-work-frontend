@@ -15,7 +15,7 @@ const EditPracticeStrategy: React.FC = () => {
   useEffect(() => {
     const fetchPracticeStrategy = async () => {
       try {
-        const response = await Api.get(`/practice-strategys/${id}`, auth.data.token);
+        const response = await Api.get(`/practice-strategy/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
           setPracticeStrategy(data);
@@ -64,7 +64,7 @@ const EditPracticeStrategy: React.FC = () => {
 
   const handleSubmit = async (values: any) => {
     try {
-      const response = await Api.patch(`/practice-strategys/${id}`, values, auth.data.token);
+      const response = await Api.patch(`/practice-strategy/${id}`, values, auth.data.token);
       const { data, statusCode } = response;
       if (statusCode === 200) {
         Swal.fire({
@@ -72,7 +72,7 @@ const EditPracticeStrategy: React.FC = () => {
           text: "Estrategia de Práctica actualizada con exito",
           icon: "success",
         });
-        navigate("/practice-strategys-dashboard");
+        navigate("/practice-strategy-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -115,12 +115,12 @@ const EditPracticeStrategy: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Tipo de Practica</label>
               <Field
-                name="type"
+                name="type_practice"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="type"
+                name="type_practice"
                 component="div"
                 className="text-red-600"
               />
@@ -161,7 +161,7 @@ const EditPracticeStrategy: React.FC = () => {
               <button
                 type="button"
                 className="ml-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
-                onClick={() => navigate("/practice-strategys-dashboard")}
+                onClick={() => navigate("/practice-strategy-dashboard")}
               >
                 Cancelar
               </button>

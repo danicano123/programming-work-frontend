@@ -1,3 +1,4 @@
+
 import Dashboard from "../components/Dashboard/Dashboard";
 import RegisterForm from "../components/Register/RegisterForm";
 import AlliedDashboard from "../views/Allieds/AlliedDashboard";
@@ -32,10 +33,6 @@ import UniversityDetail from "../views/University/UniversityDetail";
 import EditUniversity from "../views/University/EditUniversity";
 import ApproachDetail from "../views/Approaches/ApproachDetail";
 import EditApproach from "../views/Approaches/EditApproach";
-import PracticeStrategyDetail from "../views/PracticeStrategys/PracticeStrategysDetail";
-import EditPracticeStrategy from "../views/PracticeStrategys/EditPracticeStrategys";
-import CreatePracticeStrategy from "../views/PracticeStrategys/CreatePracticeStrategys";
-import PracticeStrategysDashboard from "../views/PracticeStrategys/PracticeStrategysDashboard";
 import EditFaculty from "../views/Faculties/EditFaculty";
 import FacultyDetail from "../views/Faculties/FacultyDetail";
 import CreateFaculty from "../views/Faculties/CreateFaculty";
@@ -57,37 +54,44 @@ import EditAward from "../views/Awards/EditAward";
 import AwardDetail from "../views/Awards/AwardDetail";
 import CreateAward from "../views/Awards/CreateAward";
 import AllianceDashboard from "../views/Alliances/AllianceDashboard";
-import AllianceDetail from "../views/Alliances/AlliancesDetail";
 import EditAlliance from "../views/Alliances/EditAlliance";
+import AllianceDetail from "../views/Alliances/AlliancesDetail";
 import CreateAlliance from "../views/Alliances/CreateAlliance";
-import TeachingDepartamentDashboard from "../views/TeachingDepartments/TeachingDepartmentDashboard";
-import TeachingDepartamentDetail from "../views/TeachingDepartments/TeachingDepartmentsDetail";
-import EditTeachingDepartament from "../views/TeachingDepartments/EditTeachingDepartment";
-import CreateTeachingDepartament from "../views/TeachingDepartments/CreateTeachingDepartment";
 import ProgramDashboard from "../views/Programs/ProgramDashboard";
 import ProgramDetail from "../views/Programs/ProgramsDetail";
 import EditProgram from "../views/Programs/EditProgram";
 import CreateProgram from "../views/Programs/CreateProgram";
-import ProgramPeDashboard from "../views/ProgramPe/ProgramPeDashboard";
-import ProgramPeDetail from "../views/ProgramPe/ProgramsPeDetail";
-import CreateInternship from "../views/Internships/CreateInternship";
-import EditInternship from "../views/Internships/EditInternship";
-import InternshipDetail from "../views/Internships/InternshipsDetail";
+import ProgramCiDashboard from "../views/ProgrammCarInnovations/ProgramCiDashboard";
+import ProgramCiDetail from "../views/ProgrammCarInnovations/ProgramsCiDetail";
+import EditProgramCi from "../views/ProgrammCarInnovations/EditProgramCi";
+import CreateProgramCi from "../views/ProgrammCarInnovations/CreateProgramCi";
 import InternshipDashboard from "../views/Internships/InternshipDashboard";
-import CreateAnProgram from "../views/AnPrograms/CreateAnProgram";
-import EditAnProgram from "../views/AnPrograms/EditAnProgram";
-import AnProgramDetail from "../views/AnPrograms/AnProgramsDetail";
-import AnProgramDashboard from "../views/AnPrograms/AnProgramDashboard";
-import CreateProgramCi from "../views/ProgramsCi/CreateProgramCi";
-import EditProgramCi from "../views/ProgramsCi/EditProgramCi";
-import ProgramCiDetail from "../views/ProgramsCi/ProgramsCiDetail";
-import ProgramCiDashboard from "../views/ProgramsCi/ProgramCiDashboard";
-import CreateProgramAc from "../views/ProgramsAc/CreateProgramAc";
-import EditProgramAc from "../views/ProgramsAc/EditProgramAc";
-import ProgramAcDetail from "../views/ProgramsAc/ProgramsAcDetail";
-import ProgramAcDashboard from "../views/ProgramsAc/ProgramAcDashboard";
-import CreateProgramPe from "../views/ProgramPe/CreateProgramPe";
-import EditProgramPe from "../views/ProgramPe/EditProgramPe";
+import InternshipDetail from "../views/Internships/InternshipsDetail";
+import EditInternship from "../views/Internships/EditInternship";
+import CreateInternship from "../views/Internships/CreateInternship";
+import PracticeStrategyDashboard from "../views/PracticeStrategys/PracticeStrategysDashboard";
+import PracticeStrategyDetail from "../views/PracticeStrategys/PracticeStrategysDetail";
+import EditPracticeStrategy from "../views/PracticeStrategys/EditPracticeStrategys";
+import CreatePracticeStrategy from "../views/PracticeStrategys/CreatePracticeStrategys";
+import CreateTeacherPrograms from "../views/TeacherPrograms/CreateTeacherPrograms";
+import TeacherProgramsDashboard from "../views/TeacherPrograms/TeacherProgramsDashboard";
+import TeacherProgramsDetail from "../views/TeacherPrograms/TeacherProgramsDetail";
+import EditTeacherPrograms from "../views/TeacherPrograms/EditTeacherPrograms";
+import NormativeAspectProgrammDashboard from "../views/NormativeAspectProgramms/ProgramAcDashboard";
+import NormativeAspectProgrammDetail from "../views/NormativeAspectProgramms/ProgramsAcDetail";
+import EditNormativeAspectProgramm from "../views/NormativeAspectProgramms/EditProgramAc";
+import CreateNormativeAspectProgramm from "../views/NormativeAspectProgramms/CreateProgramAc";
+import ProgrammPracticeStrategyDashboard from "../views/ProgrammPracticeStrategys/ProgramPeDashboard";
+import ProgrammPracticeStrategyDetail from "../views/ProgrammPracticeStrategys/ProgramsPeDetail";
+import EditProgrammPracticeStrategy from "../views/ProgrammPracticeStrategys/EditProgramPe";
+import CreateProgrammPracticeStrategy from "../views/ProgrammPracticeStrategys/CreateProgramPe";
+import ProgrammAreaKnowledgeDashboard from "../views/ProgrammAreaKnowledges/ProgrammAreaKnowledgeDashboard";
+import EditProgrammAreaKnowledge from "../views/ProgrammAreaKnowledges/EditProgrammAreaKnowledge";
+import CreateProgrammAreaKnowledge from "../views/ProgrammAreaKnowledges/CreateProgrammAreaKnowledge";
+import ProgrammAreaKnowledgeDetail from "../views/ProgrammAreaKnowledges/ProgrammAreaKnowledgeDetail";
+
+
+
 
 export const RoutesSchema = [
   {
@@ -245,19 +249,19 @@ export const RoutesSchema = [
   },
 
   {
-    path: "/practice-strategys-dashboard",
-    element: PracticeStrategysDashboard,
+    path: "/practice-strategy-dashboard",
+    element: PracticeStrategyDashboard
   },
   {
-    path: "/read-practice-strategys/:id",
+    path: "/read-practice-strategy",
     element: PracticeStrategyDetail,
   },
   {
-    path: "/edit-practice-strategys",
+    path: "/edit-practice-strategy",
     element: EditPracticeStrategy,
   },
   {
-    path: "/create-practice-strategys",
+    path: "/create-practice-strategy",
     element: CreatePracticeStrategy,
   },
 
@@ -279,22 +283,22 @@ export const RoutesSchema = [
     element: CreateAlliance,
   },
 
-  //Teaching-department
+  //Teacher-programs
   {
-    path: "/teaching-department-dashboard",
-    element: TeachingDepartamentDashboard,
+    path: "/teacher-programs-dashboard",
+    element: TeacherProgramsDashboard,
   },
   {
-    path: "/teaching-department-detail",
-    element: TeachingDepartamentDetail,
+    path: "/teacher-programs-detail",
+    element: TeacherProgramsDetail,
   },
   {
-    path: "/teaching-department-edit",
-    element: EditTeachingDepartament,
+    path: "/teacher-programs-edit",
+    element: EditTeacherPrograms,
   },
   {
-    path: "/create-teaching-department",
-    element: CreateTeachingDepartament,
+    path: "/create-teacher-programs",
+    element: CreateTeacherPrograms,
   },
 
   //Program
@@ -317,38 +321,38 @@ export const RoutesSchema = [
   
   //ProgramPe
   {
-    path: "/program-pe-dashboard",
-    element: ProgramPeDashboard,
+    path: "/programm-practice-strategy-dashboard",
+    element: ProgrammPracticeStrategyDashboard,
   },
   {
-    path: "/program-pe-detail",
-    element: ProgramPeDetail,
+    path: "/programm-practice-strategy-detail",
+    element: ProgrammPracticeStrategyDetail,
   },
   {
-    path: "/program-pe-edit",
-    element: EditProgramPe,
+    path: "/programm-practice-strategy-edit",
+    element: EditProgrammPracticeStrategy,
   },
   {
-    path: "/create-program-pe",
-    element: CreateProgramPe,
+    path: "/create-programm-practice-strategy",
+    element: CreateProgrammPracticeStrategy,
   },
 
   //ProgramAc
   {
-    path: "/program-ac-dashboard",
-    element: ProgramAcDashboard,
+    path: "/normative-aspect-programm-dashboard",
+    element: NormativeAspectProgrammDashboard,
   },
   {
-    path: "/program-ac-detail",
-    element: ProgramAcDetail,
+    path: "/normative-aspect-programm-detail",
+    element: NormativeAspectProgrammDetail,
   },
   {
-    path: "/program-ac-edit",
-    element: EditProgramAc,
+    path: "/normative-aspect-programm-edit",
+    element: EditNormativeAspectProgramm,
   },
   {
-    path: "/create-program-ac",
-    element: CreateProgramAc,
+    path: "/create-normative-aspect-programm",
+    element: CreateNormativeAspectProgramm,
   },
 
    //ProgramCi
@@ -368,23 +372,22 @@ export const RoutesSchema = [
     path: "/create-program-ci",
     element: CreateProgramCi,
   },
-
-  //AnPrograms
+  //ProgrammAreaKnowledge
   {
-    path: "/an-program-dashboard",
-    element: AnProgramDashboard,
+    path: "/programm-area-knowledge-dashboard",
+    element: ProgrammAreaKnowledgeDashboard,
   },
   {
-    path: "/an-program-detail",
-    element: AnProgramDetail,
+    path: "/programm-area-knowledge-detail",
+    element: ProgrammAreaKnowledgeDetail,
   },
   {
-    path: "/an-program-edit",
-    element: EditAnProgram,
+    path: "/programm-area-knowledge-edit",
+    element: EditProgrammAreaKnowledge,
   },
   {
-    path: "/create-an-program",
-    element: CreateAnProgram,
+    path: "/create-programm-area-knowledge",
+    element: CreateProgrammAreaKnowledge,
   },
 
   //Internships

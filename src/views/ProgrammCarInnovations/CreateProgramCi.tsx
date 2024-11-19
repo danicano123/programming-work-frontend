@@ -6,44 +6,38 @@ import Swal from "sweetalert2";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-
-const CreatePracticeStrategy: React.FC = () => {
+const CreateProgramCi: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
   const initialValues = {
-    id: 0,
-    type: 0,
-    name: 0,
-    description: 0,
- 
+    programmId: 0,
+    carInnovationId: 0,
   };
 
   const validationSchema = Yup.object({
-    id: Yup.number()
-      .required("Campo Obligatorio"),
-    type: Yup.number()
-      .required("Campo Obligatorio"),
-    name: Yup.number()
-      .required("Campo Obligatorio"),
-    description: Yup.number()
-      .required("Campo Obligatorio"),
-
+    programmId: Yup.number().required("Campo requerido"),
+    carInnovationId: Yup.number().required("Campo requerido"),
   });
 
   const handleSubmit = async (values: any) => {
     setIsLoading(true);
+    
     try {
-      const response = await Api.post("/practice-strategy", values, auth.data.token);
+      const response = await Api.post(
+        "/programm-car-innovations",
+        values,
+        auth.data.token
+      );
       const { data, statusCode } = response;
       if (statusCode === 201) {
         Swal.fire({
           title: "Success",
-          text: "Estrategia de práctica creado con éxito",
+          text: "Programa Ci creado con exito",
           icon: "success",
         });
-        navigate("/practice-strategy-dashboard");
+        navigate("/program-ci-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -64,7 +58,7 @@ const CreatePracticeStrategy: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Crear Estrategia de Práctica</h1>
+      <h1 className="text-2xl font-bold mb-4">Crear Programa Ci</h1>
       <div className="bg-white p-4 rounded shadow-md">
         <Formik
           initialValues={initialValues}
@@ -72,54 +66,30 @@ const CreatePracticeStrategy: React.FC = () => {
           onSubmit={handleSubmit}
         >
           <Form>
-          <div className="mb-4">
-              <label className="block text-gray-700">Id</label>
+            <div className="mb-4">
+              <label className="block text-gray-700">Programa</label>
               <Field
-                name="id"
-                type="text"
+                name="programmId"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="id"
+                name="programmId"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Tipo de Estrategia</label>
+              <label className="block text-gray-700">
+                Innovación automovilística
+              </label>
               <Field
-                name="type_practice"
-                type="text"
+                name="carInnovationId"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="type_type_practice"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Nombre</label>
-              <Field
-                name="name"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="name"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Descripción</label>
-              <Field
-                name="description"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="description"
+                name="carInnovationId"
                 component="div"
                 className="text-red-600"
               />
@@ -128,17 +98,19 @@ const CreatePracticeStrategy: React.FC = () => {
               <button
                 type="submit"
                 className={`${
-                  isLoading ? "bg-gray-500 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-700"
+                  isLoading
+                    ? "bg-gray-500 cursor-not-allowed"
+                    : "bg-blue-500 hover:bg-blue-700"
                 } text-white font-bold py-2 px-4 rounded`}
                 disabled={isLoading}
               >
-                {isLoading ? "Saving..." : "Save"}
+                {isLoading ? "Guardando..." : "Guardar"}
               </button>
               <button
-                onClick={() => navigate("/practice-strategy-dashboard")}
+                onClick={() => navigate("/program-ci-dashboard")}
                 className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
               >
-                Regresar
+                Salir
               </button>
             </div>
           </Form>
@@ -148,4 +120,4 @@ const CreatePracticeStrategy: React.FC = () => {
   );
 };
 
-export default CreatePracticeStrategy;
+export default CreateProgramCi;

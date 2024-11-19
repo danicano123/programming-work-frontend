@@ -7,48 +7,35 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 
-
-const CreateInternship: React.FC = () => {
+const CreateNormativeAspectProgramm: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
   const initialValues = {
-    id: 0,
-    name: 0,
-    country: 0,
-    company: 0,
-    description: 0,
+    normative_aspect: 0,
     program: 0,
   };
 
   const validationSchema = Yup.object({
-    id: Yup.number()
+    normative_aspect: Yup.number()
       .required("Campo requerido"),
-    name: Yup.string()
-      .required("Campo requerido"),
-    country: Yup.string()
-      .required("Campo requerido"),
-    company: Yup.string()
-      .required("Campo requerido"),
-    description: Yup.string()
-      .required("Campo requerido"),
-    program: Yup.string()
+    program: Yup.number()
       .required("Campo requerido"),
   });
 
   const handleSubmit = async (values: any) => {
     setIsLoading(true);
     try {
-      const response = await Api.post("/Internship", values, auth.data.token);
+      const response = await Api.post("/NormativeAspectProgramm", values, auth.data.token);
       const { data, statusCode } = response;
       if (statusCode === 201) {
         Swal.fire({ 
           title: "Success",
-          text: "Pasantia creado con exito",
+          text: "Programa Aspecto Normativo creado con exito",
           icon: "success",
         });
-        navigate("/internship-dashboard");
+        navigate("/normative-aspect-programm-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -69,7 +56,7 @@ const CreateInternship: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Crear Pasantia</h1>
+      <h1 className="text-2xl font-bold mb-4">Crear Programa Aspecto Normativo</h1>
       <div className="bg-white p-4 rounded shadow-md">
         <Formik
           initialValues={initialValues}
@@ -77,67 +64,15 @@ const CreateInternship: React.FC = () => {
           onSubmit={handleSubmit}
         >
           <Form>
-          <div className="mb-4">
-              <label className="block text-gray-700">Id</label>
-              <Field
-                name="id"
-                type="number"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="id"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Nombre</label>
+              <label className="block text-gray-700">Aspecto Normativo</label>
               <Field
-                name="name"
-                type="number"
+                name="normative_aspect"
+                type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="name"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Pais</label>
-              <Field
-                name="country"
-                type="number"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="country"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Compañia</label>
-              <Field
-                name="company"
-                type="number"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="company"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Descripción</label>
-              <Field
-                name="description"
-                type="number"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="description"
+                name="normative_aspect"
                 component="div"
                 className="text-red-600"
               />
@@ -146,7 +81,7 @@ const CreateInternship: React.FC = () => {
               <label className="block text-gray-700">Programa</label>
               <Field
                 name="program"
-                type="number"
+                type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
@@ -166,7 +101,7 @@ const CreateInternship: React.FC = () => {
                 {isLoading ? "Guardando..." : "Guardar"}
               </button>
               <button
-                onClick={() => navigate("/internship-dashboard")}
+                onClick={() => navigate("/normative-aspect-programm-dashboard")}
                 className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
               >
                 Salir
@@ -179,4 +114,4 @@ const CreateInternship: React.FC = () => {
   );
 };
 
-export default CreateInternship;
+export default CreateNormativeAspectProgramm;

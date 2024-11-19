@@ -3,16 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { Api } from "../../services/Api";
 import Swal from "sweetalert2";
 //
-const TeachingDepartamentList: React.FC = () => {
-  const [teachingDepartament, setTeachingDepartament] = useState<any[]>([]);
+const ProgrammAreaKnowledgeList: React.FC = () => {
+  const [programmAreaKnowledge, setProgrammAreaKnowledge] = useState<any[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchTeachingDepartament = async () => {
+    const fetchProgrammAreaKnowledge = async () => {
       try {
-        const { data, statusCode } = await Api.get("/approach/active");
+        const { data, statusCode } = await Api.get("/programmAreaKnowledge/active");
         if (statusCode === 200) {
-          setTeachingDepartament(data);
+          setProgrammAreaKnowledge(data);
         } else {
           Swal.fire({
             title: "Error",
@@ -23,22 +23,22 @@ const TeachingDepartamentList: React.FC = () => {
       } catch (error) {
         Swal.fire({
           title: "Error",
-          text: "Error: unable to fetch active teachingDepartament",
+          text: "Error: unable to fetch active Programm Area Knowledge",
           icon: "error",
         });
       }
     };
 
-    fetchTeachingDepartament();
+    fetchProgrammAreaKnowledge();
   }, []);
 
-  const handleNavigate = (description: string, teachingDepartamentId: string) => {
-    navigate(`/approach/${description}`, { state: { teachingDepartamentId } });
+  const handleNavigate = (description: string, programCiId: string) => {
+    navigate(`/programmAreaKnowledge/${description}`, { state: { programCiId } });
   };
 
-  const handleNavigateToform = (description: string, teachingDepartamentId: string) => {
-    navigate(`/approach/${description}/form/${teachingDepartamentId}`, {
-      state: { teachingDepartamentId },
+  const handleNavigateToform = (description: string, programCiId: string) => {
+    navigate(`/programmAreaKnowledge/${description}/form/${programCiId}`, {
+      state: { programCiId },
     });
   };
 
@@ -46,28 +46,28 @@ const TeachingDepartamentList: React.FC = () => {
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Enfoque</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {teachingDepartament?.map((teachingDepartament) => (
-          <div key={teachingDepartament.id} className="bg-white rounded-lg shadow-md p-4">
+        {programmAreaKnowledge?.map((programmAreaKnowledge) => (
+          <div key={programmAreaKnowledge.id} className="bg-white rounded-lg shadow-md p-4">
             <div className="flex items-center mb-4">
               <img
-                src={teachingDepartament.logo_url}
-                alt={teachingDepartament.name}
+                src={programmAreaKnowledge.logo_url}
+                alt={programmAreaKnowledge.name}
                 className="w-16 h-16 rounded-full mr-4"
               />
               <div>
-                <h2 className="text-xl font-bold">{teachingDepartament.name}</h2>
+                <h2 className="text-xl font-bold">{programmAreaKnowledge.name}</h2>
               </div>
             </div>
             <div className="py-2 px-4 border-b space-x-4">
               <button
-                onClick={() => handleNavigate(teachingDepartament.description, teachingDepartament.id)}
+                onClick={() => handleNavigate(programmAreaKnowledge.carinnovacion, programmAreaKnowledge.id)}
                 className="bg-gold hover:bg-gold-dark text-white font-bold py-2 px-4 rounded-full mt-4"
               >
                 Ver detalles
               </button>
               <button
                 onClick={() =>
-                  handleNavigateToform(teachingDepartament.description, teachingDepartament.id)
+                  handleNavigateToform(programmAreaKnowledge.carinnovacion, programmAreaKnowledge.id)
                 }
                 className="bg-gold hover:bg-gold-dark text-white font-bold py-2 px-4 rounded-full mt-4"
               >
@@ -81,4 +81,4 @@ const TeachingDepartamentList: React.FC = () => {
   );
 };
 
-export default TeachingDepartamentList;
+export default ProgrammAreaKnowledgeList;

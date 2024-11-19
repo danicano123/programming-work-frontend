@@ -4,20 +4,20 @@ import { useSelector } from "react-redux";
 import { Api } from "../../services/Api";
 import Swal from "sweetalert2";
 
-const TeachingDepartamentDetail: React.FC = () => {
+const ProgramCiDetail: React.FC = () => {
   const { id } = useParams();
  
-  const [teachingDepartament, setTeachingDepartament] = useState<any>(null);
+  const [programCi, setProgramCi] = useState<any>(null);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchTeachingDepartament = async () => {
+    const fetchProgramCi = async () => {
       try {
-        const response = await Api.get(`/teaching-departament/${id}`, auth.data.token);
+        const response = await Api.get(`/programCi/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
-          setTeachingDepartament(data);
+          setProgramCi(data);
         } else {
           Swal.fire({
             title: "Error",
@@ -34,26 +34,22 @@ const TeachingDepartamentDetail: React.FC = () => {
       }
     };
 
-    fetchTeachingDepartament();
+    fetchProgramCi();
   }, [id, auth.data.token]);
 
-  if (!teachingDepartament) return <div className="text-center py-4">Cargando...</div>;
+  if (!programCi) return <div className="text-center py-4">Cargando...</div>;
 
   return (
     <div className="container mx-auto p-4 max-w-lg">
-      <h1 className="text-3xl font-bold mb-6 text-center">Detalles de Docente Departamento</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">Detalles de Programa Ci</h1>
       <div className="bg-white p-6 rounded-lg shadow-lg">
         <div className="space-y-4">
-          <DetailItem label="Teaching" value={teachingDepartament.teaching} />
-          <DetailItem label="Departament" value={teachingDepartament.departament} />
-          <DetailItem label="Dedication" value={teachingDepartament.dedication} />
-          <DetailItem label="Mode" value={teachingDepartament.mode} />
-          <DetailItem label="Entrydate" value={teachingDepartament.entrydate} />
-          <DetailItem label="Departuredate" value={teachingDepartament.departuredate} />
+          <DetailItem label="Name" value={programCi.program} />
+          <DetailItem label="Description" value={programCi.carinnovacion} />
         </div>
         <div className="flex justify-end mt-6">
           <button
-            onClick={() => navigate("/teaching-departament-dashboard")}
+            onClick={() => navigate("/program-ci-dashboard")}
             className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
           >
             regresar
@@ -71,4 +67,4 @@ const DetailItem: React.FC<{ label: string; value: string }> = ({ label, value }
   </div>
 );
 
-export default TeachingDepartamentDetail;
+export default ProgramCiDetail;

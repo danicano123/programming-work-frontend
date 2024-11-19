@@ -25,11 +25,12 @@ const Header: React.FC<HeaderProps> = ({ isLogged, userName, role }) => {
           <Link to="/" className="text-gold font-bold text-xl">
             Inicio
           </Link>
-          <Link to="/allied-dashboard" className="text-wood-darker font-bold">
+          <Link to="/allied-dashboard" 
+            className="text-wood-darker font-bold">
             Aliado
           </Link>
           <Link
-            to="/practice-strategys-dashboard"
+            to="/practice-strategy-dashboard"
             className="text-wood-darker font-bold"
           >
             Practica Estrategica
@@ -38,7 +39,7 @@ const Header: React.FC<HeaderProps> = ({ isLogged, userName, role }) => {
             to="/normative-aspects-dashboard"
             className="text-wood-darker font-bold"
           >
-            Aspectos Normativos
+            Aspecto Normativo
           </Link>
           <Link
             to="/car-innovation-dashboard"
@@ -52,37 +53,80 @@ const Header: React.FC<HeaderProps> = ({ isLogged, userName, role }) => {
           >
             Universidad
           </Link>
-          <Link to="/approach-dashboard" className="text-wood-darker font-bold">
+          <Link to="/approach-dashboard" 
+            className="text-wood-darker font-bold"
+            >
             Enfoque
           </Link>
-          <Link to="/faculty-dashboard" className="text-wood-darker font-bold">
+          <Link to="/faculty-dashboard" 
+            className="text-wood-darker font-bold"
+            >
             Facultad
           </Link>
           <Link
-            to="/acreditation-dashboard"
+            to="/internship-dashboard"
             className="text-wood-darker font-bold"
           >
-            Acreditacion
+            Pasantia
+          </Link>
+          <Link
+            to="/teacher-programs-dashboard"
+            className="text-wood-darker font-bold"
+          >
+             Programa Docente
+          </Link>
+          <Link
+            to="/program-dashboard"
+            className="text-wood-darker font-bold"
+          >
+            Programa
           </Link>
           <Link
             to="/qualified-registration-dashboard"
             className="text-wood-darker font-bold"
           >
             Registro calificado
+            </Link>
+          <Link
+            to="/normative-aspect-programm-dashboard"
+            className="text-wood-darker font-bold"
+          >
+            Programa Aspecto Normativo
           </Link>
           <Link
-            to="/academic-activity-dashboard"
+            to="/programm-practice-strategy-dashboard"
+            className="text-wood-darker font-bold"
+          >
+            Programa Practica Estrategia
+            </Link>
+          <Link
+            to="/programm-area-knowledgey-dashboard"
+            className="text-wood-darker font-bold"
+          >
+            Programa Area Conocimiento
+          </Link>
+          <Link
+            to="/qualified-registration-dashboard"
+            className="text-wood-darker font-bold"
+          >
+            Alianza
+          </Link>
+          <Link
+            to="/alliance-dashboard"
             className="text-wood-darker font-bold"
           >
             Actividad académica
           </Link>
-          <Link to="/award-dashboard" className="text-wood-darker font-bold">
+          <Link to="/award-dashboard" 
+            className="text-wood-darker font-bold"
+          >
             Premio
           </Link>
           <Link
             to="/program-ci-dashboard"
             className="text-wood-darker font-bold"
           >
+            
             Programa {"\n CarInnovation"}
           </Link>
           {isLogged && (

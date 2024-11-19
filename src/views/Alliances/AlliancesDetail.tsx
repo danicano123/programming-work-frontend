@@ -14,7 +14,7 @@ const AllianceDetail: React.FC = () => {
   useEffect(() => {
     const fetchAlliance = async () => {
       try {
-        const response = await Api.get(`/alliance/${id}`, auth.data.token);
+        const response = await Api.get(`/alliances/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
           setAlliance(data);

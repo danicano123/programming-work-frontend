@@ -10,7 +10,7 @@ const InternshipList: React.FC = () => {
   useEffect(() => {
     const fetchInternship = async () => {
       try {
-        const { data, statusCode } = await Api.get("/internship/active");
+        const { data, statusCode } = await Api.get("/Internship/active");
         if (statusCode === 200) {
           setInternship(data);
         } else {

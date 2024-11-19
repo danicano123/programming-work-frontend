@@ -13,7 +13,7 @@ const AllianceDashboard: React.FC = () => {
     const fetchAlliance = async () => {
       try {
         const { data, statusCode } = await Api.get(
-          "/alliance",
+          "/alliances",
           auth.data.token
         );
         if (statusCode === 200) {
@@ -43,7 +43,7 @@ const AllianceDashboard: React.FC = () => {
   ) => {
     try {
       const response = await Api.patch(
-        `/alliance/${allianceId}/is-active`,
+        `/alliances/${allianceId}/is-active`,
         {
           is_active: !isActive,
         },
@@ -80,7 +80,7 @@ const AllianceDashboard: React.FC = () => {
 
   const deletion = async (id: any) => {
     const response = await Api.delete(
-      `/alliance/${id}`,
+      `/alliances/${id}`,
       auth.data.token
     );
     window.location.reload();
@@ -92,7 +92,7 @@ const AllianceDashboard: React.FC = () => {
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold mb-4">Tablero de Alianza</h1>
         <button
-          onClick={() => navigate("/create-alliance-dashboard")}
+          onClick={() => navigate("/create-alliance")}
           className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
         >
           Crear Alianza
