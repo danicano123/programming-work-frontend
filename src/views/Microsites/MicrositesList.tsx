@@ -7,30 +7,7 @@ const MicrositesList: React.FC = () => {
   const [microsites, setMicrosites] = useState<any[]>([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchMicrosites = async () => {
-      try {
-        const { data, statusCode } = await Api.get("/microsites/active");
-        if (statusCode === 200) {
-          setMicrosites(data.microsites);
-        } else {
-          Swal.fire({
-            title: "Error",
-            text: `${data.message}`,
-            icon: "error",
-          });
-        }
-      } catch (error) {
-        Swal.fire({
-          title: "Error",
-          text: "Error: unable to fetch active microsites",
-          icon: "error",
-        });
-      }
-    };
 
-    fetchMicrosites();
-  }, []);
 
   const handleNavigate = (slug: string, micrositeId: string) => {
     navigate(`/microsites/${slug}`, { state: { micrositeId } });
@@ -44,7 +21,7 @@ const MicrositesList: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Microsites</h1>
+      <h1 className="text-2xl font-bold mb-4">Nuestra App🤩</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {microsites?.map((microsite) => (
           <div key={microsite.id} className="bg-white rounded-lg shadow-md p-4">
