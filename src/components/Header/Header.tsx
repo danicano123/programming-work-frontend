@@ -98,6 +98,12 @@ const Header: React.FC<HeaderProps> = ({ isLogged, userName, role }) => {
             className="text-wood-darker font-bold"
           >
             Programa Practica Estrategia
+            </Link>
+          <Link
+            to="/programm-area-knowledgey-dashboard"
+            className="text-wood-darker font-bold"
+          >
+            Programa Area Conocimiento
           </Link>
           <Link
             to="/qualified-registration-dashboard"

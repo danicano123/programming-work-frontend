@@ -85,6 +85,10 @@ import ProgrammPracticeStrategyDashboard from "../views/ProgrammPracticeStrategy
 import ProgrammPracticeStrategyDetail from "../views/ProgrammPracticeStrategys/ProgramsPeDetail";
 import EditProgrammPracticeStrategy from "../views/ProgrammPracticeStrategys/EditProgramPe";
 import CreateProgrammPracticeStrategy from "../views/ProgrammPracticeStrategys/CreateProgramPe";
+import ProgrammAreaKnowledgeDashboard from "../views/ProgrammAreaKnowledges/ProgrammAreaKnowledgeDashboard";
+import EditProgrammAreaKnowledge from "../views/ProgrammAreaKnowledges/EditProgrammAreaKnowledge";
+import CreateProgrammAreaKnowledge from "../views/ProgrammAreaKnowledges/CreateProgrammAreaKnowledge";
+import ProgrammAreaKnowledgeDetail from "../views/ProgrammAreaKnowledges/ProgrammAreaKnowledgeDetail";
 
 
 
@@ -294,7 +298,7 @@ export const RoutesSchema = [
   },
   {
     path: "/create-teacher-programs",
-    element: CreateTeacherPrograms
+    element: CreateTeacherPrograms,
   },
 
   //Program
@@ -322,11 +326,11 @@ export const RoutesSchema = [
   },
   {
     path: "/programm-practice-strategy-detail",
-    element: ProgrammPracticeStrategyDetail
+    element: ProgrammPracticeStrategyDetail,
   },
   {
     path: "/programm-practice-strategy-edit",
-    element: EditProgrammPracticeStrategy
+    element: EditProgrammPracticeStrategy,
   },
   {
     path: "/create-programm-practice-strategy",
@@ -336,7 +340,7 @@ export const RoutesSchema = [
   //ProgramAc
   {
     path: "/normative-aspect-programm-dashboard",
-    element: NormativeAspectProgrammDashboard
+    element: NormativeAspectProgrammDashboard,
   },
   {
     path: "/normative-aspect-programm-detail",
@@ -368,7 +372,23 @@ export const RoutesSchema = [
     path: "/create-program-ci",
     element: CreateProgramCi,
   },
-
+  //ProgrammAreaKnowledge
+  {
+    path: "/programm-area-knowledge-dashboard",
+    element: ProgrammAreaKnowledgeDashboard,
+  },
+  {
+    path: "/programm-area-knowledge-detail",
+    element: ProgrammAreaKnowledgeDetail,
+  },
+  {
+    path: "/programm-area-knowledge-edit",
+    element: EditProgrammAreaKnowledge,
+  },
+  {
+    path: "/create-programm-area-knowledge",
+    element: CreateProgrammAreaKnowledge,
+  },
 
   //Internships
   {
