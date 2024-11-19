@@ -20,13 +20,12 @@ const Header: React.FC<HeaderProps> = ({ isLogged, userName, role }) => {
 
   return (
     <header className="bg-white shadow-md py-4">
-      <div className="container mx-auto flex justify-between items-center px-4">
-        <div className="flex items-center space-x-4">
+      <div className="items-center space-x-4 w-full overflow-x-scroll">
+        <div className="flex items-center space-x-4" overflow-x="scroll">
           <Link to="/" className="text-gold font-bold text-xl">
             Inicio
           </Link>
-          <Link to="/allied-dashboard" 
-            className="text-wood-darker font-bold">
+          <Link to="/allied-dashboard" className="text-wood-darker font-bold">
             Aliado
           </Link>
           <Link
@@ -53,14 +52,10 @@ const Header: React.FC<HeaderProps> = ({ isLogged, userName, role }) => {
           >
             Universidad
           </Link>
-          <Link to="/approach-dashboard" 
-            className="text-wood-darker font-bold"
-            >
+          <Link to="/approach-dashboard" className="text-wood-darker font-bold">
             Enfoque
           </Link>
-          <Link to="/faculty-dashboard" 
-            className="text-wood-darker font-bold"
-            >
+          <Link to="/faculty-dashboard" className="text-wood-darker font-bold">
             Facultad
           </Link>
           <Link
@@ -73,12 +68,9 @@ const Header: React.FC<HeaderProps> = ({ isLogged, userName, role }) => {
             to="/teacher-programs-dashboard"
             className="text-wood-darker font-bold"
           >
-             Programa Docente
+            Programa Docente
           </Link>
-          <Link
-            to="/program-dashboard"
-            className="text-wood-darker font-bold"
-          >
+          <Link to="/program-dashboard" className="text-wood-darker font-bold">
             Programa
           </Link>
           <Link
@@ -86,7 +78,7 @@ const Header: React.FC<HeaderProps> = ({ isLogged, userName, role }) => {
             className="text-wood-darker font-bold"
           >
             Registro calificado
-            </Link>
+          </Link>
           <Link
             to="/normative-aspect-programm-dashboard"
             className="text-wood-darker font-bold"
@@ -98,7 +90,7 @@ const Header: React.FC<HeaderProps> = ({ isLogged, userName, role }) => {
             className="text-wood-darker font-bold"
           >
             Programa Practica Estrategia
-            </Link>
+          </Link>
           <Link
             to="/programm-area-knowledgey-dashboard"
             className="text-wood-darker font-bold"
@@ -111,22 +103,16 @@ const Header: React.FC<HeaderProps> = ({ isLogged, userName, role }) => {
           >
             Alianza
           </Link>
-          <Link
-            to="/alliance-dashboard"
-            className="text-wood-darker font-bold"
-          >
+          <Link to="/alliance-dashboard" className="text-wood-darker font-bold">
             Actividad académica
           </Link>
-          <Link to="/award-dashboard" 
-            className="text-wood-darker font-bold"
-          >
+          <Link to="/award-dashboard" className="text-wood-darker font-bold">
             Premio
           </Link>
           <Link
             to="/program-ci-dashboard"
             className="text-wood-darker font-bold"
           >
-            
             Programa {"\n CarInnovation"}
           </Link>
           {isLogged && (
