@@ -116,7 +116,7 @@ const FacultyDashboard: React.FC = () => {
               <td className="py-2 px-4 border-b text-center">{faculty.name}</td>
               <td className="py-2 px-4 border-b text-center">{faculty.type}</td>
               <td className="py-2 px-4 border-b text-center">
-                {faculty.foundationTime}
+                {faculty.foundationDate}
               </td>
               <td className="py-2 px-4 border-b text-center space-x-4">
                 <button
