@@ -108,7 +108,7 @@ const Header: React.FC<HeaderProps> = ({ isLogged, userName, role }) => {
             Alianza
           </Link>
           <Link 
-            to="/alliance-dashboard" 
+            to="/academic-activities-dashboard" 
             className="text-wood-darker font-bold">
             Actividad académica
           </Link>

@@ -5,17 +5,15 @@ import { Api } from "../../services/Api";
 import Swal from "sweetalert2";
 
 const FacultyDetail: React.FC = () => {
-  const { id } = useParams();
-
- 
+  const { id } = useParams();  
   const [faculty, setFaculty] = useState<any>(null);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchUniversity = async () => {
+    const fetchFaculty = async () => {
       try {
-        const response = await Api.get(`/faculty/${id}`, auth.data.token);
+        const response = await Api.get(`/faculties/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
           setFaculty(data);
@@ -35,19 +33,20 @@ const FacultyDetail: React.FC = () => {
       }
     };
 
-    fetchUniversity();
+    fetchFaculty();
   }, [id, auth.data.token]);
 
   if (!faculty) return <div className="text-center py-4">Cargando...</div>;
 
   return (
     <div className="container mx-auto p-4 max-w-lg">
-      <h1 className="text-3xl font-bold mb-6 text-center">Detalles de facultad</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">Detalles de Facultad</h1>
       <div className="bg-white p-6 rounded-lg shadow-lg">
         <div className="space-y-4">
+          <DetailItem label="ID" value={faculty.id} />
           <DetailItem label="Nombre" value={faculty.name} />
           <DetailItem label="Tipo" value={faculty.type} />
-          <DetailItem label="Fecha" value={faculty.date_fun} />
+          <DetailItem label="Fecha de Fundación" value={faculty.foundationDate} />
         </div>
         <div className="flex justify-end mt-6">
           <button

@@ -6,66 +6,65 @@ import Swal from "sweetalert2";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-
-const CreateQualifiedRegistration: React.FC = () => {
+const CreateQualifiedRegistry: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
   const initialValues = {
-    cant_credits: "",
-    hora_acom: "",
-    hora_ind: "",
+    creditAmount: "",
+    acomHours: "",
+    independentHours: "",
     metodology: "",
-    date_init: "",
-    date_end: "",
-    time_years: "",
-    time_semester: "",
-    type_titling: "",
+    startDate: "",
+    endDate: "",
+    durationYears: "",
+    durationSemesters: "",
+    degreeType: "",
+    programmId: null,
   };
 
   const validationSchema = Yup.object({
-    nacant_credits: Yup.string()
-      .max(45, "Maximo 45 carateres")
-      .required("Campo requerido"),
-    hora_acom: Yup.string()
-      .max(45, "Maximo 45 carateres")
-      .required("Campo requerido"),
-    hora_ind: Yup.string()
-      .max(45, "Maximo 45 carateres")
-      .required("Campo requerido"),
+    creditAmount: Yup.number()
+      .min(0, "Debe ser un número positivo")
+      .required("Campo Obligatorio"),
+    acomHours: Yup.number()
+      .min(0, "Debe ser un número positivo")
+      .required("Campo Obligatorio"),
+    independentHours: Yup.number()
+      .min(0, "Debe ser un número positivo")
+      .required("Campo Obligatorio"),
     metodology: Yup.string()
-      .max(45, "Maximo 45 carateres")
-      .required("Campo requerido"),
-    date_init: Yup.date()
-      .max(45, "Maximo 45 carateres")
-      .required("Campo requerido"),
-    date_end: Yup.date()
-      .max(45, "Maximo 45 carateres")
-      .required("Campo requerido"),
-    time_years: Yup.string()
-      .max(45, "Maximo 45 carateres")
-      .required("Campo requerido"),
-    time_semester: Yup.string()
-      .max(45, "Maximo 45 carateres")
-      .required("Campo requerido"),
-    type_titling: Yup.string()
-      .max(45, "Maximo 45 carateres")
-      .required("Campo requerido"),
+      .max(100, "Máximo 100 caracteres")
+      .required("Campo Obligatorio"),
+    startDate: Yup.date().required("Campo Obligatorio"),
+    endDate: Yup.date()
+      .min(Yup.ref("startDate"), "La fecha de fin debe ser posterior a la de inicio")
+      .required("Campo Obligatorio"),
+    durationYears: Yup.number()
+      .min(0, "Debe ser un número positivo")
+      .required("Campo Obligatorio"),
+    durationSemesters: Yup.number()
+      .min(0, "Debe ser un número positivo")
+      .required("Campo Obligatorio"),
+    degreeType: Yup.string()
+      .max(50, "Máximo 50 caracteres")
+      .required("Campo Obligatorio"),
+    programmId: Yup.number(),
   });
 
   const handleSubmit = async (values: any) => {
     setIsLoading(true);
     try {
-      const response = await Api.post("/qualified-registration", values, auth.data.token);
+      const response = await Api.post("/qualified-registry", values, auth.data.token);
       const { data, statusCode } = response;
       if (statusCode === 201) {
         Swal.fire({
-          title: "Success",
-          text: "Registro calificado creado con exito",
+          title: "Éxito",
+          text: "Registro Calificado creado con éxito",
           icon: "success",
         });
-        navigate("/qualified-registration-dashboard");
+        navigate("/qualified-registry-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -86,7 +85,7 @@ const CreateQualifiedRegistration: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Crear registro calificado</h1>
+      <h1 className="text-2xl font-bold mb-4">Crear Registro Calificado</h1>
       <div className="bg-white p-4 rounded shadow-md">
         <Formik
           initialValues={initialValues}
@@ -95,40 +94,40 @@ const CreateQualifiedRegistration: React.FC = () => {
         >
           <Form>
             <div className="mb-4">
-              <label className="block text-gray-700">Cantidad de créditos</label>
+              <label className="block text-gray-700">Créditos Totales</label>
               <Field
-                name="cant_credits"
-                type="text"
+                name="creditAmount"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="cant_credits"
+                name="creditAmount"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Hora acomulada</label>
+              <label className="block text-gray-700">Horas de Acompañamiento</label>
               <Field
-                name="hora_acom"
-                type="text"
+                name="acomHours"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="hora_acom"
+                name="acomHours"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Hora independiente</label>
+              <label className="block text-gray-700">Horas Independientes</label>
               <Field
-                name="hora_ind"
-                type="text"
+                name="independentHours"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="hora_ind"
+                name="independentHours"
                 component="div"
                 className="text-red-600"
               />
@@ -147,66 +146,79 @@ const CreateQualifiedRegistration: React.FC = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Fecha inicio</label>
+              <label className="block text-gray-700">Fecha de Inicio</label>
               <Field
-                name="date_init"
-                type="text"
+                name="startDate"
+                type="date"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="date_init"
+                name="startDate"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Fecha final</label>
+              <label className="block text-gray-700">Fecha de Fin</label>
               <Field
-                name="date_end"
-                type="text"
+                name="endDate"
+                type="date"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="date_end"
+                name="endDate"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Duración de años</label>
+              <label className="block text-gray-700">Duración en Años</label>
               <Field
-                name="time_years"
-                type="text"
+                name="durationYears"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="time_years"
+                name="durationYears"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Duración de semestres</label>
+              <label className="block text-gray-700">Duración en Semestres</label>
               <Field
-                name="time_semester"
-                type="text"
+                name="durationSemesters"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="time_semester"
+                name="durationSemesters"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Tipo de titulación</label>
+              <label className="block text-gray-700">Tipo de Título</label>
               <Field
-                name="type_titling"
+                name="degreeType"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="type_titling"
+                name="degreeType"
+                component="div"
+                className="text-red-600"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700">ID del Programa</label>
+              <Field
+                name="programmId"
+                type="number"
+                className="w-full p-2 border border-gray-300 rounded"
+              />
+              <ErrorMessage
+                name="programmId"
                 component="div"
                 className="text-red-600"
               />
@@ -222,10 +234,10 @@ const CreateQualifiedRegistration: React.FC = () => {
                 {isLoading ? "Guardando..." : "Guardar"}
               </button>
               <button
-                onClick={() => navigate("/qualified-registration-dashboard")}
+                onClick={() => navigate("/qualified-registry-dashboard")}
                 className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
               >
-                Salir
+                Regresar
               </button>
             </div>
           </Form>
@@ -235,4 +247,4 @@ const CreateQualifiedRegistration: React.FC = () => {
   );
 };
 
-export default CreateQualifiedRegistration;
+export default CreateQualifiedRegistry;

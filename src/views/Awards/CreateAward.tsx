@@ -6,7 +6,6 @@ import Swal from "sweetalert2";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-
 const CreateAward: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const auth = useSelector((state: any) => state.auth);
@@ -16,37 +15,41 @@ const CreateAward: React.FC = () => {
     name: "",
     description: "",
     date: "",
-    granting_entity: "",
+    grantingEntity: "",
     country: "",
+    programmId: "",
   };
 
   const validationSchema = Yup.object({
     name: Yup.string()
-      .max(45, "Maximo 45 carateres")
-      .required("Campo requerido"),
+      .max(100, "Máximo 100 caracteres")
+      .required("Campo Obligatorio"),
     description: Yup.string()
-      .max(45, "Maximo 45 carateres")
-      .required("Campo requerido"),
+      .max(255, "Máximo 255 caracteres")
+      .required("Campo Obligatorio"),
     date: Yup.date()
-      .max(45, "Maximo 45 carateres")
-      .required("Campo requerido"),
-    granting_entity: Yup.date()
-      .max(45, "Maximo 45 carateres")
-      .required("Campo requerido"),
-    country: Yup.date()
-      .max(45, "Maximo 45 carateres")
-      .required("Campo requerido"),
+      .required("Campo Obligatorio")
+      .typeError("Debe ser una fecha válida"),
+    grantingEntity: Yup.string()
+      .max(100, "Máximo 100 caracteres")
+      .required("Campo Obligatorio"),
+    country: Yup.string()
+      .max(100, "Máximo 100 caracteres")
+      .required("Campo Obligatorio"),
+    programmId: Yup.number()
+      .min(0, "Debe ser un número positivo")
+      .required("Campo Obligatorio"),
   });
 
   const handleSubmit = async (values: any) => {
     setIsLoading(true);
     try {
-      const response = await Api.post("/award", values, auth.data.token);
+      const response = await Api.post("/awards", values, auth.data.token);
       const { data, statusCode } = response;
       if (statusCode === 201) {
         Swal.fire({
-          title: "Success",
-          text: "Premio creado con exito",
+          title: "Éxito",
+          text: "Premio creado con éxito",
           icon: "success",
         });
         navigate("/award-dashboard");
@@ -70,7 +73,7 @@ const CreateAward: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Crear premio</h1>
+      <h1 className="text-2xl font-bold mb-4">Crear Premio</h1>
       <div className="bg-white p-4 rounded shadow-md">
         <Formik
           initialValues={initialValues}
@@ -85,11 +88,7 @@ const CreateAward: React.FC = () => {
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
-              <ErrorMessage
-                name="name"
-                component="div"
-                className="text-red-600"
-              />
+              <ErrorMessage name="name" component="div" className="text-red-600" />
             </div>
             <div className="mb-4">
               <label className="block text-gray-700">Descripción</label>
@@ -98,34 +97,26 @@ const CreateAward: React.FC = () => {
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
-              <ErrorMessage
-                name="description"
-                component="div"
-                className="text-red-600"
-              />
+              <ErrorMessage name="description" component="div" className="text-red-600" />
             </div>
             <div className="mb-4">
               <label className="block text-gray-700">Fecha</label>
               <Field
                 name="date"
-                type="text"
+                type="date"
                 className="w-full p-2 border border-gray-300 rounded"
               />
-              <ErrorMessage
-                name="date"
-                component="div"
-                className="text-red-600"
-              />
+              <ErrorMessage name="date" component="div" className="text-red-600" />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Entidad otorgante</label>
+              <label className="block text-gray-700">Entidad Otorgante</label>
               <Field
-                name="granting_entity"
+                name="grantingEntity"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="granting_entity"
+                name="grantingEntity"
                 component="div"
                 className="text-red-600"
               />
@@ -137,8 +128,17 @@ const CreateAward: React.FC = () => {
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
+              <ErrorMessage name="country" component="div" className="text-red-600" />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700">ID del Programa</label>
+              <Field
+                name="programmId"
+                type="number"
+                className="w-full p-2 border border-gray-300 rounded"
+              />
               <ErrorMessage
-                name="country"
+                name="programmId"
                 component="div"
                 className="text-red-600"
               />
@@ -152,12 +152,6 @@ const CreateAward: React.FC = () => {
                 disabled={isLoading}
               >
                 {isLoading ? "Guardando..." : "Guardar"}
-              </button>
-              <button
-                onClick={() => navigate("/award-dashboard")}
-                className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
-              >
-                Salir
               </button>
             </div>
           </Form>

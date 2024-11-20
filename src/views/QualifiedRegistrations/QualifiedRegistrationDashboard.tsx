@@ -4,20 +4,20 @@ import { useNavigate } from "react-router-dom";
 import { Api } from "../../services/Api";
 import Swal from "sweetalert2";
 
-const QualifiedRegistrationDashboard: React.FC = () => {
-  const [qualifiedregistration, setQualifiedRegistration] = useState<any[]>([]);
+const QualifiedRegistryDashboard: React.FC = () => {
+  const [qualifiedRegistries, setQualifiedRegistries] = useState<any[]>([]);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchQualifiedRegistration = async () => {
+    const fetchQualifiedRegistries = async () => {
       try {
         const { data, statusCode } = await Api.get(
-          "/qualified-registration",
+          "/qualifiedRegistry",
           auth.data.token
         );
         if (statusCode === 200) {
-          setQualifiedRegistration(data);
+          setQualifiedRegistries(data);
         } else {
           Swal.fire({
             title: "Error",
@@ -28,32 +28,35 @@ const QualifiedRegistrationDashboard: React.FC = () => {
       } catch (error) {
         Swal.fire({
           title: "Error",
-          text: "Error: unable to fetch active qualifiedre gistration ",
+          text: "Error: unable to fetch qualified registries",
           icon: "error",
         });
       }
     };
 
-    fetchQualifiedRegistration();
+    fetchQualifiedRegistries();
   }, [auth.data.token]);
 
-  const handleToggleIsActive = async (qualifiedregistrationId: string) => {
+  const handleToggleIsActive = async (id: string, isActive: boolean) => {
     try {
       const response = await Api.patch(
-        `/qualified-registration/toggle-is-active${qualifiedregistrationId}`,
+        `/qualifiedRegistry/${id}/is-active`,
+        {
+          is_active: !isActive,
+        },
         auth.data.token
       );
       const { data, statusCode } = response;
       if (statusCode === 200) {
-        const updatedQualifiedRegistration = qualifiedregistration.map((qualifiedregistration) =>
-          qualifiedregistration.id === qualifiedregistrationId
-            ? { ...qualifiedregistration, isActive: data.isActive }
-            : qualifiedregistration
+        const updatedRegistries = qualifiedRegistries.map((registry) =>
+          registry.id === id
+            ? { ...registry, is_active: !isActive }
+            : registry
         );
-        setQualifiedRegistration(updatedQualifiedRegistration);
+        setQualifiedRegistries(updatedRegistries);
         Swal.fire({
           title: "Success",
-          text: "Registro calificado actualizado exitosamente",
+          text: "Registro actualizado con éxito",
           icon: "success",
         });
       } else {
@@ -73,82 +76,76 @@ const QualifiedRegistrationDashboard: React.FC = () => {
   };
 
   const deletion = async (id: any) => {
-    const response = await Api.delete(
-      `/qualified-registration/${id}`,
-      auth.data.token
-    );
-    window.location.reload();
+    try {
+      const response = await Api.delete(
+        `/qualifiedRegistry/${id}`,
+        auth.data.token
+      );
+      if (response.statusCode === 200) {
+        Swal.fire({
+          title: "Eliminado",
+          text: "El registro calificado ha sido eliminado con éxito",
+          icon: "success",
+        });
+        setQualifiedRegistries(
+          qualifiedRegistries.filter((registry) => registry.id !== id)
+        );
+      }
+    } catch (error) {
+      Swal.fire({
+        title: "Error",
+        text: "Error al intentar eliminar el registro calificado",
+        icon: "error",
+      });
+    }
   };
 
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold mb-4">Tablero de registro calificado</h1>
+        <h1 className="text-2xl font-bold mb-4">Tablero de Registros Calificados</h1>
         <button
-          onClick={() => navigate("/create-qualified-registration")}
+          onClick={() => navigate("/create-qualified-registry")}
           className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
         >
-          Crear registro calificado
+          Crear Registro
         </button>
       </div>
       <table className="min-w-full bg-white border border-gray-200">
         <thead>
           <tr>
-            <th className="py-2 px-4 border-b text-center">Cantidad de créditos</th>
-            <th className="py-2 px-4 border-b text-center">Horas acomuladas</th>
-            <th className="py-2 px-4 border-b text-center">Horas independientes</th>
+            <th className="py-2 px-4 border-b text-center">ID</th>
+            <th className="py-2 px-4 border-b text-center">Créditos</th>
+            <th className="py-2 px-4 border-b text-center">Horas ACOM</th>
+            <th className="py-2 px-4 border-b text-center">Horas Independientes</th>
             <th className="py-2 px-4 border-b text-center">Metodología</th>
-            <th className="py-2 px-4 border-b text-center">Fecha de inicio</th>
-            <th className="py-2 px-4 border-b text-center">Fecha  fin</th>
-            <th className="py-2 px-4 border-b text-center">Tiempo en años</th>
-            <th className="py-2 px-4 border-b text-center">Tiempo en semestres</th>
-            <th className="py-2 px-4 border-b text-center">Tipo de titulación</th>
+            <th className="py-2 px-4 border-b text-center">Fecha de Inicio</th>
+            <th className="py-2 px-4 border-b text-center">Fecha de Fin</th>
+            <th className="py-2 px-4 border-b text-center">Duración (Años)</th>
+            <th className="py-2 px-4 border-b text-center">Duración (Semestres)</th>
+            <th className="py-2 px-4 border-b text-center">Tipo de Título</th>
+            <th className="py-2 px-4 border-b text-center">Programa Asociado</th>
+            <th className="py-2 px-4 border-b text-center">Acciones</th>
           </tr>
         </thead>
         <tbody>
-          {qualifiedregistration?.map((qualifiedregistration) => (
-            <tr key={qualifiedregistration.id}>
-              <td className="py-2 px-4 border-b text-center">
-                {qualifiedregistration.cant_credits}
-              </td>
-              <td className="py-2 px-4 border-b text-center">
-                {qualifiedregistration.hora_ind}
-              </td>
-              <td className="py-2 px-4 border-b text-center">
-                {qualifiedregistration.metodology}
-              </td>
-              <td className="py-2 px-4 border-b text-center">
-                {qualifiedregistration.date_init}
-              </td>
-              <td className="py-2 px-4 border-b text-center">
-                {qualifiedregistration.date_end}
-              </td>
-              <td className="py-2 px-4 border-b text-center">
-                {qualifiedregistration.time_years}
-              </td>
-              <td className="py-2 px-4 border-b text-center">
-                {qualifiedregistration.time_semester}
-              </td>
-              <td className="py-2 px-4 border-b text-center">
-                {qualifiedregistration.type_titling}
-              </td>
-              <td className="py-2 px-4 border-b text-center">
-                <label className="flex items-center space-x-2">
-                  <input
-                    type="checkbox"
-                    className="toggle-switch"
-                    checked={qualifiedregistration.isActive}
-                    onChange={() => handleToggleIsActive(qualifiedregistration.id)}
-                  />
-                  <span>
-                    {qualifiedregistration.isActive ? "Activo" : "Inactivo"}
-                  </span>
-                </label>
-              </td>
+          {qualifiedRegistries.map((registry) => (
+            <tr key={registry.id}>
+              <td className="py-2 px-4 border-b text-center">{registry.id}</td>
+              <td className="py-2 px-4 border-b text-center">{registry.creditAmount}</td>
+              <td className="py-2 px-4 border-b text-center">{registry.acomHours}</td>
+              <td className="py-2 px-4 border-b text-center">{registry.independentHours}</td>
+              <td className="py-2 px-4 border-b text-center">{registry.metodology}</td>
+              <td className="py-2 px-4 border-b text-center">{registry.startDate}</td>
+              <td className="py-2 px-4 border-b text-center">{registry.endDate}</td>
+              <td className="py-2 px-4 border-b text-center">{registry.durationYears}</td>
+              <td className="py-2 px-4 border-b text-center">{registry.durationSemesters}</td>
+              <td className="py-2 px-4 border-b text-center">{registry.degreeType}</td>
+              <td className="py-2 px-4 border-b text-center">{registry.programmId}</td>
               <td className="py-2 px-4 border-b text-center space-x-4">
-              <button
+                <button
                   onClick={() =>
-                    navigate(`/read-qualified-registration/${qualifiedregistration.id}`)
+                    navigate(`/read-qualified-registry/${registry.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
@@ -156,15 +153,14 @@ const QualifiedRegistrationDashboard: React.FC = () => {
                 </button>
                 <button
                   onClick={() =>
-                    navigate(`/edit-qualified-registration/${qualifiedregistration.id}`)
+                    navigate(`/edit-qualified-registry/${registry.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Editar
                 </button>
                 <button
-                  onClick={() => deletion(qualifiedregistration.id)}
-                  
+                  onClick={() => deletion(registry.id)}
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Borrar
@@ -178,4 +174,4 @@ const QualifiedRegistrationDashboard: React.FC = () => {
   );
 };
 
-export default QualifiedRegistrationDashboard;
+export default QualifiedRegistryDashboard;

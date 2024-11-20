@@ -6,8 +6,6 @@ import Swal from "sweetalert2";
 
 const AcademicActivityDetail: React.FC = () => {
   const { id } = useParams();
-
- 
   const [academicActivity, setAcademicActivity] = useState<any>(null);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
@@ -15,7 +13,7 @@ const AcademicActivityDetail: React.FC = () => {
   useEffect(() => {
     const fetchAcademicActivity = async () => {
       try {
-        const response = await Api.get(`/academic-activity/${id}`, auth.data.token);
+        const response = await Api.get(`/academic-activities/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
           setAcademicActivity(data);
@@ -42,19 +40,21 @@ const AcademicActivityDetail: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4 max-w-lg">
-      <h1 className="text-3xl font-bold mb-6 text-center">Detalles de actividad académica</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">Detalles de la Actividad Académica</h1>
       <div className="bg-white p-6 rounded-lg shadow-lg">
         <div className="space-y-4">
+          <DetailItem label="ID" value={academicActivity.id} />
           <DetailItem label="Nombre" value={academicActivity.name} />
-          <DetailItem label="Numero de créditos" value={academicActivity.number_credits} />
+          <DetailItem label="Créditos" value={academicActivity.credits} />
           <DetailItem label="Tipo" value={academicActivity.type} />
-          <DetailItem label="Area de formación" value={academicActivity.training_area} />
-          <DetailItem label="Horas acompañadas" value={academicActivity.accompanied_hour} />
-          <DetailItem label="Horas independientes" value={academicActivity.independent_hour} />
+          <DetailItem label="Área de Formación" value={academicActivity.trainingArea} />
+          <DetailItem label="Horas de Acompañamiento" value={academicActivity.hAcom} />
+          <DetailItem label="Horas Independientes" value={academicActivity.hIndep} />
           <DetailItem label="Idioma" value={academicActivity.language} />
-          <DetailItem label="Espejo" value={academicActivity.mirror} />
-          <DetailItem label="Entidad espejo" value={academicActivity.mirror_entity} />
-          <DetailItem label="País espejo" value={academicActivity.mirror_country} />
+          <DetailItem label="Es Espejo" value={academicActivity.mirror ? "Sí" : "No"} />
+          <DetailItem label="Entidad Espejo" value={academicActivity.mirrorEntity} />
+          <DetailItem label="País Espejo" value={academicActivity.mirrorCountry} />
+          <DetailItem label="ID del Programa" value={academicActivity.programmId} />
         </div>
         <div className="flex justify-end mt-6">
           <button
