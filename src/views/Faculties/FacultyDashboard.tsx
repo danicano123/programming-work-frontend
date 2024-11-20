@@ -5,19 +5,19 @@ import { Api } from "../../services/Api";
 import Swal from "sweetalert2";
 
 const FacultyDashboard: React.FC = () => {
-  const [faculty, setFaculty] = useState<any[]>([]);
+  const [faculties, setFaculties] = useState<any[]>([]);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchFaculty = async () => {
+    const fetchFaculties = async () => {
       try {
         const { data, statusCode } = await Api.get(
-          "/faculty",
+          "/faculties",
           auth.data.token
         );
         if (statusCode === 200) {
-          setFaculty(data);
+          setFaculties(data);
         } else {
           Swal.fire({
             title: "Error",
@@ -28,32 +28,38 @@ const FacultyDashboard: React.FC = () => {
       } catch (error) {
         Swal.fire({
           title: "Error",
-          text: "Error: unable to fetch active faculty",
+          text: "Error: unable to fetch active faculties",
           icon: "error",
         });
       }
     };
 
-    fetchFaculty();
+    fetchFaculties();
   }, [auth.data.token]);
 
-  const handleToggleIsActive = async (facultyId: string) => {
+  const handleToggleIsActive = async (
+    facultyId: string,
+    isActive: boolean
+  ) => {
     try {
       const response = await Api.patch(
-        `/faculty/toggle-is-active${facultyId}`,
+        `/faculties/${facultyId}/is-active`,
+        {
+          is_active: !isActive,
+        },
         auth.data.token
       );
       const { data, statusCode } = response;
       if (statusCode === 200) {
-        const updatedFaculty = faculty.map((faculty) =>
+        const updatedFaculties = faculties.map((faculty) =>
           faculty.id === facultyId
-            ? { ...faculty, isActive: data.isActive }
+            ? { ...faculty, is_active: !isActive }
             : faculty
         );
-        setFaculty(updatedFaculty);
+        setFaculties(updatedFaculties);
         Swal.fire({
           title: "Success",
-          text: "Facultad actualizada exitosamente",
+          text: "Facultad actualizada con éxito",
           icon: "success",
         });
       } else {
@@ -74,7 +80,7 @@ const FacultyDashboard: React.FC = () => {
 
   const deletion = async (id: any) => {
     const response = await Api.delete(
-      `/faculty/${id}`,
+      `/faculties/${id}`,
       auth.data.token
     );
     window.location.reload();
@@ -83,67 +89,50 @@ const FacultyDashboard: React.FC = () => {
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold mb-4">Tablero de facultad</h1>
+        <h1 className="text-2xl font-bold mb-4">Tablero de Facultad</h1>
         <button
           onClick={() => navigate("/create-faculty")}
           className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
         >
-          Crear facultad
+          Crear Facultad
         </button>
       </div>
       <table className="min-w-full bg-white border border-gray-200">
         <thead>
           <tr>
+            <th className="py-2 px-4 border-b text-center">Id</th>
             <th className="py-2 px-4 border-b text-center">Nombre</th>
-            <th className="py-2 px-4 border-b text-center">Tipo de facultad</th>
-            <th className="py-2 px-4 border-b text-center">Fecha</th>
+            <th className="py-2 px-4 border-b text-center">Tipo</th>
+            <th className="py-2 px-4 border-b text-center">
+              Tiempo de Fundación
+            </th>
+            <th className="py-2 px-4 border-b text-center">Acciones</th>
           </tr>
         </thead>
         <tbody>
-          {faculty?.map((faculty) => (
+          {faculties.map((faculty) => (
             <tr key={faculty.id}>
+              <td className="py-2 px-4 border-b text-center">{faculty.id}</td>
+              <td className="py-2 px-4 border-b text-center">{faculty.name}</td>
+              <td className="py-2 px-4 border-b text-center">{faculty.type}</td>
               <td className="py-2 px-4 border-b text-center">
-                {faculty.name}
-              </td>
-              <td className="py-2 px-4 border-b text-center">
-                {faculty.type}
-              </td>
-              <td className="py-2 px-4 border-b text-center">
-                {faculty.date}
-              </td>
-              <td className="py-2 px-4 border-b text-center">
-                <label className="flex items-center space-x-2">
-                  <input
-                    type="checkbox"
-                    className="toggle-switch"
-                    checked={faculty.isActive}
-                    onChange={() => handleToggleIsActive(faculty.id)}
-                  />
-                  <span>
-                    {faculty.isActive ? "Activo" : "Inactivo"}
-                  </span>
-                </label>
+                {faculty.foundationTime}
               </td>
               <td className="py-2 px-4 border-b text-center space-x-4">
-              <button
-                  onClick={() =>
-                    navigate(`/read-faculty/${faculty.id}`)
-                  }
+                <button
+                  onClick={() => navigate(`/read-faculty/${faculty.id}`)}
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Ver detalle
                 </button>
                 <button
-                  onClick={() =>
-                    navigate(`/edit-university/${faculty.id}`)
-                  }
+                  onClick={() => navigate(`/edit-faculty/${faculty.id}`)}
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Editar
                 </button>
                 <button
                   onClick={() => deletion(faculty.id)}
-                  
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Borrar
