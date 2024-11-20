@@ -80,7 +80,7 @@ const TeacherProgramsDashboard: React.FC = () => {
 
   const deletion = async (id: any) => {
     const response = await Api.delete(
-      `/approach/${id}`,
+      `/teacher-programs/${id}`,
       auth.data.token
     );
     window.location.reload();
@@ -102,39 +102,39 @@ const TeacherProgramsDashboard: React.FC = () => {
         <thead>
           <tr>
             <th className="py-2 px-4 border-b text-center">Docente</th>
-            <th className="py-2 px-4 border-b text-center">Departamento</th>
+            <th className="py-2 px-4 border-b text-center">Programa</th>
             <th className="py-2 px-4 border-b text-center">Dedicación</th>
             <th className="py-2 px-4 border-b text-center">Modalidad</th>
-            <th className="py-2 px-4 border-b text-center">Fecha Ingreso</th>
-            <th className="py-2 px-4 border-b text-center">Fecha Salida</th>
+            <th className="py-2 px-4 border-b text-center">Fecha Inicio</th>
+            <th className="py-2 px-4 border-b text-center">Fecha Fin</th>
           </tr>
         </thead>
         <tbody>
           {teacherPrograms.map((teacherPrograms) => (
             <tr key={teacherPrograms.id}>
               <td className="py-2 px-4 border-b text-center">
-                {teacherPrograms.teaching}
+                {teacherPrograms.teacherId}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                {teacherPrograms.departament}
+                {teacherPrograms.programmId}
               </td>
               <td className="py-2 px-4 border-b text-center">
                 {teacherPrograms.dedication}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                {teacherPrograms.mode}
+                {teacherPrograms.modality}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                {teacherPrograms.entrydate}
+                {teacherPrograms.startDate}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                {teacherPrograms.departuredate}
+                {teacherPrograms.endDate}
               </td>
               <td className="py-2 px-4 border-b text-center space-x-4">
                 
                <button
                   onClick={() =>
-                    navigate(`/read-teachingDepartament/${teacherPrograms.id}`)
+                    navigate(`/teacher-programs-detail/${teacherPrograms.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
@@ -142,7 +142,7 @@ const TeacherProgramsDashboard: React.FC = () => {
                 </button>
                 <button
                   onClick={() =>
-                    navigate(`/edit-teachingDepartament/${teacherPrograms.id}`)
+                    navigate(`/teacher-programs-edit/${teacherPrograms.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
