@@ -104,8 +104,9 @@ const FacultyDashboard: React.FC = () => {
             <th className="py-2 px-4 border-b text-center">Nombre</th>
             <th className="py-2 px-4 border-b text-center">Tipo</th>
             <th className="py-2 px-4 border-b text-center">
-              Tiempo de Fundación
+              Fecha de Fundación
             </th>
+            <th className="py-2 px-4 border-b text-center">Id Universidad</th>
             <th className="py-2 px-4 border-b text-center">Acciones</th>
           </tr>
         </thead>
@@ -118,6 +119,7 @@ const FacultyDashboard: React.FC = () => {
               <td className="py-2 px-4 border-b text-center">
                 {faculty.foundationDate}
               </td>
+              <td className="py-2 px-4 border-b text-center">{faculty.universityId}</td>
               <td className="py-2 px-4 border-b text-center space-x-4">
                 <button
                   onClick={() => navigate(`/read-faculty/${faculty.id}`)}
