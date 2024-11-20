@@ -5,19 +5,19 @@ import { Api } from "../../services/Api";
 import Swal from "sweetalert2";
 
 const AcademicActivityDashboard: React.FC = () => {
-  const [academicActivity, setAcademicActivity] = useState<any[]>([]);
+  const [academicActivities, setAcademicActivities] = useState<any[]>([]);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchAcademicActivity = async () => {
+    const fetchAcademicActivities = async () => {
       try {
         const { data, statusCode } = await Api.get(
-          "/academic-activity",
+          "/academic-activities",
           auth.data.token
         );
         if (statusCode === 200) {
-          setAcademicActivity(data);
+          setAcademicActivities(data);
         } else {
           Swal.fire({
             title: "Error",
@@ -28,32 +28,35 @@ const AcademicActivityDashboard: React.FC = () => {
       } catch (error) {
         Swal.fire({
           title: "Error",
-          text: "Error: unable to fetch active academic activity",
+          text: "Error: unable to fetch academic activities",
           icon: "error",
         });
       }
     };
 
-    fetchAcademicActivity();
+    fetchAcademicActivities();
   }, [auth.data.token]);
 
-  const handleToggleIsActive = async (academicActivityId: string) => {
+  const handleToggleIsActive = async (id: string, isActive: boolean) => {
     try {
       const response = await Api.patch(
-        `/academic-activity/toggle-is-active${academicActivityId}`,
+        `/academic-activities/${id}/is-active`,
+        {
+          is_active: !isActive,
+        },
         auth.data.token
       );
       const { data, statusCode } = response;
       if (statusCode === 200) {
-        const updatedAcademicActivity = academicActivity.map((academicActivity) =>
-          academicActivity.id === academicActivityId
-            ? { ...academicActivity, isActive: data.isActive }
-            : academicActivity
+        const updatedActivities = academicActivities.map((activity) =>
+          activity.id === id
+            ? { ...activity, is_active: !isActive }
+            : activity
         );
-        setAcademicActivity(updatedAcademicActivity);
+        setAcademicActivities(updatedActivities);
         Swal.fire({
           title: "Success",
-          text: "Actividad académica actualizada exitosamente",
+          text: "Actividad académica actualizada con éxito",
           icon: "success",
         });
       } else {
@@ -73,81 +76,78 @@ const AcademicActivityDashboard: React.FC = () => {
   };
 
   const deletion = async (id: any) => {
-    const response = await Api.delete(
-      `/academic-activity/${id}`,
-      auth.data.token
-    );
-    window.location.reload();
+    try {
+      const response = await Api.delete(
+        `/academic-activities/${id}`,
+        auth.data.token
+      );
+      if (response.statusCode === 200) {
+        Swal.fire({
+          title: "Eliminado",
+          text: "La actividad académica ha sido eliminada con éxito",
+          icon: "success",
+        });
+        setAcademicActivities(
+          academicActivities.filter((activity) => activity.id !== id)
+        );
+      }
+    } catch (error) {
+      Swal.fire({
+        title: "Error",
+        text: "Error al intentar eliminar la actividad académica",
+        icon: "error",
+      });
+    }
   };
 
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold mb-4">Tablero de actividad académica</h1>
+        <h1 className="text-2xl font-bold mb-4">Tablero de Actividades Académicas</h1>
         <button
           onClick={() => navigate("/create-academic-activity")}
           className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
         >
-          Crear actividad académica
+          Crear Actividad
         </button>
       </div>
       <table className="min-w-full bg-white border border-gray-200">
         <thead>
           <tr>
+            <th className="py-2 px-4 border-b text-center">ID</th>
             <th className="py-2 px-4 border-b text-center">Nombre</th>
-            <th className="py-2 px-4 border-b text-center">Número de créditos</th>
-            <th className="py-2 px-4 border-b text-center">Área de formación</th>
-            <th className="py-2 px-4 border-b text-center">Hora acompañado</th>
-            <th className="py-2 px-4 border-b text-center">Hora independiente</th>
+            <th className="py-2 px-4 border-b text-center">Créditos</th>
+            <th className="py-2 px-4 border-b text-center">Tipo</th>
+            <th className="py-2 px-4 border-b text-center">Área de Formación</th>
+            <th className="py-2 px-4 border-b text-center">Horas de Acompañamiento</th>
+            <th className="py-2 px-4 border-b text-center">Horas Independientes</th>
             <th className="py-2 px-4 border-b text-center">Idioma</th>
-            <th className="py-2 px-4 border-b text-center">Entidad espejo</th>
-            <th className="py-2 px-4 border-b text-center">País espejo</th>
+            <th className="py-2 px-4 border-b text-center">Es Espejo</th>
+            <th className="py-2 px-4 border-b text-center">Entidad Espejo</th>
+            <th className="py-2 px-4 border-b text-center">País Espejo</th>
+            <th className="py-2 px-4 border-b text-center">Programa Asociado</th>
+            <th className="py-2 px-4 border-b text-center">Acciones</th>
           </tr>
         </thead>
         <tbody>
-          {academicActivity?.map((academicActivity) => (
-            <tr key={academicActivity.id}>
-              <td className="py-2 px-4 border-b text-center">
-                {academicActivity.name}
-              </td>
-              <td className="py-2 px-4 border-b text-center">
-                {academicActivity.number_credits}
-              </td>
-              <td className="py-2 px-4 border-b text-center">
-                {academicActivity.training_area}
-              </td>
-              <td className="py-2 px-4 border-b text-center">
-                {academicActivity.accompanied_hour}
-              </td>
-              <td className="py-2 px-4 border-b text-center">
-                {academicActivity.independent_hour}
-              </td>
-              <td className="py-2 px-4 border-b text-center">
-                {academicActivity.language}
-              </td>
-              <td className="py-2 px-4 border-b text-center">
-                {academicActivity.mirror_entity}
-              </td>
-              <td className="py-2 px-4 border-b text-center">
-                {academicActivity.mirror_country}
-              </td>
-              <td className="py-2 px-4 border-b text-center">
-                <label className="flex items-center space-x-2">
-                  <input
-                    type="checkbox"
-                    className="toggle-switch"
-                    checked={academicActivity.isActive}
-                    onChange={() => handleToggleIsActive(academicActivity.id)}
-                  />
-                  <span>
-                    {academicActivity.isActive ? "Activo" : "Inactivo"}
-                  </span>
-                </label>
-              </td>
+          {academicActivities.map((activity) => (
+            <tr key={activity.id}>
+              <td className="py-2 px-4 border-b text-center">{activity.id}</td>
+              <td className="py-2 px-4 border-b text-center">{activity.name}</td>
+              <td className="py-2 px-4 border-b text-center">{activity.credits}</td>
+              <td className="py-2 px-4 border-b text-center">{activity.type}</td>
+              <td className="py-2 px-4 border-b text-center">{activity.trainingArea}</td>
+              <td className="py-2 px-4 border-b text-center">{activity.hAcom}</td>
+              <td className="py-2 px-4 border-b text-center">{activity.hIndep}</td>
+              <td className="py-2 px-4 border-b text-center">{activity.language}</td>
+              <td className="py-2 px-4 border-b text-center">{activity.mirror ? "Sí" : "No"}</td>
+              <td className="py-2 px-4 border-b text-center">{activity.mirrorEntity}</td>
+              <td className="py-2 px-4 border-b text-center">{activity.mirrorCountry}</td>
+              <td className="py-2 px-4 border-b text-center">{activity.programmId}</td>
               <td className="py-2 px-4 border-b text-center space-x-4">
-              <button
+                <button
                   onClick={() =>
-                    navigate(`/read-academic-activity/${academicActivity.id}`)
+                    navigate(`/read-academic-activity/${activity.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
@@ -155,15 +155,14 @@ const AcademicActivityDashboard: React.FC = () => {
                 </button>
                 <button
                   onClick={() =>
-                    navigate(`/edit-academic-activity/${academicActivity.id}`)
+                    navigate(`/edit-academic-activity/${activity.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Editar
                 </button>
                 <button
-                  onClick={() => deletion(academicActivity.id)}
-                  
+                  onClick={() => deletion(activity.id)}
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Borrar

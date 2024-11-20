@@ -89,6 +89,7 @@ import ProgrammAreaKnowledgeDashboard from "../views/ProgrammAreaKnowledges/Prog
 import EditProgrammAreaKnowledge from "../views/ProgrammAreaKnowledges/EditProgrammAreaKnowledge";
 import CreateProgrammAreaKnowledge from "../views/ProgrammAreaKnowledges/CreateProgrammAreaKnowledge";
 import ProgrammAreaKnowledgeDetail from "../views/ProgrammAreaKnowledges/ProgrammAreaKnowledgeDetail";
+import QualifiedRegistryApproachDashboard from "../views/QualifiedRegistryApproaches/QualifiedRegistryApproachDashboard";
 
 
 
@@ -407,6 +408,19 @@ export const RoutesSchema = [
     path: "/create-internship",
     element: CreateInternship,
   },
+  {
+    path: "/create-qualified-registry-approach",
+    element: CreateInternship,
+  },
+  {
+    path: "/dashboard-qualified-registry-approach",
+    element: QualifiedRegistryApproachDashboard,
+  },
+  {
+    path: "/edit-qualified-registry-approach",
+    element: CreateInternship,
+  },
+
 
 
   

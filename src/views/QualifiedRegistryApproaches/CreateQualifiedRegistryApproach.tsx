@@ -6,39 +6,37 @@ import Swal from "sweetalert2";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-const CreateFaculty: React.FC = () => {
+const CreateQualifiedRegistryApproach: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
   const initialValues = {
-    name: "",
-    type: "",
-    foundationDate: "",
+    qualifiedRegistryId: "",
+    approachId: "",
   };
 
   const validationSchema = Yup.object({
-    name: Yup.string()
-      .max(100, "Máximo 100 caracteres")
+    qualifiedRegistryId: Yup.number()
+      .min(1, "Debe ser un número válido y mayor a 0")
       .required("Campo Obligatorio"),
-    type: Yup.string()
-      .max(50, "Máximo 50 caracteres")
+    approachId: Yup.number()
+      .min(1, "Debe ser un número válido y mayor a 0")
       .required("Campo Obligatorio"),
-    foundationDate: Yup.date().required("Campo Obligatorio"),
   });
 
   const handleSubmit = async (values: any) => {
     setIsLoading(true);
     try {
-      const response = await Api.post("/faculties", values, auth.data.token);
+      const response = await Api.post("/qualified-registry-approaches", values, auth.data.token);
       const { data, statusCode } = response;
       if (statusCode === 201) {
         Swal.fire({
           title: "Éxito",
-          text: "Facultad creada con éxito",
+          text: "Asociación creada con éxito",
           icon: "success",
         });
-        navigate("/faculty-dashboard");
+        navigate("/qualified-registry-approach-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -59,7 +57,7 @@ const CreateFaculty: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Crear Facultad</h1>
+      <h1 className="text-2xl font-bold mb-4">Crear Asociación de Registro Calificado</h1>
       <div className="bg-white p-4 rounded shadow-md">
         <Formik
           initialValues={initialValues}
@@ -68,40 +66,27 @@ const CreateFaculty: React.FC = () => {
         >
           <Form>
             <div className="mb-4">
-              <label className="block text-gray-700">Nombre</label>
+              <label className="block text-gray-700">ID de Registro Calificado</label>
               <Field
-                name="name"
-                type="text"
+                name="qualifiedRegistryId"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="name"
+                name="qualifiedRegistryId"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Tipo</label>
+              <label className="block text-gray-700">ID de Enfoque</label>
               <Field
-                name="type"
-                type="text"
+                name="approachId"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="type"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Fecha de Fundación</label>
-              <Field
-                name="foundationDate"
-                type="date"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="foundationDate"
+                name="approachId"
                 component="div"
                 className="text-red-600"
               />
@@ -116,12 +101,6 @@ const CreateFaculty: React.FC = () => {
               >
                 {isLoading ? "Guardando..." : "Guardar"}
               </button>
-              <button
-                onClick={() => navigate("/faculty-dashboard")}
-                className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
-              >
-                Regresar
-              </button>
             </div>
           </Form>
         </Formik>
@@ -130,4 +109,4 @@ const CreateFaculty: React.FC = () => {
   );
 };
 
-export default CreateFaculty;
+export default CreateQualifiedRegistryApproach;

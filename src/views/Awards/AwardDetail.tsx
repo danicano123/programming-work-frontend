@@ -6,8 +6,6 @@ import Swal from "sweetalert2";
 
 const AwardDetail: React.FC = () => {
   const { id } = useParams();
-
- 
   const [award, setAward] = useState<any>(null);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
@@ -15,7 +13,7 @@ const AwardDetail: React.FC = () => {
   useEffect(() => {
     const fetchAward = async () => {
       try {
-        const response = await Api.get(`/award/${id}`, auth.data.token);
+        const response = await Api.get(`/awards/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
           setAward(data);
@@ -42,14 +40,16 @@ const AwardDetail: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4 max-w-lg">
-      <h1 className="text-3xl font-bold mb-6 text-center">Detalles de universidad</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">Detalles del Premio</h1>
       <div className="bg-white p-6 rounded-lg shadow-lg">
         <div className="space-y-4">
+          <DetailItem label="ID" value={award.id} />
           <DetailItem label="Nombre" value={award.name} />
           <DetailItem label="Descripción" value={award.description} />
           <DetailItem label="Fecha" value={award.date} />
-          <DetailItem label="Entidad otorgante" value={award.granting_entity} />
-          <DetailItem label="Pais" value={award.country} />
+          <DetailItem label="Entidad Otorgante" value={award.grantingEntity} />
+          <DetailItem label="País" value={award.country} />
+          <DetailItem label="ID del Programa" value={award.programmId} />
         </div>
         <div className="flex justify-end mt-6">
           <button

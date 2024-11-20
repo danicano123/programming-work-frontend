@@ -4,19 +4,19 @@ import { useSelector } from "react-redux";
 import { Api } from "../../services/Api";
 import Swal from "sweetalert2";
 
-const AcreditationDetail: React.FC = () => {
-  const { id: resolution } = useParams();  
-  const [acreditation, setAcreditation] = useState<any>(null);
+const QualifiedRegistryApproachDetail: React.FC = () => {
+  const { id } = useParams();
+  const [qualifiedRegistryApproach, setQualifiedRegistryApproach] = useState<any>(null);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchAcreditation = async () => {
+    const fetchQualifiedRegistryApproach = async () => {
       try {
-        const response = await Api.get(`/accreditations/${resolution}`, auth.data.token);
+        const response = await Api.get(`/qualified-registry-approaches/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
-          setAcreditation(data);
+          setQualifiedRegistryApproach(data);
         } else {
           Swal.fire({
             title: "Error",
@@ -33,26 +33,22 @@ const AcreditationDetail: React.FC = () => {
       }
     };
 
-    fetchAcreditation();
-  }, [resolution, auth.data.token]);
+    fetchQualifiedRegistryApproach();
+  }, [id, auth.data.token]);
 
-  if (!acreditation) return <div className="text-center py-4">Cargando...</div>;
+  if (!qualifiedRegistryApproach) return <div className="text-center py-4">Cargando...</div>;
 
   return (
     <div className="container mx-auto p-4 max-w-lg">
-      <h1 className="text-3xl font-bold mb-6 text-center">Detalles de Acreditación</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">Detalles del Registro Calificado - Enfoque</h1>
       <div className="bg-white p-6 rounded-lg shadow-lg">
         <div className="space-y-4">
-          <DetailItem label="Resolución" value={acreditation.resolution} />
-          <DetailItem label="Tipo" value={acreditation.type} />
-          <DetailItem label="Calificación" value={acreditation.qualification} />
-          <DetailItem label="Fecha de Inicio" value={acreditation.startDate} />
-          <DetailItem label="Fecha de Fin" value={acreditation.endDate} />
-          <DetailItem label="ID del Programa" value={acreditation.programmId} />
+          <DetailItem label="ID de Registro Calificado" value={qualifiedRegistryApproach.qualifiedRegistryId} />
+          <DetailItem label="ID de Enfoque" value={qualifiedRegistryApproach.approachId} />
         </div>
         <div className="flex justify-end mt-6">
           <button
-            onClick={() => navigate("/accreditation-dashboard")}
+            onClick={() => navigate("/qualified-registry-approaches-dashboard")}
             className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
           >
             Regresar
@@ -70,4 +66,4 @@ const DetailItem: React.FC<{ label: string; value: string }> = ({ label, value }
   </div>
 );
 
-export default AcreditationDetail;
+export default QualifiedRegistryApproachDetail;
