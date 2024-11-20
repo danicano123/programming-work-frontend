@@ -4,20 +4,20 @@ import { useSelector } from "react-redux";
 import { Api } from "../../services/Api";
 import Swal from "sweetalert2";
 
-const AllianceDetail: React.FC = () => {
+const NormativeAspectProgrammDetail: React.FC = () => {
   const { id } = useParams();
  
-  const [alliance, setAlliance] = useState<any>(null);
+  const [normativeAspectProgramm, setNormativeAspectProgramm] = useState<any>(null);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchAlliance = async () => {
+    const fetchNormativeAspectProgramm = async () => {
       try {
-        const response = await Api.get(`/alliances/${id}`, auth.data.token);
+        const response = await Api.get(`/NormativeAspectProgramm/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
-          setAlliance(data);
+          setNormativeAspectProgramm(data);
         } else {
           Swal.fire({
             title: "Error",
@@ -34,25 +34,22 @@ const AllianceDetail: React.FC = () => {
       }
     };
 
-    fetchAlliance();
+    fetchNormativeAspectProgramm();
   }, [id, auth.data.token]);
 
-  if (!alliance) return <div className="text-center py-4">Cargando...</div>;
+  if (!normativeAspectProgramm) return <div className="text-center py-4">Cargando...</div>;
 
   return (
     <div className="container mx-auto p-4 max-w-lg">
-      <h1 className="text-3xl font-bold mb-6 text-center">Detalles de Alianza</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">Detalles de Programa Aspecto Normativo</h1>
       <div className="bg-white p-6 rounded-lg shadow-lg">
         <div className="space-y-4">
-          <DetailItem label="Aliado" value={alliance.alliedId} />
-          <DetailItem label="Programa" value={alliance.programmId} />
-          <DetailItem label="Stardate" value={alliance.startdate} />
-          <DetailItem label="Enddate" value={alliance.enddate} />
-          <DetailItem label="Docente" value={alliance.teacherId} />
+          <DetailItem label="normative_aspect" value={normativeAspectProgramm.normativeAspectId} />
+          <DetailItem label="program" value={normativeAspectProgramm.programmId} />
         </div>
         <div className="flex justify-end mt-6">
           <button
-            onClick={() => navigate("/alliances-dashboard")}
+            onClick={() => navigate("/NormativeAspectProgramm-dashboard")}
             className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
           >
             regresar
@@ -70,4 +67,4 @@ const DetailItem: React.FC<{ label: string; value: string }> = ({ label, value }
   </div>
 );
 
-export default AllianceDetail;
+export default NormativeAspectProgrammDetail;

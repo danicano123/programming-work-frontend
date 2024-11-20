@@ -10,7 +10,7 @@ const PracticeStrategyList: React.FC = () => {
   useEffect(() => {
     const fetchPracticeStrategy = async () => {
       try {
-        const { data, statusCode } = await Api.get("/practice-strategy/active");
+        const { data, statusCode } = await Api.get("/practiceStrategy/active");
         if (statusCode === 200) {
           setPracticeStrategy(data);
         } else {
@@ -33,11 +33,11 @@ const PracticeStrategyList: React.FC = () => {
   }, []);
 
   const handleNavigate = (slug: string, practiceStrategyId: string) => {
-    navigate(`/practice-strategy/${slug}`, { state: { practiceStrategyId } });
+    navigate(`/practiceStrategy/${slug}`, { state: { practiceStrategyId } });
   };
 
   const handleNavigateToform = (slug: string, practiceStrategyId: string) => {
-    navigate(`/practice-strategy/${slug}/form/${practiceStrategyId}`, {
+    navigate(`/practiceStrategy/${slug}/form/${practiceStrategyId}`, {
       state: { practiceStrategyId },
     });
   };

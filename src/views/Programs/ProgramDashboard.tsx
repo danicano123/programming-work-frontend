@@ -28,7 +28,7 @@ const ProgramDashboard: React.FC = () => {
       } catch (error) {
         Swal.fire({
           title: "Error",
-          text: "Error: unable to fetch active programs",
+          text: "Error: unable to fetch active program",
           icon: "error",
         });
       }
@@ -37,29 +37,24 @@ const ProgramDashboard: React.FC = () => {
     fetchProgram();
   }, [auth.data.token]);
 
-  const handleToggleIsActive = async (
-    programId: string,
-    isActive: boolean
-  ) => {
+  const handleToggleIsActive = async (programId: string) => {
     try {
-      const response = await Api.patch(
-        `/programs/${programId}/is-active`,
-        {
-          is_active: !isActive,
-        },
+      const response = await Api.post(
+        `/programs/toggle-is-active/${programId}`,
         auth.data.token
       );
       const { data, statusCode } = response;
       if (statusCode === 200) {
-        const updatedProgram = program.map((program) =>
-          program.id === program.Id
-            ? { ...program, is_active: !isActive }
-            : program
+        const updatedProgram = program.map(
+          (program) =>
+            program.id === programId
+              ? { ...program, isActive: data.isActive }
+              : program
         );
         setProgram(updatedProgram);
         Swal.fire({
           title: "Success",
-          text: "Programa actualizado con exito",
+          text: "program updated successfully",
           icon: "success",
         });
       } else {
@@ -86,13 +81,14 @@ const ProgramDashboard: React.FC = () => {
     window.location.reload();
   };
 
-
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold mb-4">Tablero de Programa</h1>
+        <h1 className="text-2xl font-bold mb-4">
+          Tablero de Programa
+        </h1>
         <button
-          onClick={() => navigate("/create-program")}
+          onClick={() => navigate("/create-programs")}
           className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
         >
           Crear Programa
@@ -105,21 +101,17 @@ const ProgramDashboard: React.FC = () => {
             <th className="py-2 px-4 border-b text-center">Nombre</th>
             <th className="py-2 px-4 border-b text-center">Tipo</th>
             <th className="py-2 px-4 border-b text-center">Nivel</th>
-            <th className="py-2 px-4 border-b text-center">Fecha creación</th>
-            <th className="py-2 px-4 border-b text-center">Fecha cierre</th>
-            <th className="py-2 px-4 border-b text-center">Numero cohortes</th>
-            <th className="py-2 px-4 border-b text-center">Cant graduados</th>
-            <th className="py-2 px-4 border-b text-center">fecha actualización</th>
+            <th className="py-2 px-4 border-b text-center">Fecha Creación</th>
+            <th className="py-2 px-4 border-b text-center">Fecha Cierre</th>
+            <th className="py-2 px-4 border-b text-center">Número Cohortes</th>
+            <th className="py-2 px-4 border-b text-center">Cantidad Graduados</th>
+            <th className="py-2 px-4 border-b text-center">Fecha Actualización</th>
             <th className="py-2 px-4 border-b text-center">Ciudad</th>
-            <th className="py-2 px-4 border-b text-center">Facultad</th>
           </tr>
         </thead>
         <tbody>
-          {program.map((program) => (
+          {program?.map((program) => (
             <tr key={program.id}>
-              <td className="py-2 px-4 border-b text-center">
-                {program.id}
-              </td>
               <td className="py-2 px-4 border-b text-center">
                 {program.name}
               </td>
@@ -127,33 +119,41 @@ const ProgramDashboard: React.FC = () => {
                 {program.type}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                {program.level}
+                {program.creationDate}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                {program.startdate}
+                {program.closingDate}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                {program.enddate}
+                {program.numberCohorts}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                {program.numbercohorts}
+                {program.graduatesCount}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                {program.numbergraduates}
-              </td>
-              <td className="py-2 px-4 border-b text-center">
-                {program.updatedate}
+                {program.lastUpdateDate}
               </td>
               <td className="py-2 px-4 border-b text-center">
                 {program.city}
               </td>
+              
               <td className="py-2 px-4 border-b text-center">
-                {program.faculty}
+                <label className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    className="toggle-switch"
+                    checked={program.isActive}
+                    onChange={() => handleToggleIsActive(program.id)}
+                  />
+                  <span>
+                    {program.isActive ? "Activo" : "Inactivo"}
+                  </span>
+                </label>
               </td>
               <td className="py-2 px-4 border-b text-center space-x-4">
-               <button
+                <button
                   onClick={() =>
-                    navigate(`/read-program/${program.id}`)
+                    navigate(`/read-programs/${program.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
@@ -161,7 +161,7 @@ const ProgramDashboard: React.FC = () => {
                 </button>
                 <button
                   onClick={() =>
-                    navigate(`/edit-program/${program.id}`)
+                    navigate(`/edit-programs/${program.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >

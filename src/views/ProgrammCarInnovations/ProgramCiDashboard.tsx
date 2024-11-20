@@ -28,7 +28,7 @@ const ProgramCiDashboard: React.FC = () => {
       } catch (error) {
         Swal.fire({
           title: "Error",
-          text: "Error: unable to fetch active approach",
+          text: "Error: unable to fetch active programm car innovation",
           icon: "error",
         });
       }
@@ -38,12 +38,12 @@ const ProgramCiDashboard: React.FC = () => {
   }, [auth.data.token]);
 
   const handleToggleIsActive = async (
-    approachId: string,
+    programCiId: string,
     isActive: boolean
   ) => {
     try {
       const response = await Api.patch(
-        `/programCi/${approachId}/is-active`,
+        `/programm-car-innovations/${programCiId}/is-active`,
         {
           is_active: !isActive,
         },

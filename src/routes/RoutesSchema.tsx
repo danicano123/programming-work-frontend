@@ -33,10 +33,6 @@ import UniversityDetail from "../views/University/UniversityDetail";
 import EditUniversity from "../views/University/EditUniversity";
 import ApproachDetail from "../views/Approaches/ApproachDetail";
 import EditApproach from "../views/Approaches/EditApproach";
-import EditFaculty from "../views/Faculties/EditFaculty";
-import FacultyDetail from "../views/Faculties/FacultyDetail";
-import CreateFaculty from "../views/Faculties/CreateFaculty";
-import FacultyDashboard from "../views/Faculties/FacultyDashboard";
 import CreateAcreditation from "../views/Acreditations/CreateAcreditation";
 import AcreditationDetail from "../views/Acreditations/AdreditationDetail";
 import EditAcreditation from "../views/Acreditations/EditAcreditation";
@@ -57,10 +53,6 @@ import AllianceDashboard from "../views/Alliances/AllianceDashboard";
 import EditAlliance from "../views/Alliances/EditAlliance";
 import AllianceDetail from "../views/Alliances/AlliancesDetail";
 import CreateAlliance from "../views/Alliances/CreateAlliance";
-import ProgramDashboard from "../views/Programs/ProgramDashboard";
-import ProgramDetail from "../views/Programs/ProgramsDetail";
-import EditProgram from "../views/Programs/EditProgram";
-import CreateProgram from "../views/Programs/CreateProgram";
 import ProgramCiDashboard from "../views/ProgrammCarInnovations/ProgramCiDashboard";
 import ProgramCiDetail from "../views/ProgrammCarInnovations/ProgramsCiDetail";
 import EditProgramCi from "../views/ProgrammCarInnovations/EditProgramCi";
@@ -77,10 +69,10 @@ import CreateTeacherPrograms from "../views/TeacherPrograms/CreateTeacherProgram
 import TeacherProgramsDashboard from "../views/TeacherPrograms/TeacherProgramsDashboard";
 import TeacherProgramsDetail from "../views/TeacherPrograms/TeacherProgramsDetail";
 import EditTeacherPrograms from "../views/TeacherPrograms/EditTeacherPrograms";
-import NormativeAspectProgrammDashboard from "../views/NormativeAspectProgramms/ProgramAcDashboard";
-import NormativeAspectProgrammDetail from "../views/NormativeAspectProgramms/ProgramsAcDetail";
-import EditNormativeAspectProgramm from "../views/NormativeAspectProgramms/EditProgramAc";
-import CreateNormativeAspectProgramm from "../views/NormativeAspectProgramms/CreateProgramAc";
+import NormativeAspectProgrammDashboard from "../views/NormativeAspectProgramms/NormativeAspectProgrammDashboard";
+import NormativeAspectProgrammDetail from "../views/NormativeAspectProgramms/NormativeAspectProgrammDetail";
+import EditNormativeAspectProgramm from "../views/NormativeAspectProgramms/EditNormativeAspectProgramm";
+import CreateNormativeAspectProgramm from "../views/NormativeAspectProgramms/CreateNormativeAspectProgramm";
 import ProgrammPracticeStrategyDashboard from "../views/ProgrammPracticeStrategys/ProgramPeDashboard";
 import ProgrammPracticeStrategyDetail from "../views/ProgrammPracticeStrategys/ProgramsPeDetail";
 import EditProgrammPracticeStrategy from "../views/ProgrammPracticeStrategys/EditProgramPe";
@@ -89,6 +81,14 @@ import ProgrammAreaKnowledgeDashboard from "../views/ProgrammAreaKnowledges/Prog
 import EditProgrammAreaKnowledge from "../views/ProgrammAreaKnowledges/EditProgrammAreaKnowledge";
 import CreateProgrammAreaKnowledge from "../views/ProgrammAreaKnowledges/CreateProgrammAreaKnowledge";
 import ProgrammAreaKnowledgeDetail from "../views/ProgrammAreaKnowledges/ProgrammAreaKnowledgeDetail";
+import ProgramDashboard from "../views/Programs/ProgramDashboard";
+import ProgramDetail from "../views/Programs/ProgramsDetail";
+import EditProgram from "../views/Programs/EditProgram";
+import CreateProgram from "../views/Programs/CreateProgram";
+import CreateFaculty from "../views/Faculties/CreateFaculty";
+import FacultyDetail from "../views/Faculties/FacultyDetail";
+import EditFaculty from "../views/Faculties/EditFaculty";
+import FacultyDashboard from "../views/Faculties/FacultyDashboard";
 
 
 
@@ -103,17 +103,18 @@ export const RoutesSchema = [
     element: AlliedDashboard,
   },
   {
-    path: "/allied-detail",
+    path: "/read-allied/:id",
     element: AlliedDetail,
   },
   {
-    path: "/allied-edit",
+    path: "/edit-allied/:id",
     element: EditAllied,
   },
   {
     path: "/create-allied",
     element: CreateAllied,
   },
+  //University
   {
     path: "/create-university",
     element: CreateUniversity,
@@ -130,25 +131,22 @@ export const RoutesSchema = [
     path: "/university-dashboard",
     element: UniversityDashboard,
   },
+  //Faculty
   {
     path: "/create-faculty",
-    element: CreateFaculty,
+    element: CreateFaculty
   },
   {
     path: "/read-faculty/:id",
-    element: FacultyDetail,
+    element: FacultyDetail
   },
   {
     path: "/edit-faculty/:id",
     element: EditFaculty,
   },
   {
-    path: "/faculty-dashboard",
+    path: "/faculties-dashboard",
     element: FacultyDashboard,
-  },
-  {
-    path: "/university-dashboard",
-    element: UniversityDashboard,
   },
   {
     path: "/create-academic-activity",
@@ -211,7 +209,7 @@ export const RoutesSchema = [
     element: EditAward,
   },
   {
-    path: "/award-dashboard",
+    path: "/awards-dashboard",
     element: AwardDashboard,
   },
   {
@@ -240,7 +238,7 @@ export const RoutesSchema = [
     element: CarInnovationsDetail,
   },
   {
-    path: "/edit-car-innovations",
+    path: "/edit-car-innovations/:id",
     element: EditCarInnovations,
   },
   {
@@ -249,33 +247,33 @@ export const RoutesSchema = [
   },
 
   {
-    path: "/practice-strategy-dashboard",
+    path: "/practiceStrategy-dashboard",
     element: PracticeStrategyDashboard
   },
   {
-    path: "/read-practice-strategy",
+    path: "/read-practiceStrategy/:id",
     element: PracticeStrategyDetail,
   },
   {
-    path: "/edit-practice-strategy",
+    path: "/edit-practiceStrategy/:id",
     element: EditPracticeStrategy,
   },
   {
-    path: "/create-practice-strategy",
+    path: "/create-practiceStrategy",
     element: CreatePracticeStrategy,
   },
 
 //Alliances
   {
-    path: "/alliance-dashboard",
+    path: "/alliances-dashboard",
     element: AllianceDashboard,
   },
   {
-    path: "/alliance-detail",
+    path: "/alliance-detail/:id",
     element: AllianceDetail,
   },
   {
-    path: "/alliance-edit",
+    path: "/alliance-edit/:id",
     element: EditAlliance,
   },
   {
@@ -289,11 +287,11 @@ export const RoutesSchema = [
     element: TeacherProgramsDashboard,
   },
   {
-    path: "/teacher-programs-detail",
+    path: "/teacher-programs-detail/:id",
     element: TeacherProgramsDetail,
   },
   {
-    path: "/teacher-programs-edit",
+    path: "/teacher-programs-edit/:id",
     element: EditTeacherPrograms,
   },
   {
@@ -301,57 +299,57 @@ export const RoutesSchema = [
     element: CreateTeacherPrograms,
   },
 
-  //Program
+  //Programs
   {
-    path: "/program-dashboard",
+    path: "/programs-dashboard",
     element: ProgramDashboard,
   },
   {
-    path: "/program-detail",
+    path: "/read-programs/:id",
     element: ProgramDetail,
   },
   {
-    path: "/program-edit",
+    path: "/edit-programs/:id",
     element: EditProgram,
   },
   {
-    path: "/create-program",
+    path: "/create-programs",
     element: CreateProgram,
   },
   
   //ProgramPe
   {
-    path: "/programm-practice-strategy-dashboard",
+    path: "/programm-practice-strategys-dashboard",
     element: ProgrammPracticeStrategyDashboard,
   },
   {
-    path: "/programm-practice-strategy-detail",
+    path: "/read-programm-practice-strategys/:id",
     element: ProgrammPracticeStrategyDetail,
   },
   {
-    path: "/programm-practice-strategy-edit",
+    path: "/edit-programm-practice-strategys/:id",
     element: EditProgrammPracticeStrategy,
   },
   {
-    path: "/create-programm-practice-strategy",
+    path: "/create-programm-practice-strategys",
     element: CreateProgrammPracticeStrategy,
   },
 
-  //ProgramAc
+  //Program Aspecto Normativo
   {
-    path: "/normative-aspect-programm-dashboard",
+    path: "/NormativeAspectProgramm-dashboard",
     element: NormativeAspectProgrammDashboard,
   },
   {
-    path: "/normative-aspect-programm-detail",
+    path: "/read-NormativeAspectProgramm/:id",
     element: NormativeAspectProgrammDetail,
   },
   {
-    path: "/normative-aspect-programm-edit",
+    path: "/edit-NormativeAspectProgramm/:id",
     element: EditNormativeAspectProgramm,
   },
   {
-    path: "/create-normative-aspect-programm",
+    path: "/create-NormativeAspectProgramm",
     element: CreateNormativeAspectProgramm,
   },
 
@@ -361,11 +359,11 @@ export const RoutesSchema = [
     element: ProgramCiDashboard,
   },
   {
-    path: "/program-ci-detail",
+    path: "/program-ci-detail/:id",
     element: ProgramCiDetail,
   },
   {
-    path: "/program-ci-edit",
+    path: "/program-ci-edit/:id",
     element: EditProgramCi,
   },
   {
@@ -378,11 +376,11 @@ export const RoutesSchema = [
     element: ProgrammAreaKnowledgeDashboard,
   },
   {
-    path: "/programm-area-knowledge-detail",
+    path: "/programm-area-knowledge-detail/:id",
     element: ProgrammAreaKnowledgeDetail,
   },
   {
-    path: "/programm-area-knowledge-edit",
+    path: "/programm-area-knowledge-edit/:id",
     element: EditProgrammAreaKnowledge,
   },
   {
@@ -392,19 +390,19 @@ export const RoutesSchema = [
 
   //Internships
   {
-    path: "/internship-dashboard",
+    path: "/Internship-dashboard",
     element: InternshipDashboard,
   },
   {
-    path: "/internship-detail",
+    path: "/Internship-detail/:id",
     element: InternshipDetail,
   },
   {
-    path: "/internship-edit",
+    path: "/Internship-edit/:id",
     element: EditInternship,
   },
   {
-    path: "/create-internship",
+    path: "/create-Internship",
     element: CreateInternship,
   },
 

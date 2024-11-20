@@ -14,7 +14,7 @@ const ProgrammPracticeStrategyDetail: React.FC = () => {
   useEffect(() => {
     const fetchProgrammPracticeStrategy = async () => {
       try {
-        const response = await Api.get(`/ProgrammPracticeStrategy/${id}`, auth.data.token);
+        const response = await Api.get(`/programm-practice-strategys/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
           setProgrammPracticeStrategy(data);
@@ -44,12 +44,12 @@ const ProgrammPracticeStrategyDetail: React.FC = () => {
       <h1 className="text-3xl font-bold mb-6 text-center">Detalles de Programa Practica Estrategia</h1>
       <div className="bg-white p-6 rounded-lg shadow-lg">
         <div className="space-y-4">
-          <DetailItem label="Practicestrategy" value={programPe.practicestrategy} />
-          <DetailItem label="Program" value={programPe.program} />
+          <DetailItem label="Programa" value={programPe.programmId} />
+          <DetailItem label="Practica Estrategica" value={programPe.practiceStrategyId} />
         </div>
         <div className="flex justify-end mt-6">
           <button
-            onClick={() => navigate("/programm-practice-strategy-dashboard")}
+            onClick={() => navigate("/programm-practice-strategys-dashboard")}
             className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
           >
             regresar

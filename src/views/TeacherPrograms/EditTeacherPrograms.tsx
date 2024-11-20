@@ -42,30 +42,32 @@ const EditTeacherPrograms: React.FC = () => {
   if (!teacherPrograms) return <div>Cargando...</div>;
 
   const initialValues = {
-    name: teacherPrograms.name || "",
-    description: teacherPrograms.description || "",
+    teacherId: teacherPrograms.teacherId || "",
+    programmId: teacherPrograms.programmId || "",
+    dedication: teacherPrograms.dedication || "",
+    modality: teacherPrograms.modality || "",
+    startDate: teacherPrograms.startDate || "",
+    endDate: teacherPrograms.endDate || "",
   };
 
-  const validationSchema = Yup.object({
-  teaching: Yup.string()
-    .max(60, "Maximo 60 carateres")
-    .required("Campo requerido"),
-  departament: Yup.string()
-    .max(45, "Maximo 45 carateres")
-    .required("Campo requerido"),
-  dedication: Yup.string()
-    .max(45, "Maximo 45 carateres")
-    .required("Campo requerido"),
-  mode: Yup.string()
-    .max(45, "Maximo 45 carateres")
-    .required("Campo requerido"),
-  entrydate: Yup.string()
-    .max(45, "Maximo 45 carateres")
-    .required("Campo requerido"),
-  departuredate: Yup.string()
-    .max(45, "Maximo 45 carateres")
-    .required("Campo requerido"),
-  });
+    const validationSchema = Yup.object({
+    teacherId: Yup.string()
+      .max(60, "Maximo 60 carateres")
+      .required("Campo requerido"),
+    programmId: Yup.string()
+      .max(45, "Maximo 45 carateres")
+      .required("Campo requerido"),
+    dedication: Yup.string()
+      .max(45, "Maximo 45 carateres")
+      .required("Campo requerido"),
+    modality: Yup.string()
+      .max(45, "Maximo 45 carateres")
+      .required("Campo requerido"),
+    startDate: Yup.date()
+      .required("Campo requerido"),
+      endDate: Yup.date()
+      .required("Campo requerido"),
+    });
 
   const handleSubmit = async (values: any) => {
     try {
@@ -107,25 +109,25 @@ const EditTeacherPrograms: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Docente</label>
               <Field
-                name="teaching"
+                name="teacherId"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="teaching"
+                name="teacherId"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Departamento</label>
+              <label className="block text-gray-700">Programa</label>
               <Field
-                name="departament"
+                name="programmId"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="departament"
+                name="programmId"
                 component="div"
                 className="text-red-600"
               />
@@ -146,38 +148,38 @@ const EditTeacherPrograms: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Modalidad</label>
               <Field
-                name="mode"
+                name="modality"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="mode"
+                name="modality"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Fecha Ingreso</label>
+              <label className="block text-gray-700">Fecha Inicio</label>
               <Field
-                name="entrydate"
+                name="startDate"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="entrydate"
+                name="startDate"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Fecha Salida</label>
+              <label className="block text-gray-700">Fecha Fin</label>
               <Field
-                name="departuredate"
+                name="endDate"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="departuredate"
+                name="endDate"
                 component="div"
                 className="text-red-600"
               />

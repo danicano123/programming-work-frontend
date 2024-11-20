@@ -42,18 +42,14 @@ const EditInternship: React.FC = () => {
   if (!internship) return <div>Cargando...</div>;
 
   const initialValues = {
-    id: internship.id || "",
     name: internship.name || "",
     country: internship.country || "",
     company: internship.company || "",
     description: internship.description || "",
-    program: internship.program || "",
+    programmId: internship.programmId || "",
   };
 
   const validationSchema = Yup.object({
-    id: Yup.string()
-      .max(45, "Máximo 45 caracteres")
-      .required("Requerido"),
     name: Yup.string()
       .max(45, "Máximo 45 caracteres"),
     country: Yup.string()
@@ -65,14 +61,14 @@ const EditInternship: React.FC = () => {
     description: Yup.string()
       .max(45, "Máximo 45 caracteres")
       .required("Requerido"),
-    program: Yup.string()
+    programmId: Yup.string()
       .max(45, "Máximo 45 caracteres")
       .required("Requerido"),
   });
 
   const handleSubmit = async (values: any) => {
     try {
-      const response = await Api.patch(`/internship/${id}`, { id: internship.id, ...values}, auth.data.token);
+      const response = await Api.patch(`/Internship/${id}`, { id: internship.id, ...values}, auth.data.token);
       const { data, statusCode } = response;
       if (statusCode === 204) {
         Swal.fire({
@@ -80,7 +76,7 @@ const EditInternship: React.FC = () => {
           text: "Pasantia actualizado correctamente",
           icon: "success",
         });
-        navigate("/internship-dashboard");
+        navigate("/Internship-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -107,19 +103,6 @@ const EditInternship: React.FC = () => {
           onSubmit={handleSubmit}
         >
           <Form>
-          <div className="mb-4">
-              <label className="block text-gray-700">Id</label>
-              <Field
-                name="id"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="id"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
             <div className="mb-4">
               <label className="block text-gray-700">Nombre</label>
               <Field
@@ -176,12 +159,12 @@ const EditInternship: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Programa</label>
               <Field
-                name="program"
+                name="programmId"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="program"
+                name="programmId"
                 component="div"
                 className="text-red-600"
               />
@@ -196,7 +179,7 @@ const EditInternship: React.FC = () => {
               <button
                 type="button"
                 className="ml-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
-                onClick={() => navigate("/internship-dashboard")}
+                onClick={() => navigate("/Internship-dashboard")}
               >
                 Cancelar
               </button>

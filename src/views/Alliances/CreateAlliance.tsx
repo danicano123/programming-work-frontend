@@ -14,23 +14,23 @@ const CreateAlliance: React.FC = () => {
   const navigate = useNavigate();
 
   const initialValues = {
-    alliance: 0,
-    departament: 0,
-    startdate: 0,
-    enddate: 0,
-    teaching: 0,
+    alliedId: "",
+    programmId: "",
+    startdate: "",
+    enddate: "",
+    teacherId: "",
   };
 
   const validationSchema = Yup.object({
-    alliance: Yup.number()
+    alliedId: Yup.string()
       .required("Campo requerido"),
-      departament: Yup.string()
+    programmId: Yup.string()
       .required("Campo requerido"),
-      startdate: Yup.string()
+    startdate: Yup.string()
       .required("Campo requerido"),
-      enddate: Yup.string()
+    enddate: Yup.string()
       .required("Campo requerido"),
-      teaching: Yup.string()
+    teacherId: Yup.string()
       .required("Campo requerido"),
   });
 
@@ -45,7 +45,7 @@ const CreateAlliance: React.FC = () => {
           text: "Alianza creado con exito",
           icon: "success",
         });
-        navigate("/alliance-dashboard");
+        navigate("/alliances-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -77,25 +77,25 @@ const CreateAlliance: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Aliado</label>
               <Field
-                name="allied"
+                name="alliedId"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="allied"
+                name="alliedId"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Departamento</label>
+              <label className="block text-gray-700">Programa</label>
               <Field
-                name="departament"
+                name="programmId"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="departament"
+                name="programmId"
                 component="div"
                 className="text-red-600"
               />
@@ -130,12 +130,12 @@ const CreateAlliance: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Docente</label>
               <Field
-                name="teaching"
+                name="teacherId"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="teaching"
+                name="teacherId"
                 component="div"
                 className="text-red-600"
               />
@@ -150,7 +150,7 @@ const CreateAlliance: React.FC = () => {
                 {isLoading ? "Guardando..." : "Guardar"}
               </button>
               <button
-                onClick={() => navigate("/alliance-dashboard")}
+                onClick={() => navigate("/alliances-dashboard")}
                 className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
               >
                 Salir

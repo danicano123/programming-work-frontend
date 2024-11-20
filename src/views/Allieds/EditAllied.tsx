@@ -38,42 +38,40 @@ const EditAllied: React.FC = () => {
     fetchAllied();
   }, [id, auth.data.token]);
 
-  if (!allied) return <div>Cargando...</div>;
+  if (!allied) return <div>Loading...</div>;
 
   const initialValues = {
-    razonsocial: allied.companyreason || "",
-    namecontact: allied.namecontact || "",
-    mail: allied.mail || "",
+    company_reason: allied.company_reason || "",
+    contact_name: allied.contact_name || "",
     phone: allied.phone || "",
     city: allied.city || "",
+
   };
 
   const validationSchema = Yup.object({
-    companyreason: Yup.string()
-      .max(50, "Máximo 60 caracteres")
-      .required("Requerido"),
-    namecontac: Yup.string()
-      .max(50, "Máximo 45 caracteres")
-      .required("Requerido"),
-    mail: Yup.string()
-      .max(50, "Máximo 45 caracteres")
-      .required("Requirido"),
+    company_reason: Yup.string()
+    .max(50, "Máximo 50 caracteres")
+    .required("Requerido"),
+    contact_name: Yup.string()
+    .max(50, "Máximo 50 caracteres")
+    .required("Requerido"),
     phone: Yup.string()
-      .max(50, "Máximo 45 caracteres")
-      .required("Requirido"),
+    .max(50, "Máximo 50 caracteres")
+    .required("Requirido"),
     city: Yup.string()
-      .max(50, "Máximo 45 caracteres")
-      .required("Requirido"),
+    .max(50, "Máximo 50 caracteres")
+    .required("Requirido"),
+
   });
 
   const handleSubmit = async (values: any) => {
     try {
-      const response = await Api.patch(`/allied/${id}`, values, auth.data.token);
+      const response = await Api.patch(`/allied/${id}`, { id: allied.id, ...values}, auth.data.token);
       const { data, statusCode } = response;
-      if (statusCode === 200) {
+      if (statusCode === 204) {
         Swal.fire({
           title: "Success",
-          text: "Aliado actualizada con exito",
+          text: "allied updated successfully",
           icon: "success",
         });
         navigate("/allied-dashboard");
@@ -103,41 +101,28 @@ const EditAllied: React.FC = () => {
           onSubmit={handleSubmit}
         >
           <Form>
-            <div className="mb-4">
+          <div className="mb-4">
               <label className="block text-gray-700">Razon Social</label>
               <Field
-                name="name"
+                name="company_reason"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="name"
+                name="company_reason"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Nombre de Contacto</label>
+              <label className="block text-gray-700">Nombre Contacto</label>
               <Field
-                name="type"
+                name="contact_name"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="type"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Correo</label>
-              <Field
-                name="type"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="type"
+                name="contact_name"
                 component="div"
                 className="text-red-600"
               />
@@ -145,12 +130,12 @@ const EditAllied: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Telefono</label>
               <Field
-                name="type"
+                name="phone"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="type"
+                name="phone"
                 component="div"
                 className="text-red-600"
               />
@@ -163,7 +148,7 @@ const EditAllied: React.FC = () => {
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="City"
+                name="city"
                 component="div"
                 className="text-red-600"
               />
@@ -173,14 +158,14 @@ const EditAllied: React.FC = () => {
                 type="submit"
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
               >
-                Guardar cambios
+                Save Changes
               </button>
               <button
                 type="button"
                 className="ml-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
                 onClick={() => navigate("/allied-dashboard")}
               >
-                Cancelar
+                Cancel
               </button>
             </div>
           </Form>

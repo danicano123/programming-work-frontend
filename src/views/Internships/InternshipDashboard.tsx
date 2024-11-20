@@ -37,29 +37,24 @@ const InternshipDashboard: React.FC = () => {
     fetchInternship();
   }, [auth.data.token]);
 
-  const handleToggleIsActive = async (
-    internshipId: string,
-    isActive: boolean
-  ) => {
+  const handleToggleIsActive = async (internshipId: string) => {
     try {
-      const response = await Api.patch(
-        `/Internship/${internshipId}/is-active`,
-        {
-          is_active: !isActive,
-        },
+      const response = await Api.post(
+        `/Internship/toggle-is-active/${internshipId}`,
         auth.data.token
       );
       const { data, statusCode } = response;
       if (statusCode === 200) {
-        const updatedInternship = internship.map((internship) =>
-          internship.id === internshipId
-            ? { ...internship, is_active: !isActive }
-            : internship
+        const updatedInternship = internship.map(
+          (internship) =>
+            internship.id === internshipId
+              ? { ...internship, isActive: data.isActive }
+              : internship
         );
         setInternship(updatedInternship);
         Swal.fire({
           title: "Success",
-          text: "Pasantia actualizado con exito",
+          text: "Internship updated successfully",
           icon: "success",
         });
       } else {
@@ -92,7 +87,7 @@ const InternshipDashboard: React.FC = () => {
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold mb-4">Tablero de Pasantia</h1>
         <button
-          onClick={() => navigate("/create-internship")}
+          onClick={() => navigate("/create-Internship")}
           className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
         >
           Crear Pasantia
@@ -114,15 +109,24 @@ const InternshipDashboard: React.FC = () => {
           {internship.map((internship) => (
             <tr key={internship.id}>
               <td className="py-2 px-4 border-b text-center">
-                {internship.programId}
+                {internship.name}
+              </td>
+              <td className="py-2 px-4 border-b text-center">
+                {internship.country}
+              </td>
+              <td className="py-2 px-4 border-b text-center">
+                {internship.company}
               </td>
               <td className="py-2 px-4 border-b text-center">
                 {internship.description}
               </td>
+              <td className="py-2 px-4 border-b text-center">
+                {internship.programmId}
+              </td>
               <td className="py-2 px-4 border-b text-center space-x-4">
                <button
                   onClick={() =>
-                    navigate(`/read-internship/${internship.id}`)
+                    navigate(`/read-Internship/${internship.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
@@ -130,7 +134,7 @@ const InternshipDashboard: React.FC = () => {
                 </button>
                 <button
                   onClick={() =>
-                    navigate(`/edit-internship/${internship.id}`)
+                    navigate(`/edit-Internship/${internship.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
