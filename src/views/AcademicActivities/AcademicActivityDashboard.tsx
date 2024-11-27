@@ -105,7 +105,7 @@ const AcademicActivityDashboard: React.FC = () => {
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold mb-4">Tablero de Actividades Académicas</h1>
         <button
-          onClick={() => navigate("/create-academic-activity")}
+          onClick={() => navigate("/create-academic-activities")}
           className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
         >
           Crear Actividad
@@ -147,7 +147,7 @@ const AcademicActivityDashboard: React.FC = () => {
               <td className="py-2 px-4 border-b text-center space-x-4">
                 <button
                   onClick={() =>
-                    navigate(`/read-academic-activity/${activity.id}`)
+                    navigate(`/read-academic-activities/${activity.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
@@ -155,7 +155,7 @@ const AcademicActivityDashboard: React.FC = () => {
                 </button>
                 <button
                   onClick={() =>
-                    navigate(`/edit-academic-activity/${activity.id}`)
+                    navigate(`/edit-academic-activities/${activity.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >

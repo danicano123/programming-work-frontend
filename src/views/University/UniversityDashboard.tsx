@@ -40,7 +40,7 @@ const UniversityDashboard: React.FC = () => {
   const handleToggleIsActive = async (universityId: string) => {
     try {
       const response = await Api.patch(
-        `/university/toggle-is-active${universityId}`,
+        `/university/toggle-is-active/${universityId}`,
         auth.data.token
       );
       const { data, statusCode } = response;

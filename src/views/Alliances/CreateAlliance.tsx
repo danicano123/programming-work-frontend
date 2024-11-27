@@ -14,30 +14,30 @@ const CreateAlliance: React.FC = () => {
   const navigate = useNavigate();
 
   const initialValues = {
-    alliedId: "",
-    programmId: "",
-    startdate: "",
-    enddate: "",
-    teacherId: "",
+    alliedId: 0,
+    programmId: 0,
+    startDate: "",
+    endDate: "",
+    teacherId: 0,
   };
 
   const validationSchema = Yup.object({
-    alliedId: Yup.string()
+    alliedId: Yup.number()
       .required("Campo requerido"),
-    programmId: Yup.string()
+    programmId: Yup.number()
       .required("Campo requerido"),
-    startdate: Yup.string()
+    startDate: Yup.date()
       .required("Campo requerido"),
-    enddate: Yup.string()
+    endDate: Yup.date()
       .required("Campo requerido"),
-    teacherId: Yup.string()
+    teacherId: Yup.number()
       .required("Campo requerido"),
   });
 
   const handleSubmit = async (values: any) => {
     setIsLoading(true);
     try {
-      const response = await Api.post("/Alliances", values, auth.data.token);
+      const response = await Api.post("/alliances", values, auth.data.token);
       const { data, statusCode } = response;
       if (statusCode === 201) {
         Swal.fire({ 
@@ -78,7 +78,7 @@ const CreateAlliance: React.FC = () => {
               <label className="block text-gray-700">Aliado</label>
               <Field
                 name="alliedId"
-                type="text"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
@@ -91,7 +91,7 @@ const CreateAlliance: React.FC = () => {
               <label className="block text-gray-700">Programa</label>
               <Field
                 name="programmId"
-                type="text"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
@@ -103,12 +103,12 @@ const CreateAlliance: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Fecha inicio</label>
               <Field
-                name="startdate"
-                type="text"
+                name="startDate"
+                type="date"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="startdate"
+                name="startDate"
                 component="div"
                 className="text-red-600"
               />
@@ -117,12 +117,12 @@ const CreateAlliance: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Fecha fin</label>
               <Field
-                name="enddate"
-                type="text"
+                name="endDate"
+                type="date"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="enddate"
+                name="endDate"
                 component="div"
                 className="text-red-600"
               />
@@ -131,7 +131,7 @@ const CreateAlliance: React.FC = () => {
               <label className="block text-gray-700">Docente</label>
               <Field
                 name="teacherId"
-                type="text"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
@@ -140,7 +140,7 @@ const CreateAlliance: React.FC = () => {
                 className="text-red-600"
               />
             </div>
-              <button
+            <button
                 type="submit"
                 className={`${
                   isLoading ? "bg-gray-500 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-700"

@@ -13,7 +13,7 @@ const QualifiedRegistryDashboard: React.FC = () => {
     const fetchQualifiedRegistries = async () => {
       try {
         const { data, statusCode } = await Api.get(
-          "/qualifiedRegistry",
+          "/qualified-registries",
           auth.data.token
         );
         if (statusCode === 200) {
@@ -40,7 +40,7 @@ const QualifiedRegistryDashboard: React.FC = () => {
   const handleToggleIsActive = async (id: string, isActive: boolean) => {
     try {
       const response = await Api.patch(
-        `/qualifiedRegistry/${id}/is-active`,
+        `/qualified-registries/${id}/is-active`,
         {
           is_active: !isActive,
         },
@@ -78,7 +78,7 @@ const QualifiedRegistryDashboard: React.FC = () => {
   const deletion = async (id: any) => {
     try {
       const response = await Api.delete(
-        `/qualifiedRegistry/${id}`,
+        `/qualified-registries/${id}`,
         auth.data.token
       );
       if (response.statusCode === 200) {
@@ -105,7 +105,7 @@ const QualifiedRegistryDashboard: React.FC = () => {
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold mb-4">Tablero de Registros Calificados</h1>
         <button
-          onClick={() => navigate("/create-qualified-registry")}
+          onClick={() => navigate("/create-qualified-registries")}
           className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
         >
           Crear Registro
@@ -114,17 +114,16 @@ const QualifiedRegistryDashboard: React.FC = () => {
       <table className="min-w-full bg-white border border-gray-200">
         <thead>
           <tr>
-            <th className="py-2 px-4 border-b text-center">ID</th>
+            <th className="py-2 px-4 border-b text-center">Id</th>
             <th className="py-2 px-4 border-b text-center">Créditos</th>
-            <th className="py-2 px-4 border-b text-center">Horas ACOM</th>
+            <th className="py-2 px-4 border-b text-center">Horas Acum</th>
             <th className="py-2 px-4 border-b text-center">Horas Independientes</th>
             <th className="py-2 px-4 border-b text-center">Metodología</th>
-            <th className="py-2 px-4 border-b text-center">Fecha de Inicio</th>
-            <th className="py-2 px-4 border-b text-center">Fecha de Fin</th>
+            <th className="py-2 px-4 border-b text-center">Fecha Inicio</th>
+            <th className="py-2 px-4 border-b text-center">Fecha Fin</th>
             <th className="py-2 px-4 border-b text-center">Duración (Años)</th>
             <th className="py-2 px-4 border-b text-center">Duración (Semestres)</th>
             <th className="py-2 px-4 border-b text-center">Tipo de Título</th>
-            <th className="py-2 px-4 border-b text-center">Programa Asociado</th>
             <th className="py-2 px-4 border-b text-center">Acciones</th>
           </tr>
         </thead>
@@ -141,11 +140,10 @@ const QualifiedRegistryDashboard: React.FC = () => {
               <td className="py-2 px-4 border-b text-center">{registry.durationYears}</td>
               <td className="py-2 px-4 border-b text-center">{registry.durationSemesters}</td>
               <td className="py-2 px-4 border-b text-center">{registry.degreeType}</td>
-              <td className="py-2 px-4 border-b text-center">{registry.programmId}</td>
               <td className="py-2 px-4 border-b text-center space-x-4">
                 <button
                   onClick={() =>
-                    navigate(`/read-qualified-registry/${registry.id}`)
+                    navigate(`/read-qualified-registries/${registry.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
@@ -153,7 +151,7 @@ const QualifiedRegistryDashboard: React.FC = () => {
                 </button>
                 <button
                   onClick={() =>
-                    navigate(`/edit-qualified-registry/${registry.id}`)
+                    navigate(`/edit-qualified-registries/${registry.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >

@@ -14,7 +14,7 @@ const InternshipDetail: React.FC = () => {
   useEffect(() => {
     const fetchInternship = async () => {
       try {
-        const response = await Api.get(`/Internship/${id}`, auth.data.token);
+        const response = await Api.get(`/internship/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
           setInternship(data);
@@ -52,7 +52,7 @@ const InternshipDetail: React.FC = () => {
         </div>
         <div className="flex justify-end mt-6">
           <button
-            onClick={() => navigate("/Internship-dashboard")}
+            onClick={() => navigate("/internship-dashboard")}
             className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
           >
             regresar

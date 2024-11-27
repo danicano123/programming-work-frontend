@@ -58,7 +58,7 @@ const AcademicActivityDetail: React.FC = () => {
         </div>
         <div className="flex justify-end mt-6">
           <button
-            onClick={() => navigate("/academic-activity-dashboard")}
+            onClick={() => navigate("/academic-activities-dashboard")}
             className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
           >
             Regresar

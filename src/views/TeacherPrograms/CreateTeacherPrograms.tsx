@@ -35,9 +35,9 @@ const CreateTeacherPrograms: React.FC = () => {
     modality: Yup.string()
       .max(45, "Maximo 45 carateres")
       .required("Campo requerido"),
-    startDate: Yup.date()
+    startDate: Yup.string()
       .required("Campo requerido"),
-    endDate: Yup.date()
+    endDate: Yup.string()
       .required("Campo requerido"),
   });
 

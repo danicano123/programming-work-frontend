@@ -16,7 +16,7 @@ const EditNormativeAspectProgramm: React.FC = () => {
   useEffect(() => {
     const fetchNormativeAspectProgramm = async () => {
       try {
-        const response = await Api.get(`/NormativeAspectProgramm/${id}`, auth.data.token);
+        const response = await Api.get(`/normative-aspect-programm/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
           setNormativeAspectProgramm(data);
@@ -47,17 +47,15 @@ const EditNormativeAspectProgramm: React.FC = () => {
   };
 
   const validationSchema = Yup.object({
-    normativeAspectId: Yup.string()
-      .max(45, "Máximo 45 caracteres")
+    normativeAspectId: Yup.number()
       .required("Requerido"),
-    programmId: Yup.string()
-      .max(45, "Máximo 45 caracteres")
+    programmId: Yup.number()
       .required("Requerido"),
   });
 
   const handleSubmit = async (values: any) => {
     try {
-      const response = await Api.patch(`/NormativeAspectProgramm/${id}`, { id: normativeAspectProgramm.id, ...values}, auth.data.token);
+      const response = await Api.patch(`/normative-aspect-programm/${id}`, { id: normativeAspectProgramm.id, ...values}, auth.data.token);
       const { data, statusCode } = response;
       if (statusCode === 204) {
         Swal.fire({
@@ -65,7 +63,7 @@ const EditNormativeAspectProgramm: React.FC = () => {
           text: "Programa Aspecto Normativo actualizado correctamente",
           icon: "success",
         });
-        navigate("/NormativeAspectProgramm-dashboard");
+        navigate("/normative-aspect-programm-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -96,7 +94,7 @@ const EditNormativeAspectProgramm: React.FC = () => {
               <label className="block text-gray-700">Aspecto Normativo</label>
               <Field
                 name="normativeAspectId"
-                type="text"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
@@ -109,7 +107,7 @@ const EditNormativeAspectProgramm: React.FC = () => {
               <label className="block text-gray-700">Programa</label>
               <Field
                 name="programmId"
-                type="text"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
@@ -128,7 +126,7 @@ const EditNormativeAspectProgramm: React.FC = () => {
               <button
                 type="button"
                 className="ml-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
-                onClick={() => navigate("/NormativeAspectProgramm-dashboard")}
+                onClick={() => navigate("/normative-aspect-programm-dashboard")}
               >
                 Cancelar
               </button>

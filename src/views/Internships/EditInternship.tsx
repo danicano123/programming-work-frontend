@@ -16,7 +16,7 @@ const EditInternship: React.FC = () => {
   useEffect(() => {
     const fetchInternship = async () => {
       try {
-        const response = await Api.get(`Internship/${id}`, auth.data.token);
+        const response = await Api.get(`internship/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
           setInternship(data);
@@ -46,12 +46,13 @@ const EditInternship: React.FC = () => {
     country: internship.country || "",
     company: internship.company || "",
     description: internship.description || "",
-    programmId: internship.programmId || "",
+    programmId: internship.programmId || null,
   };
 
   const validationSchema = Yup.object({
     name: Yup.string()
-      .max(45, "Máximo 45 caracteres"),
+      .max(45, "Máximo 45 caracteres")
+      .required("Requerido"),
     country: Yup.string()
       .max(45, "Máximo 45 caracteres")
       .required("Requerido"),
@@ -61,14 +62,13 @@ const EditInternship: React.FC = () => {
     description: Yup.string()
       .max(45, "Máximo 45 caracteres")
       .required("Requerido"),
-    programmId: Yup.string()
-      .max(45, "Máximo 45 caracteres")
+    programmId: Yup.number()
       .required("Requerido"),
   });
 
   const handleSubmit = async (values: any) => {
     try {
-      const response = await Api.patch(`/Internship/${id}`, { id: internship.id, ...values}, auth.data.token);
+      const response = await Api.patch(`/internship/${id}`, { id: internship.id, ...values}, auth.data.token);
       const { data, statusCode } = response;
       if (statusCode === 204) {
         Swal.fire({
@@ -76,7 +76,7 @@ const EditInternship: React.FC = () => {
           text: "Pasantia actualizado correctamente",
           icon: "success",
         });
-        navigate("/Internship-dashboard");
+        navigate("/internship-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -160,7 +160,7 @@ const EditInternship: React.FC = () => {
               <label className="block text-gray-700">Programa</label>
               <Field
                 name="programmId"
-                type="text"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
@@ -179,7 +179,7 @@ const EditInternship: React.FC = () => {
               <button
                 type="button"
                 className="ml-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
-                onClick={() => navigate("/Internship-dashboard")}
+                onClick={() => navigate("/internship-dashboard")}
               >
                 Cancelar
               </button>

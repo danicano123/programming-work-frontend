@@ -13,7 +13,7 @@ const NormativeAspectProgrammDashboard: React.FC = () => {
     const fetchNormativeAspectProgramm = async () => {
       try {
         const { data, statusCode } = await Api.get(
-          "/NormativeAspectProgramm",
+          "/normative-aspect-programm",
           auth.data.token
         );
         if (statusCode === 200) {
@@ -40,7 +40,7 @@ const NormativeAspectProgrammDashboard: React.FC = () => {
   const handleToggleIsActive = async (normativeAspectProgrammId: string) => {
     try {
       const response = await Api.patch(
-        `/NormativeAspectProgramm/toggle-is-active/${normativeAspectProgrammId}`,
+        `/normative-aspect-programm/toggle-is-active/${normativeAspectProgrammId}`,
         auth.data.token
       );
       const { data, statusCode } = response;
@@ -74,7 +74,7 @@ const NormativeAspectProgrammDashboard: React.FC = () => {
 
   const deletion = async (id: any) => {
     const response = await Api.delete(
-      `/NormativeAspectProgramm/${id}`,
+      `/normative-aspect-programm/${id}`,
       auth.data.token
     );
     window.location.reload();
@@ -85,7 +85,7 @@ const NormativeAspectProgrammDashboard: React.FC = () => {
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold mb-4">Tablero Programa Aspecto Normativo </h1>
         <button
-          onClick={() => navigate("/create-NormativeAspectProgramm")}
+          onClick={() => navigate("/create-normative-aspect-programm")}
           className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
         >
           Crear Programa Aspecto Normativo
@@ -123,7 +123,7 @@ const NormativeAspectProgrammDashboard: React.FC = () => {
               <td className="py-2 px-4 border-b text-center space-x-4">
               <button
                   onClick={() =>
-                    navigate(`/read-NormativeAspectProgramm/${normativeAspectProgramm.id}`)
+                    navigate(`/read-normative-aspect-programm/${normativeAspectProgramm.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
@@ -131,7 +131,7 @@ const NormativeAspectProgrammDashboard: React.FC = () => {
                 </button>
                 <button
                   onClick={() =>
-                    navigate(`/edit-NormativeAspectProgramm/${normativeAspectProgramm.id}`)
+                    navigate(`/edit-normative-aspect-programm/${normativeAspectProgramm.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >

@@ -51,12 +51,8 @@ import AwardDetail from "../views/Awards/AwardDetail";
 import CreateAward from "../views/Awards/CreateAward";
 import AllianceDashboard from "../views/Alliances/AllianceDashboard";
 import EditAlliance from "../views/Alliances/EditAlliance";
-import AllianceDetail from "../views/Alliances/AlliancesDetail";
+import AllianceDetail from "../views/Alliances/AllianceDetail";
 import CreateAlliance from "../views/Alliances/CreateAlliance";
-import ProgramCiDashboard from "../views/ProgrammCarInnovations/ProgramCiDashboard";
-import ProgramCiDetail from "../views/ProgrammCarInnovations/ProgramsCiDetail";
-import EditProgramCi from "../views/ProgrammCarInnovations/EditProgramCi";
-import CreateProgramCi from "../views/ProgrammCarInnovations/CreateProgramCi";
 import InternshipDashboard from "../views/Internships/InternshipDashboard";
 import InternshipDetail from "../views/Internships/InternshipsDetail";
 import EditInternship from "../views/Internships/EditInternship";
@@ -73,14 +69,10 @@ import NormativeAspectProgrammDashboard from "../views/NormativeAspectProgramms/
 import NormativeAspectProgrammDetail from "../views/NormativeAspectProgramms/NormativeAspectProgrammDetail";
 import EditNormativeAspectProgramm from "../views/NormativeAspectProgramms/EditNormativeAspectProgramm";
 import CreateNormativeAspectProgramm from "../views/NormativeAspectProgramms/CreateNormativeAspectProgramm";
-import ProgrammPracticeStrategyDashboard from "../views/ProgrammPracticeStrategys/ProgramPeDashboard";
-import ProgrammPracticeStrategyDetail from "../views/ProgrammPracticeStrategys/ProgramsPeDetail";
-import EditProgrammPracticeStrategy from "../views/ProgrammPracticeStrategys/EditProgramPe";
-import CreateProgrammPracticeStrategy from "../views/ProgrammPracticeStrategys/CreateProgramPe";
-import ProgrammAreaKnowledgeDashboard from "../views/ProgrammAreaKnowledges/ProgrammAreaKnowledgeDashboard";
-import EditProgrammAreaKnowledge from "../views/ProgrammAreaKnowledges/EditProgrammAreaKnowledge";
-import CreateProgrammAreaKnowledge from "../views/ProgrammAreaKnowledges/CreateProgrammAreaKnowledge";
-import ProgrammAreaKnowledgeDetail from "../views/ProgrammAreaKnowledges/ProgrammAreaKnowledgeDetail";
+import ProgrammPracticeStrategyDashboard from "../views/ProgrammPracticeStrategys/ProgramPracticeStrategyDashboard";
+import ProgrammPracticeStrategyDetail from "../views/ProgrammPracticeStrategys/ProgramPracticeStrategyDetail";
+import EditProgrammPracticeStrategy from "../views/ProgrammPracticeStrategys/EditProgramPracticeStrategy";
+import CreateProgrammPracticeStrategy from "../views/ProgrammPracticeStrategys/CreateProgramPracticeStrategy";
 import QualifiedRegistryApproachDashboard from "../views/QualifiedRegistryApproaches/QualifiedRegistryApproachDashboard";
 import ProgramDashboard from "../views/Programs/ProgramDashboard";
 import ProgramDetail from "../views/Programs/ProgramsDetail";
@@ -90,6 +82,12 @@ import CreateFaculty from "../views/Faculties/CreateFaculty";
 import FacultyDetail from "../views/Faculties/FacultyDetail";
 import EditFaculty from "../views/Faculties/EditFaculty";
 import FacultyDashboard from "../views/Faculties/FacultyDashboard";
+import ProgrammCarInnovationDashboard from "../views/ProgrammCarInnovations/ProgrammCarInnovationDashboard";
+import ProgrammCarInnovationDetail from "../views/ProgrammCarInnovations/ProgrammCarInnovationDetail";
+import EditProgrammCarInnovation from "../views/ProgrammCarInnovations/EditProgrammCarInnovation";
+import CreateProgrammCarInnovation from "../views/ProgrammCarInnovations/CreateProgrammCarInnovation";
+import CreateQualifiedRegistryApproach from "../views/QualifiedRegistryApproaches/CreateQualifiedRegistryApproach";
+import EditQualifiedRegistryApproach from "../views/QualifiedRegistryApproaches/EditQualifiedRegistryApproach";
 
 
 
@@ -150,35 +148,35 @@ export const RoutesSchema = [
     element: FacultyDashboard,
   },
   {
-    path: "/create-academic-activity",
+    path: "/create-academic-activities",
     element: CreateAcademicActivity,
   },
   {
-    path: "/read-academic-activity/:id",
+    path: "/read-academic-activities/:id",
     element: AcademicActivityDetail,
   },
   {
-    path: "/edit-academic-activity/:id",
+    path: "/edit-academic-activities/:id",
     element: EditAcademicActivity,
   },
   {
-    path: "/academic-activity-dashboard",
+    path: "/academic-activities-dashboard",
     element: AcademicActivityDashboard,
   },
   {
-    path: "/create-qualified-registration",
+    path: "/create-qualified-registries",
     element: CreateQualifiedRegistration,
   },
   {
-    path: "/read-qualified-registration/:id",
+    path: "/read-qualified-registries/:id",
     element: QualifiedRegistrationDetail,
   },
   {
-    path: "/edit-qualified-registration/:id",
+    path: "/edit-qualified-registries/:id",
     element: EditQualifiedRegistration,
   },
   {
-    path: "/qualified-registration-dashboard",
+    path: "/qualified-registries-dashboard",
     element: QualifiedRegistrationDashboard,
   },
   {
@@ -270,15 +268,15 @@ export const RoutesSchema = [
     element: AllianceDashboard,
   },
   {
-    path: "/alliance-detail/:id",
+    path: "/read-alliances/:id",
     element: AllianceDetail,
   },
   {
-    path: "/alliance-edit/:id",
+    path: "/edit-alliances/:id",
     element: EditAlliance,
   },
   {
-    path: "/create-alliance",
+    path: "/create-alliances",
     element: CreateAlliance,
   },
 
@@ -288,11 +286,11 @@ export const RoutesSchema = [
     element: TeacherProgramsDashboard,
   },
   {
-    path: "/teacher-programs-detail/:id",
+    path: "/read-teacher-programs/:id",
     element: TeacherProgramsDetail,
   },
   {
-    path: "/teacher-programs-edit/:id",
+    path: "/edit-teacher-programs/:id",
     element: EditTeacherPrograms,
   },
   {
@@ -338,85 +336,72 @@ export const RoutesSchema = [
 
   //Program Aspecto Normativo
   {
-    path: "/NormativeAspectProgramm-dashboard",
+    path: "/normative-aspect-programm-dashboard",
     element: NormativeAspectProgrammDashboard,
   },
   {
-    path: "/read-NormativeAspectProgramm/:id",
+    path: "/read-normative-aspect-programm/:id",
     element: NormativeAspectProgrammDetail,
   },
   {
-    path: "/edit-NormativeAspectProgramm/:id",
+    path: "/edit-normative-aspect-programm/:id",
     element: EditNormativeAspectProgramm,
   },
   {
-    path: "/create-NormativeAspectProgramm",
+    path: "/create-normative-aspect-programm",
     element: CreateNormativeAspectProgramm,
   },
 
-   //ProgramCi
+   //ProgramCarInnovation
    {
-    path: "/program-ci-dashboard",
-    element: ProgramCiDashboard,
+    path: "/programm-car-innovations-dashboard",
+    element: ProgrammCarInnovationDashboard
   },
   {
-    path: "/program-ci-detail/:id",
-    element: ProgramCiDetail,
+    path: "/read-programm-car-innovations/:id",
+    element: ProgrammCarInnovationDetail
   },
   {
-    path: "/program-ci-edit/:id",
-    element: EditProgramCi,
+    path: "/edit-programm-car-innovations/:id",
+    element: EditProgrammCarInnovation
   },
   {
-    path: "/create-program-ci",
-    element: CreateProgramCi,
-  },
-  //ProgrammAreaKnowledge
-  {
-    path: "/programm-area-knowledge-dashboard",
-    element: ProgrammAreaKnowledgeDashboard,
-  },
-  {
-    path: "/programm-area-knowledge-detail/:id",
-    element: ProgrammAreaKnowledgeDetail,
-  },
-  {
-    path: "/programm-area-knowledge-edit/:id",
-    element: EditProgrammAreaKnowledge,
-  },
-  {
-    path: "/create-programm-area-knowledge",
-    element: CreateProgrammAreaKnowledge,
+    path: "/create-programm-car-innovations",
+    element: CreateProgrammCarInnovation
   },
 
   //Internships
   {
-    path: "/Internship-dashboard",
+    path: "/internship-dashboard",
     element: InternshipDashboard,
   },
   {
-    path: "/Internship-detail/:id",
+    path: "/read-internship/:id",
     element: InternshipDetail,
   },
   {
-    path: "/Internship-edit/:id",
+    path: "/edit-internship/:id",
     element: EditInternship,
   },
   {
-    path: "/create-Internship",
+    path: "/create-internship",
     element: CreateInternship,
   },
   {
     path: "/create-qualified-registry-approach",
-    element: CreateInternship,
+    element: CreateQualifiedRegistryApproach
   },
   {
-    path: "/dashboard-qualified-registry-approach",
+    path: "/qualified-registry-approaches-dashboard",
     element: QualifiedRegistryApproachDashboard,
   },
   {
-    path: "/edit-qualified-registry-approach",
-    element: CreateInternship,
+    path: "/edit-qualified-registry-approach/:id",
+    element: EditQualifiedRegistryApproach
+  },
+  {
+    path: "/read-qualified-registry-approach/:id",
+    element: QualifiedRegistrationDetail
   },
 
 

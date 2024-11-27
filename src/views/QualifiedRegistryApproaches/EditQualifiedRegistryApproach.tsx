@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-const EditQualifiedRegistration: React.FC = () => {
+const EditQualifiedRegistryApproach: React.FC = () => {
   const { id } = useParams();
   const [qualifiedregistration, setQualifiedRegistration] = useState<any>(null);
   const auth = useSelector((state: any) => state.auth);
@@ -15,7 +15,7 @@ const EditQualifiedRegistration: React.FC = () => {
   useEffect(() => {
     const fetchQualifiedRegistration = async () => {
       try {
-        const response = await Api.get(`/qualified-registration/${id}`, auth.data.token);
+        const response = await Api.get(`/qualified-registry-approaches/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
           setQualifiedRegistration(data);
@@ -84,7 +84,7 @@ const EditQualifiedRegistration: React.FC = () => {
 
   const handleSubmit = async (values: any) => {
     try {
-      const response = await Api.patch(`/qualified-registration/${id}`, { id: qualifiedregistration.id, ...values}, auth.data.token);
+      const response = await Api.patch(`/qualified-registry-approaches/${id}`, { id: qualifiedregistration.id, ...values}, auth.data.token);
       const { data, statusCode } = response;
       if (statusCode === 204) {
         Swal.fire({
@@ -92,7 +92,7 @@ const EditQualifiedRegistration: React.FC = () => {
           text: "Registro calificado actualizado con exito",
           icon: "success",
         });
-        navigate("/qualified-registration-dashboard");
+        navigate("/qualified-registry-approaches-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -246,7 +246,7 @@ const EditQualifiedRegistration: React.FC = () => {
               <button
                 type="button"
                 className="ml-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
-                onClick={() => navigate("/qualified-registration-dashboard")}
+                onClick={() => navigate("/qualified-registry-approaches-dashboard")}
               >
                 Cancelar
               </button>
@@ -258,4 +258,4 @@ const EditQualifiedRegistration: React.FC = () => {
   );
 };
 
-export default EditQualifiedRegistration;
+export default EditQualifiedRegistryApproach;

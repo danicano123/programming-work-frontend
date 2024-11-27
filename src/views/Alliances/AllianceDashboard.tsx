@@ -85,7 +85,7 @@ const AllianceDashboard: React.FC = () => {
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold mb-4">Tablero Alianza</h1>
         <button
-          onClick={() => navigate("/create-alliance")}
+          onClick={() => navigate("/create-alliances")}
           className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
         >
           Crear Alianza
@@ -111,10 +111,10 @@ const AllianceDashboard: React.FC = () => {
                 {alliance.programmId}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                {alliance.startdate}
+                {alliance.startDate}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                {alliance.enddate}
+                {alliance.endDate}
               </td>
               <td className="py-2 px-4 border-b text-center">
                 {alliance.teacherId}
@@ -135,7 +135,7 @@ const AllianceDashboard: React.FC = () => {
               <td className="py-2 px-4 border-b text-center space-x-4">
               <button
                   onClick={() =>
-                    navigate(`/read-alliance/${alliance.id}`)
+                    navigate(`/read-alliances/${alliance.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
@@ -143,7 +143,7 @@ const AllianceDashboard: React.FC = () => {
                 </button>
                 <button
                   onClick={() =>
-                    navigate(`/edit-alliance/${alliance.id}`)
+                    navigate(`/edit-alliances/${alliance.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
@@ -151,7 +151,6 @@ const AllianceDashboard: React.FC = () => {
                 </button>
                 <button
                   onClick={() => deletion(alliance.id)}
-                  
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Borrar

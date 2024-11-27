@@ -13,7 +13,7 @@ const PracticeStrategyDashboard: React.FC = () => {
     const fetchPracticeStrategy = async () => {
       try {
         const { data, statusCode } = await Api.get(
-          "/practice-strategy",
+          "/practiceStrategy",
           auth.data.token
         );
         if (statusCode === 200) {
@@ -40,7 +40,7 @@ const PracticeStrategyDashboard: React.FC = () => {
   const handleToggleIsActive = async (practiceStrategyId: string) => {
     try {
       const response = await Api.post(
-        `/practice-strategy/toggle-is-active/${practiceStrategyId}`,
+        `/practiceStrategy/toggle-is-active/${practiceStrategyId}`,
         auth.data.token
       );
       const { data, statusCode } = response;
@@ -75,7 +75,7 @@ const PracticeStrategyDashboard: React.FC = () => {
 
   const deletion = async (id: any) => {
     const response = await Api.delete(
-      `/practice-strategy/${id}`,
+      `/practiceStrategy/${id}`,
       auth.data.token
     );
     window.location.reload();
@@ -88,7 +88,7 @@ const PracticeStrategyDashboard: React.FC = () => {
           Tablero de Estrategia de Practica
         </h1>
         <button
-          onClick={() => navigate("/create-practice-strategy")}
+          onClick={() => navigate("/create-practiceStrategy")}
           className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
         >
           Crear Estrategia de Practica
@@ -134,7 +134,7 @@ const PracticeStrategyDashboard: React.FC = () => {
               <td className="py-2 px-4 border-b text-center space-x-4">
                 <button
                   onClick={() =>
-                    navigate(`/read-practice-strategy/${practiceStrategy.id}`)
+                    navigate(`/read-practiceStrategy/${practiceStrategy.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
@@ -142,7 +142,7 @@ const PracticeStrategyDashboard: React.FC = () => {
                 </button>
                 <button
                   onClick={() =>
-                    navigate(`/edit-practice-strategy/${practiceStrategy.id}`)
+                    navigate(`/edit-practiceStrategy/${practiceStrategy.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >

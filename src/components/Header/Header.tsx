@@ -32,7 +32,7 @@ const Header: React.FC<HeaderProps> = ({ isLogged, userName, role }) => {
             to="/practiceStrategy-dashboard"
             className="text-wood-darker font-bold"
           >
-            Practica Estrategica
+            Practica Estrategia
           </Link>
           <Link
             to="/normative-aspects-dashboard"
@@ -61,7 +61,7 @@ const Header: React.FC<HeaderProps> = ({ isLogged, userName, role }) => {
             Facultad
           </Link>
           <Link
-            to="/Internship-dashboard"
+            to="/internship-dashboard"
             className="text-wood-darker font-bold"
           >
             Pasantia
@@ -78,13 +78,19 @@ const Header: React.FC<HeaderProps> = ({ isLogged, userName, role }) => {
             Programa
           </Link>
           <Link
-            to="/qualified-registration-dashboard"
+            to="/qualified-registries-dashboard"
             className="text-wood-darker font-bold"
           >
-            Registro calificado
+            Registro Calificado
           </Link>
           <Link
-            to="/NormativeAspectProgramm-dashboard"
+            to="/qualified-registry-approaches-dashboard"
+            className="text-wood-darker font-bold"
+          >
+            Enfoque Registro Calificado
+          </Link>
+          <Link
+            to="/normative-aspect-programm-dashboard"
             className="text-wood-darker font-bold"
           >
             Programa Aspecto Normativo
@@ -96,12 +102,6 @@ const Header: React.FC<HeaderProps> = ({ isLogged, userName, role }) => {
             Programa Practica Estrategia
           </Link>
           <Link
-            to="/programm-area-knowledgey-dashboard"
-            className="text-wood-darker font-bold"
-          >
-            Programa Area Conocimiento
-          </Link>
-          <Link
             to="/alliances-dashboard"
             className="text-wood-darker font-bold"
           >
@@ -110,7 +110,7 @@ const Header: React.FC<HeaderProps> = ({ isLogged, userName, role }) => {
           <Link 
             to="/academic-activities-dashboard" 
             className="text-wood-darker font-bold">
-            Actividad académica
+            Actividad Académica
           </Link>
           <Link 
             to="/awards-dashboard" 
@@ -118,7 +118,7 @@ const Header: React.FC<HeaderProps> = ({ isLogged, userName, role }) => {
             Premio
           </Link>
           <Link
-            to="/program-ci-dashboard"
+            to="/programm-car-innovations-dashboard"
             className="text-wood-darker font-bold"
           >
             Programa {"\n CarInnovation"}

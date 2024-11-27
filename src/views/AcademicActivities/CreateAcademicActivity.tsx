@@ -66,7 +66,7 @@ const CreateAcademicActivity: React.FC = () => {
           text: "Actividad Académica creada con éxito",
           icon: "success",
         });
-        navigate("/academic-activity-dashboard");
+        navigate("/academic-activities-dashboard");
       } else {
         Swal.fire({
           title: "Error",

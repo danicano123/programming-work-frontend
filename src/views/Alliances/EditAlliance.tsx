@@ -44,26 +44,21 @@ const EditAlliance: React.FC = () => {
   const initialValues = {
     alliedId: alliance.alliedId || "",
     programmId: alliance.programmId || "",
-    startdate: alliance.startdate || "",
-    enddate: alliance.enddate || "",
+    startDate: alliance.startDate || "",
+    endDate: alliance.endDate || "",
     teacherId: alliance.teacherId || "",
   };
 
   const validationSchema = Yup.object({
-    alliedId: Yup.string()
-    .max(45, "Máximo 45 caracteres")
+    alliedId: Yup.number()
       .required("Requerido"),
-      programmId: Yup.string()
-      .max(45, "Máximo 45 caracteres")
+      programmId: Yup.number()
       .required("Requerido"),
-    startdate: Yup.string()
-      .max(45, "Máximo 45 caracteres")
+    startDate: Yup.date()
       .required("Requerido"),
-    enddate: Yup.string()
-      .max(45, "Máximo 45 caracteres")
+    endDate: Yup.date()
       .required("Requerido"),
-    teacherId: Yup.string()
-      .max(45, "Máximo 45 caracteres")
+    teacherId: Yup.number()
       .required("Requerido"),
       
   });
@@ -78,7 +73,7 @@ const EditAlliance: React.FC = () => {
           text: "Alianza actualizado correctamente",
           icon: "success",
         });
-        navigate("/alliance-dashboard");
+        navigate("/alliances-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -109,7 +104,7 @@ const EditAlliance: React.FC = () => {
               <label className="block text-gray-700">Aliado</label>
               <Field
                 name="alliedId"
-                type="text"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
@@ -122,7 +117,7 @@ const EditAlliance: React.FC = () => {
               <label className="block text-gray-700">Programa</label>
               <Field
                 name="programmId"
-                type="text"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
@@ -134,12 +129,12 @@ const EditAlliance: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Fecha inicio</label>
               <Field
-                name="startdate"
-                type="text"
+                name="startDate"
+                type="date"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="startdate"
+                name="startDate"
                 component="div"
                 className="text-red-600"
               />
@@ -147,12 +142,12 @@ const EditAlliance: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Fecha fin</label>
               <Field
-                name="enddate"
-                type="text"
+                name="endDate"
+                type="date"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="enddate"
+                name="endDate"
                 component="div"
                 className="text-red-600"
               />
@@ -161,7 +156,7 @@ const EditAlliance: React.FC = () => {
               <label className="block text-gray-700">Docente</label>
               <Field
                 name="teacherId"
-                type="text"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage

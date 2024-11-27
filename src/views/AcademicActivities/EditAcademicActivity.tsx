@@ -15,7 +15,7 @@ const EditAcademicActivity: React.FC = () => {
   useEffect(() => {
     const fetchAcademicActivity = async () => {
       try {
-        const response = await Api.get(`/academic-activity/${id}`, auth.data.token);
+        const response = await Api.get(`/academic-activities/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
           setAcademicActivity(data);
@@ -88,7 +88,7 @@ const EditAcademicActivity: React.FC = () => {
 
   const handleSubmit = async (values: any) => {
     try {
-      const response = await Api.patch(`/academic-activity/${id}`, { id: academicActivity.id, ...values}, auth.data.token);
+      const response = await Api.patch(`/academic-activities/${id}`, { id: academicActivity.id, ...values}, auth.data.token);
       const { data, statusCode } = response;
       if (statusCode === 204) {
         Swal.fire({
@@ -96,7 +96,7 @@ const EditAcademicActivity: React.FC = () => {
           text: "Actividad académica actualizada con exito",
           icon: "success",
         });
-        navigate("/academic-activity-dashboard");
+        navigate("/academic-activities-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -263,7 +263,7 @@ const EditAcademicActivity: React.FC = () => {
               <button
                 type="button"
                 className="ml-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
-                onClick={() => navigate("/academic-activity-dashboard")}
+                onClick={() => navigate("/academic-activities-dashboard")}
               >
                 Cancelar
               </button>

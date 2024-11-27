@@ -18,16 +18,16 @@ const CreateNormativeAspectProgramm: React.FC = () => {
   };
 
   const validationSchema = Yup.object({
-    normativeAspectId: Yup.string()
+    normativeAspectId: Yup.number()
       .required("Campo requerido"),
-    programmId: Yup.string()
+    programmId: Yup.number()
       .required("Campo requerido"),
   });
 
   const handleSubmit = async (values: any) => {
     setIsLoading(true);
     try {
-      const response = await Api.post("/NormativeAspectProgramm", values, auth.data.token);
+      const response = await Api.post("/normative-aspect-programm", values, auth.data.token);
       const { data, statusCode } = response;
       if (statusCode === 201) {
         Swal.fire({ 
@@ -35,7 +35,7 @@ const CreateNormativeAspectProgramm: React.FC = () => {
           text: "Programa Aspecto Normativo creado con exito",
           icon: "success",
         });
-        navigate("/NormativeAspectProgramm-dashboard");
+        navigate("/normative-aspect-programm-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -68,7 +68,7 @@ const CreateNormativeAspectProgramm: React.FC = () => {
               <label className="block text-gray-700">Aspecto Normativo</label>
               <Field
                 name="normativeAspectId"
-                type="text"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
@@ -81,7 +81,7 @@ const CreateNormativeAspectProgramm: React.FC = () => {
               <label className="block text-gray-700">Programa</label>
               <Field
                 name="programmId"
-                type="text"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
@@ -101,7 +101,7 @@ const CreateNormativeAspectProgramm: React.FC = () => {
                 {isLoading ? "Guardando..." : "Guardar"}
               </button>
               <button
-                onClick={() => navigate("/NormativeAspectProgramm-dashboard")}
+                onClick={() => navigate("/normative-aspect-programm-dashboard")}
                 className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
               >
                 Salir

@@ -97,7 +97,6 @@ const ProgramDashboard: React.FC = () => {
       <table className="min-w-full bg-white border border-gray-200">
         <thead>
           <tr>
-            <th className="py-2 px-4 border-b text-center">Id</th>
             <th className="py-2 px-4 border-b text-center">Nombre</th>
             <th className="py-2 px-4 border-b text-center">Tipo</th>
             <th className="py-2 px-4 border-b text-center">Nivel</th>
@@ -106,7 +105,6 @@ const ProgramDashboard: React.FC = () => {
             <th className="py-2 px-4 border-b text-center">Número Cohortes</th>
             <th className="py-2 px-4 border-b text-center">Cantidad Graduados</th>
             <th className="py-2 px-4 border-b text-center">Fecha Actualización</th>
-            <th className="py-2 px-4 border-b text-center">Ciudad</th>
           </tr>
         </thead>
         <tbody>
