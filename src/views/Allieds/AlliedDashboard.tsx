@@ -28,7 +28,7 @@ const AlliedDashboard: React.FC = () => {
       } catch (error) {
         Swal.fire({
           title: "Error",
-          text: "Error: unable to fetch active allied",
+          text: "Error: unable to fetch active Allied",
           icon: "error",
         });
       }
@@ -37,29 +37,24 @@ const AlliedDashboard: React.FC = () => {
     fetchAllied();
   }, [auth.data.token]);
 
-  const handleToggleIsActive = async (
-    alliedId: string,
-    isActive: boolean
-  ) => {
+  const handleToggleIsActive = async (alliedId: string) => {
     try {
-      const response = await Api.patch(
-        `/allied/${alliedId}/is-active`,
-        {
-          is_active: !isActive,
-        },
+      const response = await Api.post(
+        `/allied/toggle-is-active/${alliedId}`,
         auth.data.token
       );
       const { data, statusCode } = response;
       if (statusCode === 200) {
-        const updatedAllied = allied.map((allied) =>
-          allied.id === alliedId
-            ? { ...allied, is_active: !isActive }
-            : allied
+        const updatedAllied = allied.map(
+          (allied) =>
+            allied.id === alliedId
+              ? { ...allied, isActive: data.isActive }
+              : allied
         );
         setAllied(updatedAllied);
         Swal.fire({
           title: "Success",
-          text: "Aliado actualizada exitosamente",
+          text: "allied updated successfully",
           icon: "success",
         });
       } else {
@@ -89,9 +84,11 @@ const AlliedDashboard: React.FC = () => {
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold mb-4">Tablero de Aliado</h1>
+        <h1 className="text-2xl font-bold mb-4">
+          Tablero de Aliado
+        </h1>
         <button
-          onClick={() => navigate("/create-allied-dashboard")}
+          onClick={() => navigate("/create-allied")}
           className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
         >
           Crear Aliado
@@ -101,29 +98,25 @@ const AlliedDashboard: React.FC = () => {
         <thead>
           <tr>
             <th className="py-2 px-4 border-b text-center">Razon Social</th>
-            <th className="py-2 px-4 border-b text-center">Nombre de Contacto</th>
-            <th className="py-2 px-4 border-b text-center">Correo</th>
+            <th className="py-2 px-4 border-b text-center">Nombre Contacto</th>
             <th className="py-2 px-4 border-b text-center">Telefono</th>
             <th className="py-2 px-4 border-b text-center">Ciudad</th>
           </tr>
         </thead>
         <tbody>
-          {allied.map((allied) => (
+          {allied?.map((allied) => (
             <tr key={allied.id}>
               <td className="py-2 px-4 border-b text-center">
-                {allied.razonsocial}
+                {allied.company_reason}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                {allied.name}
+                {allied.contact_name}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                {allied.mail}
+                {allied.phone}
               </td>
               <td className="py-2 px-4 border-b text-center">
-                {allied.telefono}
-              </td>
-              <td className="py-2 px-4 border-b text-center">
-                {allied.ciudad}
+                {allied.city}
               </td>
               <td className="py-2 px-4 border-b text-center">
                 <label className="flex items-center space-x-2">
@@ -131,7 +124,7 @@ const AlliedDashboard: React.FC = () => {
                     type="checkbox"
                     className="toggle-switch"
                     checked={allied.isActive}
-                    //onChange={() => handleToggleIsActive(allied.id)}
+                    onChange={() => handleToggleIsActive(allied.id)}
                   />
                   <span>
                     {allied.isActive ? "Activo" : "Inactivo"}
@@ -139,7 +132,7 @@ const AlliedDashboard: React.FC = () => {
                 </label>
               </td>
               <td className="py-2 px-4 border-b text-center space-x-4">
-              <button
+                <button
                   onClick={() =>
                     navigate(`/read-allied/${allied.id}`)
                   }
@@ -157,7 +150,6 @@ const AlliedDashboard: React.FC = () => {
                 </button>
                 <button
                   onClick={() => deletion(allied.id)}
-                  
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Borrar

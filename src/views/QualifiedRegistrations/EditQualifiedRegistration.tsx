@@ -15,7 +15,7 @@ const EditQualifiedRegistration: React.FC = () => {
   useEffect(() => {
     const fetchQualifiedRegistration = async () => {
       try {
-        const response = await Api.get(`/qualified-registration/${id}`, auth.data.token);
+        const response = await Api.get(`/qualified-registries/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
           setQualifiedRegistration(data);
@@ -41,50 +41,43 @@ const EditQualifiedRegistration: React.FC = () => {
   if (!qualifiedregistration) return <div>Cargando...</div>;
 
   const initialValues = {
-    cant_credits: qualifiedregistration.cant_credits || "",
-    hora_acom: qualifiedregistration.hora_acom || "",
-    hora_ind: qualifiedregistration.hora_ind || "",
+    creditAmount: qualifiedregistration.creditAmount || "",
+    acomHours: qualifiedregistration.acomHours || "",
+    independentHours: qualifiedregistration.independentHours || "",
     metodology: qualifiedregistration.metodology || "",
-    date_init: qualifiedregistration.date_init || "",
-    date_end: qualifiedregistration.date_end || "",
-    time_years: qualifiedregistration.time_years || "",
-    time_semester: qualifiedregistration.time_semester || "",
-    type_titling: qualifiedregistration.type_titling || "",
+    startDate: qualifiedregistration.startDate || "",
+    endDate: qualifiedregistration.endDate || "",
+    durationYears: qualifiedregistration.durationYears || "",
+    durationSemesters: qualifiedregistration.durationSemesters || "",
+    degreeType: qualifiedregistration.degreeType || "",
   };
 
   const validationSchema = Yup.object({
-    cant_credits: Yup.string()
-      .max(45, "Máximo 45 caracteres")
+    creditAmount: Yup.string()
       .required("Requerido"),
-    hora_acom: Yup.string()
-      .max(45, "Máximo 45 caracteres")
+    acomHours: Yup.string()
       .required("Requerido"),
-    hora_ind: Yup.string()
-      .max(45, "Máximo 45 caracteres")
+    independentHours: Yup.string()
       .required("Requerido"),
     metodology: Yup.string()
       .max(45, "Máximo 45 caracteres")
       .required("Requerido"),
-    date_init: Yup.date()
-      .max(45, "Máximo 45 caracteres")
+    startDate: Yup.date()
       .required("Requerido"),
-    date_end: Yup.date()
-      .max(45, "Máximo 45 caracteres")
+    endDate: Yup.date()
       .required("Requerido"),
-    time_years: Yup.string()
-      .max(45, "Máximo 45 caracteres")
+    durationYears: Yup.string()
       .required("Requerido"),
-    time_semester: Yup.string()
-      .max(45, "Máximo 45 caracteres")
+    durationSemesters: Yup.string()
       .required("Requerido"),
-    type_titling: Yup.string()
+    degreeType: Yup.string()
       .max(45, "Máximo 45 caracteres")
       .required("Requerido"),
   });
 
   const handleSubmit = async (values: any) => {
     try {
-      const response = await Api.patch(`/qualified-registration/${id}`, { id: qualifiedregistration.id, ...values}, auth.data.token);
+      const response = await Api.patch(`/qualified-registries/${id}`, { id: qualifiedregistration.id, ...values}, auth.data.token);
       const { data, statusCode } = response;
       if (statusCode === 204) {
         Swal.fire({
@@ -92,7 +85,7 @@ const EditQualifiedRegistration: React.FC = () => {
           text: "Registro calificado actualizado con exito",
           icon: "success",
         });
-        navigate("/qualified-registration-dashboard");
+        navigate("/qualified-registries-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -122,38 +115,38 @@ const EditQualifiedRegistration: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Cantidad de créditos</label>
               <Field
-                name="cant_credits"
+                name="creditAmount"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="cant_credits"
+                name="creditAmount"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Horas acomuladas</label>
+              <label className="block text-gray-700">Horas Acumuladas</label>
               <Field
-                name="thora_acomype"
+                name="acomHours"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="hora_acom"
+                name="acomHours"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Horas independientes </label>
+              <label className="block text-gray-700">Horas Independientes</label>
               <Field
-                name="hora_ind"
+                name="independentHours"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="hora_ind"
+                name="independentHours"
                 component="div"
                 className="text-red-600"
               />
@@ -172,14 +165,14 @@ const EditQualifiedRegistration: React.FC = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Fecha de inicio </label>
+              <label className="block text-gray-700">Fecha de Inicio</label>
               <Field
-                name="date_init"
+                name="startDate"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="date_init"
+                name="startDate"
                 component="div"
                 className="text-red-600"
               />
@@ -187,51 +180,51 @@ const EditQualifiedRegistration: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Fecha de finalización</label>
               <Field
-                name="date_end"
+                name="endDate"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="date_end"
+                name="endDate"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Tiempo en años</label>
+              <label className="block text-gray-700">Tiempo en Años</label>
               <Field
-                name="time_years"
+                name="durationYears"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="time_years"
+                name="durationYears"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Tiempo en semestres</label>
+              <label className="block text-gray-700">Tiempo en Semestres</label>
               <Field
-                name="time_semester"
+                name="durationSemesters"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="time_semester"
+                name="durationSemesters"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Tipo de titulación</label>
+              <label className="block text-gray-700">Tipo Titulación</label>
               <Field
-                name="type_titling"
+                name="degreeType"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="type_titling"
+                name="degreeType"
                 component="div"
                 className="text-red-600"
               />
@@ -246,7 +239,7 @@ const EditQualifiedRegistration: React.FC = () => {
               <button
                 type="button"
                 className="ml-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
-                onClick={() => navigate("/qualified-registration-dashboard")}
+                onClick={() => navigate("/qualified-registries-dashboard")}
               >
                 Cancelar
               </button>

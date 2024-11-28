@@ -46,8 +46,8 @@ const AllianceDetail: React.FC = () => {
         <div className="space-y-4">
           <DetailItem label="Aliado" value={alliance.alliedId} />
           <DetailItem label="Programa" value={alliance.programmId} />
-          <DetailItem label="Stardate" value={alliance.startdate} />
-          <DetailItem label="Enddate" value={alliance.enddate} />
+          <DetailItem label="Fecha Inicio" value={alliance.startDate} />
+          <DetailItem label="Fecha Fin" value={alliance.endDate} />
           <DetailItem label="Docente" value={alliance.teacherId} />
         </div>
         <div className="flex justify-end mt-6">

@@ -42,28 +42,23 @@ const EditAlliance: React.FC = () => {
   if (!alliance) return <div>Cargando...</div>;
 
   const initialValues = {
-    allied: alliance.allied || "",
-    departament: alliance.departament || "",
-    startdate: alliance.startdate || "",
-    enddate: alliance.enddate || "",
-    teaching: alliance.teaching || "",
+    alliedId: alliance.alliedId || "",
+    programmId: alliance.programmId || "",
+    startDate: alliance.startDate || "",
+    endDate: alliance.endDate || "",
+    teacherId: alliance.teacherId || "",
   };
 
   const validationSchema = Yup.object({
-    allied: Yup.string()
-    .max(45, "Máximo 45 caracteres")
+    alliedId: Yup.number()
       .required("Requerido"),
-    departament: Yup.string()
-      .max(45, "Máximo 45 caracteres")
+      programmId: Yup.number()
       .required("Requerido"),
-    startdate: Yup.string()
-      .max(45, "Máximo 45 caracteres")
+    startDate: Yup.date()
       .required("Requerido"),
-    enddate: Yup.string()
-      .max(45, "Máximo 45 caracteres")
+    endDate: Yup.date()
       .required("Requerido"),
-    teaching: Yup.string()
-      .max(45, "Máximo 45 caracteres")
+    teacherId: Yup.number()
       .required("Requerido"),
       
   });
@@ -78,7 +73,7 @@ const EditAlliance: React.FC = () => {
           text: "Alianza actualizado correctamente",
           icon: "success",
         });
-        navigate("/alliance-dashboard");
+        navigate("/alliances-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -108,25 +103,25 @@ const EditAlliance: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Aliado</label>
               <Field
-                name="allied"
-                type="text"
+                name="alliedId"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="allied"
+                name="alliedId"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Departamento</label>
+              <label className="block text-gray-700">Programa</label>
               <Field
-                name="departament"
-                type="text"
+                name="programmId"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="departament"
+                name="programmId"
                 component="div"
                 className="text-red-600"
               />
@@ -134,12 +129,12 @@ const EditAlliance: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Fecha inicio</label>
               <Field
-                name="startdate"
-                type="text"
+                name="startDate"
+                type="date"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="startdate"
+                name="startDate"
                 component="div"
                 className="text-red-600"
               />
@@ -147,12 +142,12 @@ const EditAlliance: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Fecha fin</label>
               <Field
-                name="enddate"
-                type="text"
+                name="endDate"
+                type="date"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="enddate"
+                name="endDate"
                 component="div"
                 className="text-red-600"
               />
@@ -160,12 +155,12 @@ const EditAlliance: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Docente</label>
               <Field
-                name="teaching"
-                type="text"
+                name="teacherId"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="teaching"
+                name="teacherId"
                 component="div"
                 className="text-red-600"
               />
@@ -180,7 +175,7 @@ const EditAlliance: React.FC = () => {
               <button
                 type="button"
                 className="ml-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
-                onClick={() => navigate("/alliance-dashboard")}
+                onClick={() => navigate("/alliances-dashboard")}
               >
                 Cancelar
               </button>

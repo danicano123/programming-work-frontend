@@ -134,7 +134,7 @@ const TeacherProgramsDashboard: React.FC = () => {
                 
                <button
                   onClick={() =>
-                    navigate(`/teacher-programs-detail/${teacherPrograms.id}`)
+                    navigate(`/read-teacher-programs/${teacherPrograms.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
@@ -142,7 +142,7 @@ const TeacherProgramsDashboard: React.FC = () => {
                 </button>
                 <button
                   onClick={() =>
-                    navigate(`/teacher-programs-edit/${teacherPrograms.id}`)
+                    navigate(`/edit-teacher-programs/${teacherPrograms.id}`)
                   }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >

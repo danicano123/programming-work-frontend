@@ -15,7 +15,7 @@ const QualifiedRegistrationDetail: React.FC = () => {
   useEffect(() => {
     const fetchQualifiedRegistration = async () => {
       try {
-        const response = await Api.get(`/qualified-registration/${id}`, auth.data.token);
+        const response = await Api.get(`/qualified-registries/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
           setQualifiedRegistration(data);
@@ -45,19 +45,20 @@ const QualifiedRegistrationDetail: React.FC = () => {
       <h1 className="text-3xl font-bold mb-6 text-center">Detalles de registro calificado</h1>
       <div className="bg-white p-6 rounded-lg shadow-lg">
         <div className="space-y-4">
-          <DetailItem label="Cantidad créditos" value={qualifiedregistration.cant_credits} />
-          <DetailItem label="Horas acomuladas" value={qualifiedregistration.hora_acom} />
-          <DetailItem label="Horas independientes" value={qualifiedregistration.hora_ind} />
+          <DetailItem label="Cantidad créditos" value={qualifiedregistration.creditAmount} />
+          <DetailItem label="Horas acomuladas" value={qualifiedregistration.acomHours} />
+          <DetailItem label="Horas independientes" value={qualifiedregistration.independentHours} />
           <DetailItem label="Metodología" value={qualifiedregistration.metodology} />
-          <DetailItem label="Fecha inicio" value={qualifiedregistration.date_init} />
-          <DetailItem label="Fecha fin" value={qualifiedregistration.date_end} />
-          <DetailItem label="Tiempo en años" value={qualifiedregistration.time_years} />
-          <DetailItem label="Tiempo en semestres" value={qualifiedregistration.time_semester} />
-          <DetailItem label="Tipo de titulación" value={qualifiedregistration.type_titling} />
+          <DetailItem label="Fecha inicio" value={qualifiedregistration.startDate} />
+          <DetailItem label="Fecha fin" value={qualifiedregistration.endDate} />
+          <DetailItem label="Tiempo en años" value={qualifiedregistration.durationYears} />
+          <DetailItem label="Tiempo en semestres" value={qualifiedregistration.durationSemesters} />
+          <DetailItem label="Tipo de titulación" value={qualifiedregistration.degreeType} />
+          <DetailItem label="Programa" value={qualifiedregistration.programmId} />
         </div>
         <div className="flex justify-end mt-6">
           <button
-            onClick={() => navigate("/qualified-registration-dashboard")}
+            onClick={() => navigate("/qualified-registries-dashboard")}
             className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
           >
             Regresar

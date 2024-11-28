@@ -44,12 +44,12 @@ const TeacherProgramsDetail: React.FC = () => {
       <h1 className="text-3xl font-bold mb-6 text-center">Detalles de Docente Departamento</h1>
       <div className="bg-white p-6 rounded-lg shadow-lg">
         <div className="space-y-4">
-          <DetailItem label="Teaching" value={teacherPrograms.teaching} />
-          <DetailItem label="Departament" value={teacherPrograms.departament} />
+          <DetailItem label="Docente" value={teacherPrograms.teacherId} />
+          <DetailItem label="Programa" value={teacherPrograms.programmId} />
           <DetailItem label="Dedication" value={teacherPrograms.dedication} />
-          <DetailItem label="Mode" value={teacherPrograms.mode} />
-          <DetailItem label="Entrydate" value={teacherPrograms.entrydate} />
-          <DetailItem label="Departuredate" value={teacherPrograms.departuredate} />
+          <DetailItem label="Mode" value={teacherPrograms.modality} />
+          <DetailItem label="Entrydate" value={teacherPrograms.startDate} />
+          <DetailItem label="Departuredate" value={teacherPrograms.endDate} />
         </div>
         <div className="flex justify-end mt-6">
           <button

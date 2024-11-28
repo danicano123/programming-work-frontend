@@ -23,11 +23,11 @@ const CreatePracticeStrategy: React.FC = () => {
   const validationSchema = Yup.object({
     id: Yup.number()
       .required("Campo Obligatorio"),
-    type: Yup.number()
+    type: Yup.string()
       .required("Campo Obligatorio"),
-    name: Yup.number()
+    name: Yup.string()
       .required("Campo Obligatorio"),
-    description: Yup.number()
+    description: Yup.string()
       .required("Campo Obligatorio"),
 
   });

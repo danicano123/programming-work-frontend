@@ -29,10 +29,10 @@ const Header: React.FC<HeaderProps> = ({ isLogged, userName, role }) => {
             Aliado
           </Link>
           <Link
-            to="/practice-strategy-dashboard"
+            to="/practiceStrategy-dashboard"
             className="text-wood-darker font-bold"
           >
-            Practica Estrategica
+            Practica Estrategia
           </Link>
           <Link
             to="/normative-aspects-dashboard"
@@ -52,10 +52,12 @@ const Header: React.FC<HeaderProps> = ({ isLogged, userName, role }) => {
           >
             Universidad
           </Link>
-          <Link to="/approach-dashboard" className="text-wood-darker font-bold">
+          <Link to="/approach-dashboard" 
+          className="text-wood-darker font-bold">
             Enfoque
           </Link>
-          <Link to="/faculty-dashboard" className="text-wood-darker font-bold">
+          <Link to="/faculties-dashboard" 
+          className="text-wood-darker font-bold">
             Facultad
           </Link>
           <Link
@@ -70,14 +72,22 @@ const Header: React.FC<HeaderProps> = ({ isLogged, userName, role }) => {
           >
             Programa Docente
           </Link>
-          <Link to="/program-dashboard" className="text-wood-darker font-bold">
+          <Link 
+            to="/programs-dashboard" 
+            className="text-wood-darker font-bold">
             Programa
           </Link>
           <Link
-            to="/qualified-registration-dashboard"
+            to="/qualified-registries-dashboard"
             className="text-wood-darker font-bold"
           >
-            Registro calificado
+            Registro Calificado
+          </Link>
+          <Link
+            to="/qualified-registry-approaches-dashboard"
+            className="text-wood-darker font-bold"
+          >
+            Enfoque Registro Calificado
           </Link>
           <Link
             to="/normative-aspect-programm-dashboard"
@@ -86,31 +96,29 @@ const Header: React.FC<HeaderProps> = ({ isLogged, userName, role }) => {
             Programa Aspecto Normativo
           </Link>
           <Link
-            to="/programm-practice-strategy-dashboard"
+            to="/programm-practice-strategys-dashboard"
             className="text-wood-darker font-bold"
           >
             Programa Practica Estrategia
           </Link>
           <Link
-            to="/programm-area-knowledgey-dashboard"
-            className="text-wood-darker font-bold"
-          >
-            Programa Area Conocimiento
-          </Link>
-          <Link
-            to="/qualified-registration-dashboard"
+            to="/alliances-dashboard"
             className="text-wood-darker font-bold"
           >
             Alianza
           </Link>
-          <Link to="/academic-activity-dashboard" className="text-wood-darker font-bold">
-            Actividad académica
+          <Link 
+            to="/academic-activities-dashboard" 
+            className="text-wood-darker font-bold">
+            Actividad Académica
           </Link>
-          <Link to="/award-dashboard" className="text-wood-darker font-bold">
+          <Link 
+            to="/awards-dashboard" 
+            className="text-wood-darker font-bold">
             Premio
           </Link>
           <Link
-            to="/program-ci-dashboard"
+            to="/programm-car-innovations-dashboard"
             className="text-wood-darker font-bold"
           >
             Programa {"\n CarInnovation"}

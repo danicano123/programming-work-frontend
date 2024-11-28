@@ -14,7 +14,7 @@ const InternshipDetail: React.FC = () => {
   useEffect(() => {
     const fetchInternship = async () => {
       try {
-        const response = await Api.get(`/Internship/${id}`, auth.data.token);
+        const response = await Api.get(`/internship/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
           setInternship(data);
@@ -44,12 +44,11 @@ const InternshipDetail: React.FC = () => {
       <h1 className="text-3xl font-bold mb-6 text-center">Detalles de Pasantia</h1>
       <div className="bg-white p-6 rounded-lg shadow-lg">
         <div className="space-y-4">
-          <DetailItem label="Id" value={internship.id} />
-          <DetailItem label="Name" value={internship.name} />
-          <DetailItem label="Country" value={internship.country} />
-          <DetailItem label="company" value={internship.company} />
-          <DetailItem label="Description" value={internship.description} />
-          <DetailItem label="Program" value={internship.program} />
+          <DetailItem label="Nombre" value={internship.name} />
+          <DetailItem label="Pais" value={internship.country} />
+          <DetailItem label="Compañia" value={internship.company} />
+          <DetailItem label="Descrpcion" value={internship.description} />
+          <DetailItem label="Programa" value={internship.programmId} />
         </div>
         <div className="flex justify-end mt-6">
           <button

@@ -6,19 +6,20 @@ import Swal from "sweetalert2";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-const EditFaculty: React.FC = () => {
+
+const EditProgrammCarInnovation: React.FC = () => {
   const { id } = useParams();
-  const [faculty, setFaculty] = useState<any>(null);
+  const [programmCarInnovation, setProgrammCarInnovation] = useState<any>(null);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchFaculty = async () => {
+    const fetchProgrammCarInnovation = async () => {
       try {
-        const response = await Api.get(`/faculty/${id}`, auth.data.token);
+        const response = await Api.get(`/programm-car-innovations/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
-          setFaculty(data);
+          setProgrammCarInnovation(data);
         } else {
           Swal.fire({
             title: "Error",
@@ -35,39 +36,34 @@ const EditFaculty: React.FC = () => {
       }
     };
 
-    fetchFaculty();
+    fetchProgrammCarInnovation();
   }, [id, auth.data.token]);
 
-  if (!faculty) return <div>Cargando...</div>;
+  if (!programmCarInnovation) return <div>Cargando...</div>;
 
   const initialValues = {
-    name: faculty.name || "",
-    type: faculty.type || "",
-    City: faculty.date_fun || "",
+    programmId: programmCarInnovation.programmId || "",
+    carInnovationId: programmCarInnovation.carInnovationId || "",
   };
 
   const validationSchema = Yup.object({
-    name: Yup.string()
-      .max(50, "Máximo 60 caracteres")
+    programmId: Yup.number()
       .required("Requerido"),
-    type: Yup.string()
-      .max(50, "Máximo 45 caracteres")
-      .required("Requerido"),
-    date_fun: Yup.date()
+    carInnovationId: Yup.number()
       .required("Requerido"),
   });
 
   const handleSubmit = async (values: any) => {
     try {
-      const response = await Api.patch(`/faculty/${id}`, { id: faculty.id, ...values}, auth.data.token);
+      const response = await Api.patch(`/programm-car-innovations/${id}`, { id: programmCarInnovation.id, ...values}, auth.data.token);
       const { data, statusCode } = response;
       if (statusCode === 204) {
         Swal.fire({
           title: "Success",
-          text: "Facultad actualizada con exito",
+          text: "programm Car Innovation actualizado correctamente",
           icon: "success",
         });
-        navigate("/faculty-dashboard");
+        navigate("/programm-car-innovations-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -86,7 +82,7 @@ const EditFaculty: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Editar facultad</h1>
+      <h1 className="text-2xl font-bold mb-4">Editar Program Car Innovation</h1>
       <div className="bg-white p-4 rounded shadow-md">
         <Formik
           initialValues={initialValues}
@@ -95,40 +91,27 @@ const EditFaculty: React.FC = () => {
         >
           <Form>
             <div className="mb-4">
-              <label className="block text-gray-700">Nombre</label>
+              <label className="block text-gray-700">Programa</label>
               <Field
-                name="name"
-                type="text"
+                name="programmId"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="name"
+                name="programmId"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Tipo</label>
+              <label className="block text-gray-700">Innovación Automovilística</label>
               <Field
-                name="type"
-                type="text"
+                name="carInnovationId"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="type"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Fecha</label>
-              <Field
-                name="date_fun"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="date_fun"
+                name="carInnovationId"
                 component="div"
                 className="text-red-600"
               />
@@ -143,7 +126,7 @@ const EditFaculty: React.FC = () => {
               <button
                 type="button"
                 className="ml-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
-                onClick={() => navigate("/faculty-dashboard")}
+                onClick={() => navigate("/programm-car-innovations-dashboard")}
               >
                 Cancelar
               </button>
@@ -155,4 +138,4 @@ const EditFaculty: React.FC = () => {
   );
 };
 
-export default EditFaculty;
+export default EditProgrammCarInnovation;

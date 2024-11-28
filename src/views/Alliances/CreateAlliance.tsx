@@ -14,30 +14,30 @@ const CreateAlliance: React.FC = () => {
   const navigate = useNavigate();
 
   const initialValues = {
-    alliance: 0,
-    departament: 0,
-    startdate: 0,
-    enddate: 0,
-    teaching: 0,
+    alliedId: 0,
+    programmId: 0,
+    startDate: "",
+    endDate: "",
+    teacherId: 0,
   };
 
   const validationSchema = Yup.object({
-    alliance: Yup.number()
+    alliedId: Yup.number()
       .required("Campo requerido"),
-      departament: Yup.string()
+    programmId: Yup.number()
       .required("Campo requerido"),
-      startdate: Yup.string()
+    startDate: Yup.date()
       .required("Campo requerido"),
-      enddate: Yup.string()
+    endDate: Yup.date()
       .required("Campo requerido"),
-      teaching: Yup.string()
+    teacherId: Yup.number()
       .required("Campo requerido"),
   });
 
   const handleSubmit = async (values: any) => {
     setIsLoading(true);
     try {
-      const response = await Api.post("/Alliances", values, auth.data.token);
+      const response = await Api.post("/alliances", values, auth.data.token);
       const { data, statusCode } = response;
       if (statusCode === 201) {
         Swal.fire({ 
@@ -45,7 +45,7 @@ const CreateAlliance: React.FC = () => {
           text: "Alianza creado con exito",
           icon: "success",
         });
-        navigate("/alliance-dashboard");
+        navigate("/alliances-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -77,25 +77,25 @@ const CreateAlliance: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Aliado</label>
               <Field
-                name="allied"
-                type="text"
+                name="alliedId"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="allied"
+                name="alliedId"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Departamento</label>
+              <label className="block text-gray-700">Programa</label>
               <Field
-                name="departament"
-                type="text"
+                name="programmId"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="departament"
+                name="programmId"
                 component="div"
                 className="text-red-600"
               />
@@ -103,12 +103,12 @@ const CreateAlliance: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Fecha inicio</label>
               <Field
-                name="startdate"
-                type="text"
+                name="startDate"
+                type="date"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="startdate"
+                name="startDate"
                 component="div"
                 className="text-red-600"
               />
@@ -117,12 +117,12 @@ const CreateAlliance: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Fecha fin</label>
               <Field
-                name="enddate"
-                type="text"
+                name="endDate"
+                type="date"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="enddate"
+                name="endDate"
                 component="div"
                 className="text-red-600"
               />
@@ -130,17 +130,17 @@ const CreateAlliance: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Docente</label>
               <Field
-                name="teaching"
-                type="text"
+                name="teacherId"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="teaching"
+                name="teacherId"
                 component="div"
                 className="text-red-600"
               />
             </div>
-              <button
+            <button
                 type="submit"
                 className={`${
                   isLoading ? "bg-gray-500 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-700"
@@ -150,7 +150,7 @@ const CreateAlliance: React.FC = () => {
                 {isLoading ? "Guardando..." : "Guardar"}
               </button>
               <button
-                onClick={() => navigate("/alliance-dashboard")}
+                onClick={() => navigate("/alliances-dashboard")}
                 className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
               >
                 Salir

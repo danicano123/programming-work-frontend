@@ -15,7 +15,7 @@ const EditPracticeStrategy: React.FC = () => {
   useEffect(() => {
     const fetchPracticeStrategy = async () => {
       try {
-        const response = await Api.get(`/practice-strategy/${id}`, auth.data.token);
+        const response = await Api.get(`/practiceStrategy/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
           setPracticeStrategy(data);
@@ -41,30 +41,30 @@ const EditPracticeStrategy: React.FC = () => {
   if (!practiceStrategy) return <div>Cargando...</div>;
 
   const initialValues = {
-    id: practiceStrategy.type || "",
-    name: practiceStrategy.type || "",
-    type: practiceStrategy.name || "",
-    City: practiceStrategy.description || "",
+    id: practiceStrategy.id || "",
+    type_practice: practiceStrategy.type_practice || "",
+    name: practiceStrategy.name || "",
+    description: practiceStrategy.description || "",
   };
 
   const validationSchema = Yup.object({
     id: Yup.string()
     .max(50, "Máximo 60 caracteres")
     .required("Requerido"),
-    name: Yup.string()
+    type_practice: Yup.string()
       .max(50, "Máximo 60 caracteres")
       .required("Requerido"),
-    type: Yup.string()
+    name: Yup.string()
       .max(50, "Máximo 45 caracteres")
       .required("Requerido"),
-    City: Yup.string()
+    description: Yup.string()
       .max(50, "Máximo 45 caracteres")
       .required("Requirido"),
   });
 
   const handleSubmit = async (values: any) => {
     try {
-      const response = await Api.patch(`/practice-strategy/${id}`, values, auth.data.token);
+      const response = await Api.patch(`/practiceStrategy/${id}`, values, auth.data.token);
       const { data, statusCode } = response;
       if (statusCode === 200) {
         Swal.fire({
@@ -72,7 +72,7 @@ const EditPracticeStrategy: React.FC = () => {
           text: "Estrategia de Práctica actualizada con exito",
           icon: "success",
         });
-        navigate("/practice-strategy-dashboard");
+        navigate("/practiceStrategy-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -161,7 +161,7 @@ const EditPracticeStrategy: React.FC = () => {
               <button
                 type="button"
                 className="ml-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
-                onClick={() => navigate("/practice-strategy-dashboard")}
+                onClick={() => navigate("/practiceStrategy-dashboard")}
               >
                 Cancelar
               </button>

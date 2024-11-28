@@ -1,4 +1,3 @@
-
 import Dashboard from "../components/Dashboard/Dashboard";
 import RegisterForm from "../components/Register/RegisterForm";
 import AlliedDashboard from "../views/Allieds/AlliedDashboard";
@@ -33,10 +32,6 @@ import UniversityDetail from "../views/University/UniversityDetail";
 import EditUniversity from "../views/University/EditUniversity";
 import ApproachDetail from "../views/Approaches/ApproachDetail";
 import EditApproach from "../views/Approaches/EditApproach";
-import EditFaculty from "../views/Faculties/EditFaculty";
-import FacultyDetail from "../views/Faculties/FacultyDetail";
-import CreateFaculty from "../views/Faculties/CreateFaculty";
-import FacultyDashboard from "../views/Faculties/FacultyDashboard";
 import CreateAcreditation from "../views/Acreditations/CreateAcreditation";
 import AcreditationDetail from "../views/Acreditations/AdreditationDetail";
 import EditAcreditation from "../views/Acreditations/EditAcreditation";
@@ -55,16 +50,8 @@ import AwardDetail from "../views/Awards/AwardDetail";
 import CreateAward from "../views/Awards/CreateAward";
 import AllianceDashboard from "../views/Alliances/AllianceDashboard";
 import EditAlliance from "../views/Alliances/EditAlliance";
-import AllianceDetail from "../views/Alliances/AlliancesDetail";
+import AllianceDetail from "../views/Alliances/AllianceDetail";
 import CreateAlliance from "../views/Alliances/CreateAlliance";
-import ProgramDashboard from "../views/Programs/ProgramDashboard";
-import ProgramDetail from "../views/Programs/ProgramsDetail";
-import EditProgram from "../views/Programs/EditProgram";
-import CreateProgram from "../views/Programs/CreateProgram";
-import ProgramCiDashboard from "../views/ProgrammCarInnovations/ProgramCiDashboard";
-import ProgramCiDetail from "../views/ProgrammCarInnovations/ProgramsCiDetail";
-import EditProgramCi from "../views/ProgrammCarInnovations/EditProgramCi";
-import CreateProgramCi from "../views/ProgrammCarInnovations/CreateProgramCi";
 import InternshipDashboard from "../views/Internships/InternshipDashboard";
 import InternshipDetail from "../views/Internships/InternshipsDetail";
 import EditInternship from "../views/Internships/EditInternship";
@@ -77,22 +64,33 @@ import CreateTeacherPrograms from "../views/TeacherPrograms/CreateTeacherProgram
 import TeacherProgramsDashboard from "../views/TeacherPrograms/TeacherProgramsDashboard";
 import TeacherProgramsDetail from "../views/TeacherPrograms/TeacherProgramsDetail";
 import EditTeacherPrograms from "../views/TeacherPrograms/EditTeacherPrograms";
-import NormativeAspectProgrammDashboard from "../views/NormativeAspectProgramms/ProgramAcDashboard";
-import NormativeAspectProgrammDetail from "../views/NormativeAspectProgramms/ProgramsAcDetail";
-import EditNormativeAspectProgramm from "../views/NormativeAspectProgramms/EditProgramAc";
-import CreateNormativeAspectProgramm from "../views/NormativeAspectProgramms/CreateProgramAc";
-import ProgrammPracticeStrategyDashboard from "../views/ProgrammPracticeStrategys/ProgramPeDashboard";
-import ProgrammPracticeStrategyDetail from "../views/ProgrammPracticeStrategys/ProgramsPeDetail";
-import EditProgrammPracticeStrategy from "../views/ProgrammPracticeStrategys/EditProgramPe";
-import CreateProgrammPracticeStrategy from "../views/ProgrammPracticeStrategys/CreateProgramPe";
-import ProgrammAreaKnowledgeDashboard from "../views/ProgrammAreaKnowledges/ProgrammAreaKnowledgeDashboard";
-import EditProgrammAreaKnowledge from "../views/ProgrammAreaKnowledges/EditProgrammAreaKnowledge";
-import CreateProgrammAreaKnowledge from "../views/ProgrammAreaKnowledges/CreateProgrammAreaKnowledge";
-import ProgrammAreaKnowledgeDetail from "../views/ProgrammAreaKnowledges/ProgrammAreaKnowledgeDetail";
+import NormativeAspectProgrammDashboard from "../views/NormativeAspectProgramms/NormativeAspectProgrammDashboard";
+import NormativeAspectProgrammDetail from "../views/NormativeAspectProgramms/NormativeAspectProgrammDetail";
+import EditNormativeAspectProgramm from "../views/NormativeAspectProgramms/EditNormativeAspectProgramm";
+import CreateNormativeAspectProgramm from "../views/NormativeAspectProgramms/CreateNormativeAspectProgramm";
+import ProgrammPracticeStrategyDashboard from "../views/ProgrammPracticeStrategys/ProgramPracticeStrategyDashboard";
+import ProgrammPracticeStrategyDetail from "../views/ProgrammPracticeStrategys/ProgramPracticeStrategyDetail";
+import EditProgrammPracticeStrategy from "../views/ProgrammPracticeStrategys/EditProgramPracticeStrategy";
+import CreateProgrammPracticeStrategy from "../views/ProgrammPracticeStrategys/CreateProgramPracticeStrategy";
 import QualifiedRegistryApproachDashboard from "../views/QualifiedRegistryApproaches/QualifiedRegistryApproachDashboard";
-
-
-
+import ProgramDashboard from "../views/Programs/ProgramDashboard";
+import ProgramDetail from "../views/Programs/ProgramsDetail";
+import EditProgram from "../views/Programs/EditProgram";
+import CreateProgram from "../views/Programs/CreateProgram";
+import CreateFaculty from "../views/Faculties/CreateFaculty";
+import FacultyDetail from "../views/Faculties/FacultyDetail";
+import EditFaculty from "../views/Faculties/EditFaculty";
+import FacultyDashboard from "../views/Faculties/FacultyDashboard";
+import ProgrammCarInnovationDashboard from "../views/ProgrammCarInnovations/ProgrammCarInnovationDashboard";
+import ProgrammCarInnovationDetail from "../views/ProgrammCarInnovations/ProgrammCarInnovationDetail";
+import EditProgrammCarInnovation from "../views/ProgrammCarInnovations/EditProgrammCarInnovation";
+import CreateProgrammCarInnovation from "../views/ProgrammCarInnovations/CreateProgrammCarInnovation";
+import CreateQualifiedRegistryApproach from "../views/QualifiedRegistryApproaches/CreateQualifiedRegistryApproach";
+import EditQualifiedRegistryApproach from "../views/QualifiedRegistryApproaches/EditQualifiedRegistryApproach";
+import CreateProgrammAreaKnowledge from "../views/ProgrammAreaKnowledges/CreateProgrammAreaKnowledge";
+import EditProgrammAreaKnowledge from "../views/ProgrammAreaKnowledges/EditProgrammAreaKnowledge";
+import ProgrammAreaKnowledgeDetail from "../views/ProgrammAreaKnowledges/ProgrammAreaKnowledgeDetail";
+import ProgrammAreaKnowledgeDashboard from "../views/ProgrammAreaKnowledges/ProgrammAreaKnowledgeDashboard";
 
 export const RoutesSchema = [
   {
@@ -106,17 +104,18 @@ export const RoutesSchema = [
     requiredRole: "administrador",
   },
   {
-    path: "/allied-detail",
+    path: "/read-allied/:id",
     element: AlliedDetail,
   },
   {
-    path: "/allied-edit",
+    path: "/edit-allied/:id",
     element: EditAllied,
   },
   {
     path: "/create-allied",
     element: CreateAllied,
   },
+  //University
   {
     path: "/create-university",
     element: CreateUniversity,
@@ -135,6 +134,7 @@ export const RoutesSchema = [
     isProtected: true,
     requiredRole: "administrador",
   },
+  //Faculty
   {
     path: "/create-faculty",
     element: CreateFaculty,
@@ -148,7 +148,7 @@ export const RoutesSchema = [
     element: EditFaculty,
   },
   {
-    path: "/faculty-dashboard",
+    path: "/faculties-dashboard",
     element: FacultyDashboard,
     isProtected: true,
     requiredRole: "administrador",
@@ -160,37 +160,37 @@ export const RoutesSchema = [
     requiredRole: "administrador",
   },
   {
-    path: "/create-academic-activity",
+    path: "/create-academic-activities",
     element: CreateAcademicActivity,
   },
   {
-    path: "/read-academic-activity/:id",
+    path: "/read-academic-activities/:id",
     element: AcademicActivityDetail,
   },
   {
-    path: "/edit-academic-activity/:id",
+    path: "/edit-academic-activities/:id",
     element: EditAcademicActivity,
   },
   {
-    path: "/academic-activity-dashboard",
+    path: "/academic-activities-dashboard",
     element: AcademicActivityDashboard,
     isProtected: true,
     requiredRole: "administrador",
   },
   {
-    path: "/create-qualified-registration",
+    path: "/create-qualified-registries",
     element: CreateQualifiedRegistration,
   },
   {
-    path: "/read-qualified-registration/:id",
+    path: "/read-qualified-registries/:id",
     element: QualifiedRegistrationDetail,
   },
   {
-    path: "/edit-qualified-registration/:id",
+    path: "/edit-qualified-registries/:id",
     element: EditQualifiedRegistration,
   },
   {
-    path: "/qualified-registration-dashboard",
+    path: "/qualified-registries-dashboard",
     element: QualifiedRegistrationDashboard,
   },
   {
@@ -224,7 +224,7 @@ export const RoutesSchema = [
     element: EditAward,
   },
   {
-    path: "/award-dashboard",
+    path: "/awards-dashboard",
     element: AwardDashboard,
     isProtected: true,
     requiredRole: "administrador",
@@ -268,39 +268,39 @@ export const RoutesSchema = [
   },
 
   {
-    path: "/practice-strategy-dashboard",
-    element: PracticeStrategyDashboard
+    path: "/practiceStrategy-dashboard",
+    element: PracticeStrategyDashboard,
   },
   {
-    path: "/read-practice-strategy",
+    path: "/read-practiceStrategy/:id",
     element: PracticeStrategyDetail,
   },
   {
-    path: "/edit-practice-strategy",
+    path: "/edit-practiceStrategy/:id",
     element: EditPracticeStrategy,
   },
   {
-    path: "/create-practice-strategy",
+    path: "/create-practiceStrategy",
     element: CreatePracticeStrategy,
   },
 
-//Alliances
+  //Alliances
   {
-    path: "/alliance-dashboard",
+    path: "/alliances-dashboard",
     element: AllianceDashboard,
     isProtected: true,
     requiredRole: "administrador",
   },
   {
-    path: "/alliance-detail",
+    path: "/read-alliances/:id",
     element: AllianceDetail,
   },
   {
-    path: "/alliance-edit",
+    path: "/edit-alliances/:id",
     element: EditAlliance,
   },
   {
-    path: "/create-alliance",
+    path: "/create-alliances",
     element: CreateAlliance,
   },
 
@@ -312,11 +312,11 @@ export const RoutesSchema = [
     requiredRole: "administrador",
   },
   {
-    path: "/teacher-programs-detail",
+    path: "/read-teacher-programs/:id",
     element: TeacherProgramsDetail,
   },
   {
-    path: "/teacher-programs-edit",
+    path: "/edit-teacher-programs/:id",
     element: EditTeacherPrograms,
   },
   {
@@ -324,47 +324,47 @@ export const RoutesSchema = [
     element: CreateTeacherPrograms,
   },
 
-  //Program
+  //Programs
   {
-    path: "/program-dashboard",
+    path: "/programs-dashboard",
     element: ProgramDashboard,
     isProtected: true,
     requiredRole: "administrador",
   },
   {
-    path: "/program-detail",
+    path: "/read-programs/:id",
     element: ProgramDetail,
   },
   {
-    path: "/program-edit",
+    path: "/edit-programs/:id",
     element: EditProgram,
   },
   {
-    path: "/create-program",
+    path: "/create-programs",
     element: CreateProgram,
   },
-  
+
   //ProgramPe
   {
-    path: "/programm-practice-strategy-dashboard",
+    path: "/programm-practice-strategys-dashboard",
     element: ProgrammPracticeStrategyDashboard,
     isProtected: true,
     requiredRole: "administrador",
   },
   {
-    path: "/programm-practice-strategy-detail",
+    path: "/read-programm-practice-strategys/:id",
     element: ProgrammPracticeStrategyDetail,
   },
   {
-    path: "/programm-practice-strategy-edit",
+    path: "/edit-programm-practice-strategys/:id",
     element: EditProgrammPracticeStrategy,
   },
   {
-    path: "/create-programm-practice-strategy",
+    path: "/create-programm-practice-strategys",
     element: CreateProgrammPracticeStrategy,
   },
 
-  //ProgramAc
+  //Program Aspecto Normativo
   {
     path: "/normative-aspect-programm-dashboard",
     element: NormativeAspectProgrammDashboard,
@@ -372,11 +372,11 @@ export const RoutesSchema = [
     requiredRole: "administrador",
   },
   {
-    path: "/normative-aspect-programm-detail",
+    path: "/read-normative-aspect-programm/:id",
     element: NormativeAspectProgrammDetail,
   },
   {
-    path: "/normative-aspect-programm-edit",
+    path: "/edit-normative-aspect-programm/:id",
     element: EditNormativeAspectProgramm,
   },
   {
@@ -384,25 +384,22 @@ export const RoutesSchema = [
     element: CreateNormativeAspectProgramm,
   },
 
-   //ProgramCi
-   {
-    path: "/program-ci-dashboard",
-    element: ProgramCiDashboard,
+  //ProgramCarInnovation
+  {
     isProtected: true,
     requiredRole: "administrador",
+    path: "/programm-car-innovations-dashboard",
+    element: ProgrammCarInnovationDashboard,
   },
   {
-    path: "/program-ci-detail",
-    element: ProgramCiDetail,
+    path: "/read-programm-car-innovations/:id",
+    element: ProgrammCarInnovationDetail,
   },
   {
-    path: "/program-ci-edit",
-    element: EditProgramCi,
+    path: "/edit-programm-car-innovations/:id",
+    element: EditProgrammCarInnovation,
   },
-  {
-    path: "/create-program-ci",
-    element: CreateProgramCi,
-  },
+
   //ProgrammAreaKnowledge
   {
     path: "/programm-area-knowledge-dashboard",
@@ -422,6 +419,10 @@ export const RoutesSchema = [
     path: "/create-programm-area-knowledge",
     element: CreateProgrammAreaKnowledge,
   },
+  {
+    path: "/create-programm-car-innovations",
+    element: CreateProgrammCarInnovation,
+  },
 
   //Internships
   {
@@ -431,11 +432,11 @@ export const RoutesSchema = [
     requiredRole: "administrador",
   },
   {
-    path: "/internship-detail",
+    path: "/read-internship/:id",
     element: InternshipDetail,
   },
   {
-    path: "/internship-edit",
+    path: "/edit-internship/:id",
     element: EditInternship,
   },
   {
@@ -444,22 +445,22 @@ export const RoutesSchema = [
   },
   {
     path: "/create-qualified-registry-approach",
-    element: CreateInternship,
+    element: CreateQualifiedRegistryApproach,
   },
   {
-    path: "/dashboard-qualified-registry-approach",
+    path: "/qualified-registry-approaches-dashboard",
     element: QualifiedRegistryApproachDashboard,
     isProtected: true,
     requiredRole: "administrador",
   },
   {
-    path: "/edit-qualified-registry-approach",
-    element: CreateInternship,
+    path: "/edit-qualified-registry-approach/:id",
+    element: EditQualifiedRegistryApproach,
   },
-
-
-
-  
+  {
+    path: "/read-qualified-registry-approach/:id",
+    element: QualifiedRegistrationDetail,
+  },
 
   // {CreateUniversity
   //   path: "/microsites/:slug",
@@ -531,8 +532,8 @@ export const RoutesSchema = [
   // {
   //   path: "/dashboard",
   //   element: Dashboard,
-    // isProtected: true,
-    // requiredRole: "admin",
+  // isProtected: true,
+  // requiredRole: "admin",
   //   children: [
   //     {
   //       path: "users",

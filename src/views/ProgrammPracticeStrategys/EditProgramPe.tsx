@@ -42,22 +42,22 @@ const EditProgrammPracticeStrategy: React.FC = () => {
   if (!programmPracticeStrategy) return <div>Cargando...</div>;
 
   const initialValues = {
-    program: programmPracticeStrategy.program || "",
-    practicestrategy: programmPracticeStrategy.practicestrategy || "",
+    programmId: programmPracticeStrategy.programmId || "",
+    practiceStrategyId: programmPracticeStrategy.practiceStrategyId || "",
   };
 
   const validationSchema = Yup.object({
-    program: Yup.string()
+    programmId: Yup.string()
       .max(45, "Máximo 45 caracteres")
       .required("Requerido"),
-      practicestrategy: Yup.string()
+    practiceStrategyId: Yup.string()
       .max(45, "Máximo 45 caracteres")
       .required("Requerido"),
   });
 
   const handleSubmit = async (values: any) => {
     try {
-      const response = await Api.patch(`/programmPracticeStrategy/${id}`, { id: programmPracticeStrategy.id, ...values}, auth.data.token);
+      const response = await Api.patch(`/programm-practice-strategys/${id}`, { id: programmPracticeStrategy.id, ...values}, auth.data.token);
       const { data, statusCode } = response;
       if (statusCode === 204) {
         Swal.fire({
@@ -95,12 +95,12 @@ const EditProgrammPracticeStrategy: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Programa</label>
               <Field
-                name="program"
+                name="programmId"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="program"
+                name="programmId"
                 component="div"
                 className="text-red-600"
               />
@@ -108,12 +108,12 @@ const EditProgrammPracticeStrategy: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Practica Estrategia</label>
               <Field
-                name="practice_strategy"
+                name="practiceStrategyId"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="practice_strategy"
+                name="practiceStrategyId"
                 component="div"
                 className="text-red-600"
               />
@@ -128,7 +128,7 @@ const EditProgrammPracticeStrategy: React.FC = () => {
               <button
                 type="button"
                 className="ml-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
-                onClick={() => navigate("/programm-practice-strategy-dashboard")}
+                onClick={() => navigate("/programm-practice-strategys-dashboard")}
               >
                 Cancelar
               </button>

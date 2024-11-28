@@ -16,7 +16,7 @@ const EditInternship: React.FC = () => {
   useEffect(() => {
     const fetchInternship = async () => {
       try {
-        const response = await Api.get(`Internship/${id}`, auth.data.token);
+        const response = await Api.get(`internship/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
           setInternship(data);
@@ -42,20 +42,17 @@ const EditInternship: React.FC = () => {
   if (!internship) return <div>Cargando...</div>;
 
   const initialValues = {
-    id: internship.id || "",
     name: internship.name || "",
     country: internship.country || "",
     company: internship.company || "",
     description: internship.description || "",
-    program: internship.program || "",
+    programmId: internship.programmId || null,
   };
 
   const validationSchema = Yup.object({
-    id: Yup.string()
+    name: Yup.string()
       .max(45, "Máximo 45 caracteres")
       .required("Requerido"),
-    name: Yup.string()
-      .max(45, "Máximo 45 caracteres"),
     country: Yup.string()
       .max(45, "Máximo 45 caracteres")
       .required("Requerido"),
@@ -65,8 +62,7 @@ const EditInternship: React.FC = () => {
     description: Yup.string()
       .max(45, "Máximo 45 caracteres")
       .required("Requerido"),
-    program: Yup.string()
-      .max(45, "Máximo 45 caracteres")
+    programmId: Yup.number()
       .required("Requerido"),
   });
 
@@ -107,19 +103,6 @@ const EditInternship: React.FC = () => {
           onSubmit={handleSubmit}
         >
           <Form>
-          <div className="mb-4">
-              <label className="block text-gray-700">Id</label>
-              <Field
-                name="id"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="id"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
             <div className="mb-4">
               <label className="block text-gray-700">Nombre</label>
               <Field
@@ -176,12 +159,12 @@ const EditInternship: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Programa</label>
               <Field
-                name="program"
-                type="text"
+                name="programmId"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="program"
+                name="programmId"
                 component="div"
                 className="text-red-600"
               />

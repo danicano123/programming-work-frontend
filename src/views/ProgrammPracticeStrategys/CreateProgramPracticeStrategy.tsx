@@ -7,45 +7,35 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 
-const CreateAllied: React.FC = () => {
+const CreateProgrammPracticeStrategy: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
 
   const initialValues = {
-    company_reason: "",
-    contact_name: "",
-    phone: "",
-    city: "",
+    programmId: 0,
+    practiceStrategyId: 0,
   };
 
   const validationSchema = Yup.object({
-    company_reason: Yup.string()
-      .max(45, "Máximo 45 caracteres")
-      .required("Campo Obligatorio"),
-    contact_name: Yup.string()
-      .max(45, "Máximo 45 caracteres")
-      .required("Campo Obligatorio"),
-    phone: Yup.string()
-      .max(45, "Máximo 45 caracteres")
-      .required("Campo Obligatorio"),
-    city: Yup.string()
-      .max(45, "Máximo 45 caracteres")
-      .required("Campo Obligatorio"),
+    programmId: Yup.number()
+      .required("Campo requerido"),
+    practiceStrategyId: Yup.number()
+      .required("Campo requerido"),
   });
 
   const handleSubmit = async (values: any) => {
     setIsLoading(true);
     try {
-      const response = await Api.post("/allied", values, auth.data.token);
+      const response = await Api.post("/programm-practice-strategys", values, auth.data.token);
       const { data, statusCode } = response;
       if (statusCode === 201) {
-        Swal.fire({
+        Swal.fire({ 
           title: "Success",
-          text: "Aliado creado con éxito",
+          text: "Programa Practica Estrategia creado con exito",
           icon: "success",
         });
-        navigate("/allied-dashboard");
+        navigate("/programm-practice-strategys-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -66,7 +56,7 @@ const CreateAllied: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Crear Aliado</h1>
+      <h1 className="text-2xl font-bold mb-4">Crear Programa Practica Estrategia</h1>
       <div className="bg-white p-4 rounded shadow-md">
         <Formik
           initialValues={initialValues}
@@ -74,54 +64,28 @@ const CreateAllied: React.FC = () => {
           onSubmit={handleSubmit}
         >
           <Form>
-          <div className="mb-4">
-              <label className="block text-gray-700">Razon Social</label>
+            <div className="mb-4">
+              <label className="block text-gray-700">Programa</label>
               <Field
-                name="company_reason"
-                type="text"
+                name="programmId"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="company_reason"
+                name="programmId"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Nombre de Contacto</label>
+              <label className="block text-gray-700">Practica Estrategia</label>
               <Field
-                name="contact_name"
-                type="text"
+                name="practiceStrategyId"
+                type="number"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="contact_name"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Telefono</label>
-              <Field
-                name="phone"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="phone"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Ciudad</label>
-              <Field
-                name="city"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="city"
+                name="practiceStrategyId"
                 component="div"
                 className="text-red-600"
               />
@@ -134,13 +98,13 @@ const CreateAllied: React.FC = () => {
                 } text-white font-bold py-2 px-4 rounded`}
                 disabled={isLoading}
               >
-                {isLoading ? "Saving..." : "Save"}
+                {isLoading ? "Guardando..." : "Guardar"}
               </button>
               <button
-                onClick={() => navigate("/allied-dashboard")}
+                onClick={() => navigate("/programm-practice-strategys-dashboard")}
                 className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
               >
-                Regresar
+                Salir
               </button>
             </div>
           </Form>
@@ -150,4 +114,4 @@ const CreateAllied: React.FC = () => {
   );
 };
 
-export default CreateAllied;
+export default CreateProgrammPracticeStrategy;

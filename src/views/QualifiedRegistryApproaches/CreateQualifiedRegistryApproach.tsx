@@ -36,7 +36,7 @@ const CreateQualifiedRegistryApproach: React.FC = () => {
           text: "Asociación creada con éxito",
           icon: "success",
         });
-        navigate("/qualified-registry-approach-dashboard");
+        navigate("/qualified-registry-approaches-dashboard");
       } else {
         Swal.fire({
           title: "Error",

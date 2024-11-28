@@ -13,24 +13,19 @@ const CreateProgram: React.FC = () => {
   const navigate = useNavigate();
 
   const initialValues = {
-    id: "",
     name: "",
     type: "",
     level: "",
-    cration_date: "",
-    closing_date: "",
-    nomber_cohorts: "",
-    number_graduates: "",
-    update_date: "",
+    creationDate: "",
+    closingDate: "",
+    numberCohorts: "",
+    graduatesCount: "",
+    lastUpdateDate: "",
     city: "",
-    faculty: "",
 
   };
 
   const validationSchema = Yup.object({
-    id: Yup.string()
-      .max(60, "Maximo 60 carateres")
-      .required("Campo requerido"),
     name: Yup.string()
       .max(60, "Maximo 60 carateres")
       .required("Campo requerido"),
@@ -40,25 +35,22 @@ const CreateProgram: React.FC = () => {
     level: Yup.string()
       .max(60, "Maximo 60 carateres")
       .required("Campo requerido"),
-    cration_date: Yup.string()
+    creationDate: Yup.string()
       .max(60, "Maximo 60 carateres")
       .required("Campo requerido"),
-    closing_date: Yup.string()
+    closingDate: Yup.string()
       .max(60, "Maximo 60 carateres")
       .required("Campo requerido"),
-    nomber_cohorts: Yup.string()
+    numberCohorts: Yup.string()
       .max(60, "Maximo 60 carateres")
       .required("Campo requerido"),
-    number_graduates: Yup.string()
+    graduatesCount: Yup.string()
       .max(60, "Maximo 60 carateres")
       .required("Campo requerido"),
-    update_date: Yup.string()
+    lastUpdateDate: Yup.string()
       .max(60, "Maximo 60 carateres")
       .required("Campo requerido"),
     city: Yup.string()
-      .max(60, "Maximo 60 carateres")
-      .required("Campo requerido"),
-    faculty: Yup.string()
       .max(60, "Maximo 60 carateres")
       .required("Campo requerido"),
   });
@@ -104,19 +96,6 @@ const CreateProgram: React.FC = () => {
         >
           <Form>
             <div className="mb-4">
-              <label className="block text-gray-700">Id</label>
-              <Field
-                name="id"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="id"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
               <label className="block text-gray-700">Nombre</label>
               <Field
                 name="name"
@@ -156,66 +135,66 @@ const CreateProgram: React.FC = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Fecha creación</label>
+              <label className="block text-gray-700">Fecha Creación</label>
               <Field
-                name="cration_date"
+                name="creationDate"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="cration_date"
+                name="creationDate"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Fecha cierre</label>
+              <label className="block text-gray-700">Fecha Cierre</label>
               <Field
-                name="closing_date"
+                name="closingDate"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="closing_date"
+                name="closingDate"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Numero cohortes</label>
+              <label className="block text-gray-700">Numero Cohortes</label>
               <Field
-                name="nomber_cohorts"
+                name="numberCohorts"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="nomber_cohorts"
+                name="numberCohorts"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Cantidad de graduados</label>
+              <label className="block text-gray-700">Cantidad Graduados</label>
               <Field
-                name="number_graduates"
+                name="graduatesCount"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="number_graduates"
+                name="graduatesCount"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Fecha actualización</label>
+              <label className="block text-gray-700">Fecha Actualización</label>
               <Field
-                name="update_date"
+                name="lastUpdateDate"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="update_date"
+                name="lastUpdateDate"
                 component="div"
                 className="text-red-600"
               />
@@ -229,19 +208,6 @@ const CreateProgram: React.FC = () => {
               />
               <ErrorMessage
                 name="city"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Facultad</label>
-              <Field
-                name="faculty"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="faculty"
                 component="div"
                 className="text-red-600"
               />

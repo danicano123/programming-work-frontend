@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Api } from "../../services/Api";
 import Swal from "sweetalert2";
 
 const AlliedDetail: React.FC = () => {
-  const location = useLocation();
-  const { alliedId } = location.state;
+  const { id } = useParams();
+  
   const [allied, setAllied] = useState<any>(null);
   const auth = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
@@ -14,16 +14,16 @@ const AlliedDetail: React.FC = () => {
   useEffect(() => {
     const fetchAllied = async () => {
       try {
-        const response = await Api.get(`/allied/${alliedId}`, auth.data.token);
+        const response = await Api.get(`/allied/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
-          setAllied(data.allied);
+          setAllied(data);
         } else {
-          // Swal.fire({
-          //   title: "Error",
-          //   text: `${data.message}`,
-          //   icon: "error",
-          // });
+          Swal.fire({
+            title: "Error",
+            text: `${data.message}`,
+            icon: "error",
+          });
         }
       } catch (error: any) {
         Swal.fire({
@@ -35,29 +35,26 @@ const AlliedDetail: React.FC = () => {
     };
 
     fetchAllied();
-  }, [alliedId, auth.data.token]);
+  }, [id, auth.data.token]);
 
-  if (!allied) return <div className="text-center py-4">Loading...</div>;
+  if (!allied) return <div className="text-center py-4">Cargando...</div>;
 
   return (
     <div className="container mx-auto p-4 max-w-lg">
-      <h1 className="text-3xl font-bold mb-6 text-center">Allied Details</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">Detalles de Aliado</h1>
       <div className="bg-white p-6 rounded-lg shadow-lg">
         <div className="space-y-4">
-
-          <DetailItem label="Nit" value={allied.nit} />
-          <DetailItem label="Company name" value={allied.companyname} />
-          <DetailItem label="Name contact" value={allied.namecontact} />
-          <DetailItem label="Mail" value={allied.mail} />
-          <DetailItem label="Phone" value={allied.phone} />
-          <DetailItem label="City" value={allied.city} />
+          <DetailItem label="Razon Social" value={allied.company_reason} />
+          <DetailItem label="Nombre Contacto" value={allied.contact_name} />
+          <DetailItem label="Telefono" value={allied.phone} />
+          <DetailItem label="Ciudad" value={allied.city} />
         </div>
         <div className="flex justify-end mt-6">
           <button
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/allied-dashboard")}
             className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
           >
-            Go Back
+            Regresar
           </button>
         </div>
       </div>
@@ -73,3 +70,4 @@ const DetailItem: React.FC<{ label: string; value: string }> = ({ label, value }
 );
 
 export default AlliedDetail;
+

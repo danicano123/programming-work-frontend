@@ -16,7 +16,7 @@ const EditProgram: React.FC = () => {
   useEffect(() => {
     const fetchProgram = async () => {
       try {
-        const response = await Api.get(`/program/${id}`, auth.data.token);
+        const response = await Api.get(`/programs/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
           setProgram(data);
@@ -42,58 +42,50 @@ const EditProgram: React.FC = () => {
   if (!program) return <div>Cargando...</div>;
 
   const initialValues = {
-    id: program.id || "",
     name: program.name || "",
     type: program.type || "",
     level: program.level || "",
-    creationdate: program.creationdate || "",
-    closingdate: program.closingdate || "",
-    numbercohorts: program.numbercohorts || "",
-    numbergraduates: program.numbergraduates || "",
-    updatedate: program.updatedate || "",
+    creationDate: program.creationDate || "",
+    closingDate: program.closingDate || "",
+    numberCohorts: program.numberCohorts || "",
+    graduatesCount: program.graduatesCount || "",
+    lastUpdateDate: program.lastUpdateDate || "",
     city: program.city || "",
-    faculty: program.faculty || "",
   };
 
   const validationSchema = Yup.object({
-    id: Yup.string()
-    .max(60, "Maximo 60 carateres")
-    .required("Campo requerido"),
-  name: Yup.string()
-    .max(60, "Maximo 60 carateres")
-    .required("Campo requerido"),
-  type: Yup.string()
-    .max(60, "Maximo 60 carateres")
-    .required("Campo requerido"),
-  level: Yup.string()
-    .max(60, "Maximo 60 carateres")
-    .required("Campo requerido"),
-  creationdate: Yup.string()
-    .max(60, "Maximo 60 carateres")
-    .required("Campo requerido"),
-  closingdate: Yup.string()
-    .max(60, "Maximo 60 carateres")
-    .required("Campo requerido"),
-  numbercohorts: Yup.string()
-    .max(60, "Maximo 60 carateres")
-    .required("Campo requerido"),
-  numbergraduates: Yup.string()
-    .max(60, "Maximo 60 carateres")
-    .required("Campo requerido"),
-  updatedate: Yup.string()
-    .max(60, "Maximo 60 carateres")
-    .required("Campo requerido"),
-  city: Yup.string()
-    .max(60, "Maximo 60 carateres")
-    .required("Campo requerido"),
-  faculty: Yup.string()
-    .max(60, "Maximo 60 carateres")
-    .required("Campo requerido"),
+    name: Yup.string()
+      .max(60, "Maximo 60 carateres")
+      .required("Campo requerido"),
+    type: Yup.string()
+      .max(60, "Maximo 60 carateres")
+      .required("Campo requerido"),
+    level: Yup.string()
+      .max(60, "Maximo 60 carateres")
+      .required("Campo requerido"),
+    creationDate: Yup.string()
+      .max(60, "Maximo 60 carateres")
+      .required("Campo requerido"),
+    closingDate: Yup.string()
+      .max(60, "Maximo 60 carateres")
+      .required("Campo requerido"),
+    numberCohorts: Yup.string()
+      .max(60, "Maximo 60 carateres")
+      .required("Campo requerido"),
+    graduatesCount: Yup.string()
+      .max(60, "Maximo 60 carateres")
+      .required("Campo requerido"),
+    lastUpdateDate: Yup.string()
+      .max(60, "Maximo 60 carateres")
+      .required("Campo requerido"),
+    city: Yup.string()
+      .max(60, "Maximo 60 carateres")
+      .required("Campo requerido"),
   });
 
   const handleSubmit = async (values: any) => {
     try {
-      const response = await Api.patch(`/program/${id}`, { id: program.id, ...values}, auth.data.token);
+      const response = await Api.patch(`/programs/${id}`, { id: program.id, ...values}, auth.data.token);
       const { data, statusCode } = response;
       if (statusCode === 204) {
         Swal.fire({
@@ -101,7 +93,7 @@ const EditProgram: React.FC = () => {
           text: "Programa actualizado correctamente",
           icon: "success",
         });
-        navigate("/program-dashboard");
+        navigate("/programs-dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -128,19 +120,6 @@ const EditProgram: React.FC = () => {
           onSubmit={handleSubmit}
         >
            <Form>
-            <div className="mb-4">
-              <label className="block text-gray-700">Id</label>
-              <Field
-                name="id"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="id"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
             <div className="mb-4">
               <label className="block text-gray-700">Nombre</label>
               <Field
@@ -183,25 +162,25 @@ const EditProgram: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Fecha creación</label>
               <Field
-                name="cration_date"
+                name="creationDate"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="cration_date"
+                name="creationDate"
                 component="div"
                 className="text-red-600"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Fecha cierre</label>
+              <label className="block text-gray-700">Fecha Cierre</label>
               <Field
-                name="closing_date"
+                name="closingDate"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="closing_date"
+                name="closingDate"
                 component="div"
                 className="text-red-600"
               />
@@ -209,12 +188,12 @@ const EditProgram: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Numero cohortes</label>
               <Field
-                name="nomber_cohorts"
+                name="numberCohorts"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="nomber_cohorts"
+                name="numberCohorts"
                 component="div"
                 className="text-red-600"
               />
@@ -222,12 +201,12 @@ const EditProgram: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Cantidad de graduados</label>
               <Field
-                name="number_graduates"
+                name="graduatesCount"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="number_graduates"
+                name="graduatesCount"
                 component="div"
                 className="text-red-600"
               />
@@ -235,12 +214,12 @@ const EditProgram: React.FC = () => {
             <div className="mb-4">
               <label className="block text-gray-700">Fecha actualización</label>
               <Field
-                name="update_date"
+                name="lastUpdateDate"
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
               />
               <ErrorMessage
-                name="update_date"
+                name="lastUpdateDate"
                 component="div"
                 className="text-red-600"
               />
@@ -259,19 +238,6 @@ const EditProgram: React.FC = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Facultad</label>
-              <Field
-                name="faculty"
-                type="text"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <ErrorMessage
-                name="faculty"
-                component="div"
-                className="text-red-600"
-              />
-            </div>
-            <div className="mb-4">
               <button
                 type="submit"
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -281,7 +247,7 @@ const EditProgram: React.FC = () => {
               <button
                 type="button"
                 className="ml-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
-                onClick={() => navigate("/program-dashboard")}
+                onClick={() => navigate("/programs-dashboard")}
               >
                 Cancelar
               </button>

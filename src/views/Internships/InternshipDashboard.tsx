@@ -13,7 +13,7 @@ const InternshipDashboard: React.FC = () => {
     const fetchInternship = async () => {
       try {
         const { data, statusCode } = await Api.get(
-          "/Internship",
+          "/internship",
           auth.data.token
         );
         if (statusCode === 200) {
@@ -37,29 +37,24 @@ const InternshipDashboard: React.FC = () => {
     fetchInternship();
   }, [auth.data.token]);
 
-  const handleToggleIsActive = async (
-    internshipId: string,
-    isActive: boolean
-  ) => {
+  const handleToggleIsActive = async (internshipId: string) => {
     try {
-      const response = await Api.patch(
-        `/Internship/${internshipId}/is-active`,
-        {
-          is_active: !isActive,
-        },
+      const response = await Api.post(
+        `/internship/toggle-is-active/${internshipId}`,
         auth.data.token
       );
       const { data, statusCode } = response;
       if (statusCode === 200) {
-        const updatedInternship = internship.map((internship) =>
-          internship.id === internshipId
-            ? { ...internship, is_active: !isActive }
-            : internship
+        const updatedInternship = internship.map(
+          (internship) =>
+            internship.id === internshipId
+              ? { ...internship, isActive: data.isActive }
+              : internship
         );
         setInternship(updatedInternship);
         Swal.fire({
           title: "Success",
-          text: "Pasantia actualizado con exito",
+          text: "Internship updated successfully",
           icon: "success",
         });
       } else {
@@ -80,17 +75,18 @@ const InternshipDashboard: React.FC = () => {
 
   const deletion = async (id: any) => {
     const response = await Api.delete(
-      `/Internship/${id}`,
+      `/internship/${id}`,
       auth.data.token
     );
     window.location.reload();
   };
 
-
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold mb-4">Tablero de Pasantia</h1>
+        <h1 className="text-2xl font-bold mb-4">
+          Tablero de Pasantia
+        </h1>
         <button
           onClick={() => navigate("/create-internship")}
           className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
@@ -101,26 +97,42 @@ const InternshipDashboard: React.FC = () => {
       <table className="min-w-full bg-white border border-gray-200">
         <thead>
           <tr>
-
-            <th className="py-2 px-4 border-b text-center">Id</th>
             <th className="py-2 px-4 border-b text-center">Nombre</th>
             <th className="py-2 px-4 border-b text-center">Pais</th>
             <th className="py-2 px-4 border-b text-center">Compañia</th>
-            <th className="py-2 px-4 border-b text-center">Descripción</th>
-            <th className="py-2 px-4 border-b text-center">Programa</th>
+            <th className="py-2 px-4 border-b text-center">Descripcion</th>
           </tr>
         </thead>
         <tbody>
-          {internship.map((internship) => (
+          {internship?.map((internship) => (
             <tr key={internship.id}>
               <td className="py-2 px-4 border-b text-center">
-                {internship.programId}
+                {internship.name}
+              </td>
+              <td className="py-2 px-4 border-b text-center">
+                {internship.country}
+              </td>
+              <td className="py-2 px-4 border-b text-center">
+                {internship.company}
               </td>
               <td className="py-2 px-4 border-b text-center">
                 {internship.description}
               </td>
+              <td className="py-2 px-4 border-b text-center">
+                <label className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    className="toggle-switch"
+                    checked={internship.isActive}
+                    onChange={() => handleToggleIsActive(internship.id)}
+                  />
+                  <span>
+                    {internship.isActive ? "Activo" : "Inactivo"}
+                  </span>
+                </label>
+              </td>
               <td className="py-2 px-4 border-b text-center space-x-4">
-               <button
+                <button
                   onClick={() =>
                     navigate(`/read-internship/${internship.id}`)
                   }

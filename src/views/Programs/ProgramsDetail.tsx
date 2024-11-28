@@ -14,7 +14,7 @@ const ProgramDetail: React.FC = () => {
   useEffect(() => {
     const fetchProgram = async () => {
       try {
-        const response = await Api.get(`/program/${id}`, auth.data.token);
+        const response = await Api.get(`/programs/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
           setProgram(data);
@@ -44,21 +44,20 @@ const ProgramDetail: React.FC = () => {
       <h1 className="text-3xl font-bold mb-6 text-center">Detalles de Programa</h1>
       <div className="bg-white p-6 rounded-lg shadow-lg">
         <div className="space-y-4">
-          <DetailItem label="Id" value={program.id} />
           <DetailItem label="Name" value={program.name} />
           <DetailItem label="Type" value={program.type} />
           <DetailItem label="Level" value={program.level} />
-          <DetailItem label="Creationdate" value={program.creationdate} />
-          <DetailItem label="Closingdate" value={program.closingdate} />
-          <DetailItem label="Numbercohorts" value={program.numbercohorts} />
-          <DetailItem label="Numbergraduates" value={program.numbergraduates} />
-          <DetailItem label="Updatedate" value={program.updatedate} />
+          <DetailItem label="Creationdate" value={program.creationDate} />
+          <DetailItem label="Closingdate" value={program.creationDate} />
+          <DetailItem label="Numbercohorts" value={program.numberCohorts} />
+          <DetailItem label="Numbergraduates" value={program.graduatesCount} />
+          <DetailItem label="Updatedate" value={program.graduatesCount} />
           <DetailItem label="City" value={program.city} />
-          <DetailItem label="Faculty" value={program.faculty} />
+          <DetailItem label="Faculty" value={program.facultyId} />
         </div>
         <div className="flex justify-end mt-6">
           <button
-            onClick={() => navigate("/program-dashboard")}
+            onClick={() => navigate("/programs-dashboard")}
             className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
           >
             regresar

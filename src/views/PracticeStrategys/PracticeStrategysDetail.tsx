@@ -14,7 +14,7 @@ const PracticeStrategyDetail: React.FC = () => {
   useEffect(() => {
     const fetchPracticeStrategy = async () => {
       try {
-        const response = await Api.get(`/practice-strategy/${id}`, auth.data.token);
+        const response = await Api.get(`/practiceStrategy/${id}`, auth.data.token);
         const { data, statusCode } = response;
         if (statusCode === 200) {
           setPracticeStrategy(data);
@@ -51,7 +51,7 @@ const PracticeStrategyDetail: React.FC = () => {
         </div>
         <div className="flex justify-end mt-6">
           <button
-            onClick={() => navigate("/practice-strategy-dashboard")}
+            onClick={() => navigate("/practiceStrategy-dashboard")}
             className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
           >
             Regresar
