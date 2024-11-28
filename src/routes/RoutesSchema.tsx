@@ -102,6 +102,8 @@ export const RoutesSchema = [
   {
     path: "/allied-dashboard",
     element: AlliedDashboard,
+    isProtected: true,
+    requiredRole: "administrador",
   },
   {
     path: "/allied-detail",
@@ -130,6 +132,8 @@ export const RoutesSchema = [
   {
     path: "/university-dashboard",
     element: UniversityDashboard,
+    isProtected: true,
+    requiredRole: "administrador",
   },
   {
     path: "/create-faculty",
@@ -146,10 +150,14 @@ export const RoutesSchema = [
   {
     path: "/faculty-dashboard",
     element: FacultyDashboard,
+    isProtected: true,
+    requiredRole: "administrador",
   },
   {
     path: "/university-dashboard",
     element: UniversityDashboard,
+    isProtected: true,
+    requiredRole: "administrador",
   },
   {
     path: "/create-academic-activity",
@@ -166,6 +174,8 @@ export const RoutesSchema = [
   {
     path: "/academic-activity-dashboard",
     element: AcademicActivityDashboard,
+    isProtected: true,
+    requiredRole: "administrador",
   },
   {
     path: "/create-qualified-registration",
@@ -198,6 +208,8 @@ export const RoutesSchema = [
   {
     path: "/acreditation-dashboard",
     element: AcreditationDashboard,
+    isProtected: true,
+    requiredRole: "administrador",
   },
   {
     path: "/create-award",
@@ -214,14 +226,20 @@ export const RoutesSchema = [
   {
     path: "/award-dashboard",
     element: AwardDashboard,
+    isProtected: true,
+    requiredRole: "administrador",
   },
   {
     path: "/approach-dashboard",
     element: ApproachDashboard,
+    isProtected: true,
+    requiredRole: "administrador",
   },
   {
     path: "/create-approach-dashboard",
     element: CreateApproach,
+    isProtected: true,
+    requiredRole: "administrador",
   },
   {
     path: "/read-approach/:id",
@@ -241,7 +259,7 @@ export const RoutesSchema = [
     element: CarInnovationsDetail,
   },
   {
-    path: "/edit-car-innovations",
+    path: "/edit-car-innovations/:id",
     element: EditCarInnovations,
   },
   {
@@ -270,6 +288,8 @@ export const RoutesSchema = [
   {
     path: "/alliance-dashboard",
     element: AllianceDashboard,
+    isProtected: true,
+    requiredRole: "administrador",
   },
   {
     path: "/alliance-detail",
@@ -288,6 +308,8 @@ export const RoutesSchema = [
   {
     path: "/teacher-programs-dashboard",
     element: TeacherProgramsDashboard,
+    isProtected: true,
+    requiredRole: "administrador",
   },
   {
     path: "/teacher-programs-detail",
@@ -306,6 +328,8 @@ export const RoutesSchema = [
   {
     path: "/program-dashboard",
     element: ProgramDashboard,
+    isProtected: true,
+    requiredRole: "administrador",
   },
   {
     path: "/program-detail",
@@ -324,6 +348,8 @@ export const RoutesSchema = [
   {
     path: "/programm-practice-strategy-dashboard",
     element: ProgrammPracticeStrategyDashboard,
+    isProtected: true,
+    requiredRole: "administrador",
   },
   {
     path: "/programm-practice-strategy-detail",
@@ -342,6 +368,8 @@ export const RoutesSchema = [
   {
     path: "/normative-aspect-programm-dashboard",
     element: NormativeAspectProgrammDashboard,
+    isProtected: true,
+    requiredRole: "administrador",
   },
   {
     path: "/normative-aspect-programm-detail",
@@ -360,6 +388,8 @@ export const RoutesSchema = [
    {
     path: "/program-ci-dashboard",
     element: ProgramCiDashboard,
+    isProtected: true,
+    requiredRole: "administrador",
   },
   {
     path: "/program-ci-detail",
@@ -377,6 +407,8 @@ export const RoutesSchema = [
   {
     path: "/programm-area-knowledge-dashboard",
     element: ProgrammAreaKnowledgeDashboard,
+    isProtected: true,
+    requiredRole: "administrador",
   },
   {
     path: "/programm-area-knowledge-detail",
@@ -395,6 +427,8 @@ export const RoutesSchema = [
   {
     path: "/internship-dashboard",
     element: InternshipDashboard,
+    isProtected: true,
+    requiredRole: "administrador",
   },
   {
     path: "/internship-detail",
@@ -415,6 +449,8 @@ export const RoutesSchema = [
   {
     path: "/dashboard-qualified-registry-approach",
     element: QualifiedRegistryApproachDashboard,
+    isProtected: true,
+    requiredRole: "administrador",
   },
   {
     path: "/edit-qualified-registry-approach",
@@ -495,8 +531,8 @@ export const RoutesSchema = [
   // {
   //   path: "/dashboard",
   //   element: Dashboard,
-  //   isProtected: true,
-  //   requiredRole: "admin",
+    // isProtected: true,
+    // requiredRole: "admin",
   //   children: [
   //     {
   //       path: "users",

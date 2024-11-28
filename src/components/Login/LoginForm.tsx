@@ -8,10 +8,11 @@ import { fetchAuth } from "../../store/slices/authSlice";
 import Swal from "sweetalert2";
 
 interface LoginFormValues {
-  email: string;
+  username: string;
   password: string;
-  error: String;
+  error: string;
 }
+
 const LoginForm = () => {
   const navigate = useNavigate();
   const auth = useSelector((state: any) => state.auth);
@@ -21,29 +22,28 @@ const LoginForm = () => {
   useEffect(() => {
     auth.isLogged ? navigate("/") : "";
   }, [auth.isLogged]);
+
   const initialValues: LoginFormValues = {
-    email: "",
+    username: "",  // Cambiado de "email" a "username"
     password: "",
     error: "",
   };
 
   const validationSchema = Yup.object().shape({
-    email: Yup.string()
-      .email("Correo electrónico no válido")
-      .required("Campo requerido"),
+    username: Yup.string()
+      .required("Campo requerido"),  // Validación de username
     password: Yup.string()
       .required("Campo requerido")
-      .min(8, "Mínimo 8 caracteres"),
+      .min(2, "Mínimo 8 caracteres"),
   });
 
   const handleSubmit = (
     values: LoginFormValues,
     actions: FormikHelpers<LoginFormValues>
   ) => {
-    Api.post("/login", values).then((response) => {
+    Api.post("/user/login", values).then((response) => {
       if (response.statusCode === 200) {
         dispatch(fetchAuth({ ...response, isLogged: true }));
-
         //navigate("/register");
       } else {
         Swal.fire({
@@ -57,7 +57,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className=" min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <div className="flex-grow flex items-center justify-center p-4">
         <div
           className="p-8 rounded-lg shadow-md w-full max-w-md bg-white bg-opacity-90"
@@ -76,19 +76,19 @@ const LoginForm = () => {
                 <div className="mb-4">
                   <label
                     className="block text-wood-darker text-sm font-bold mb-2"
-                    htmlFor="email"
+                    htmlFor="username"
                   >
-                    Correo
+                    Nombre de usuario
                   </label>
                   <Field
                     className="shadow appearance-none border rounded-full w-full py-2 px-3 text-wood-darker leading-tight focus:outline-none focus:shadow-outline"
-                    id="email"
-                    type="email"
-                    name="email"
-                    placeholder="Correo"
+                    id="username"
+                    type="text"
+                    name="username"  // Cambiado de "email" a "username"
+                    placeholder="Nombre de usuario"
                   />
                   <ErrorMessage
-                    name="email"
+                    name="username"
                     component="div"
                     className="text-red-500"
                   />
@@ -128,7 +128,6 @@ const LoginForm = () => {
                   >
                     Registrarse
                   </Link>
-                  
                 </div>
               </Form>
             )}

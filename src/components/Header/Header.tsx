@@ -117,12 +117,9 @@ const Header: React.FC<HeaderProps> = ({ isLogged, userName, role }) => {
           </Link>
           {isLogged && (
             <>
-              <Link to="/payments" className="text-wood-darker font-bold">
-                Mis pagos
-              </Link>
             </>
           )}
-          {isLogged && role == "admin" && (
+          {isLogged && role == "administrador" && (
             <>
               <Link
                 to="/dashboard/users"
@@ -130,18 +127,13 @@ const Header: React.FC<HeaderProps> = ({ isLogged, userName, role }) => {
               >
                 Usuarios
               </Link>
-              <Link
-                to="/dashboard/microsites"
-                className="text-wood-darker font-bold"
-              >
-                Micrositios
-              </Link>
+
             </>
           )}
         </div>
         <div className="flex items-center space-x-4">
           {isLogged ? (
-            <div className="relative">
+            <div className="center">
               <button
                 className="text-wood-darker font-bold"
                 onClick={() => setMenuOpen(!menuOpen)}

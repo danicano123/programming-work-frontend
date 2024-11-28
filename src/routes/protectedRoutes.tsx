@@ -17,7 +17,7 @@ const ProtectedRoutes: React.FC<Props> = ({ children, requiredRole }) => {
     if (!isLogged) {
       navigate("/login");
       Swal.fire("Logueate para continuar!");
-    } else if (requiredRole && data.role !== requiredRole) {
+    } else if (requiredRole && data.result.user.rol !== requiredRole) {
       navigate("/");
       Swal.fire("No tienes permiso para acceder a esta ruta");
     }
